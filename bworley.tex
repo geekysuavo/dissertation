@@ -1,0 +1,121 @@
+\documentclass[letterpaper]{report}
+
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{setspace}
+\usepackage{chapterbib}
+\usepackage[
+  pdftex,
+  pdfauthor={Bradley Worley},
+  pdftitle={Chemometric and Bioinformatic Analyses of Cellular Biochemistry},
+  hidelinks]{hyperref}
+\usepackage{etoolbox}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[labelfont=bf]{caption}
+\usepackage{sidecap}
+
+\patchcmd{\thebibliography}{\chapter*}{\section}{}{}
+\renewcommand{\bibname}{References}
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\topmargin}{-.5in}
+\setlength{\parindent}{0em}
+
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+\newcommand{\hnmr}{$^{1}$H }
+\newcommand{\dnmr}{$^{2}$H }
+\newcommand{\cnmr}{$^{13}$C }
+\newcommand{\nnmr}{$^{15}$N }
+\newcommand{\onmr}{$^{17}$O }
+\newcommand{\fnmr}{$^{19}$F }
+\newcommand{\pnmr}{$^{31}$P }
+\newcommand{\hhnmr}{$^{1}$H--$^{1}$H }
+\newcommand{\hcnmr}{$^{1}$H--$^{13}$C }
+\newcommand{\hnnmr}{$^{1}$H--$^{15}$N }
+
+\newcommand{\rsq}{$R^2$ }
+\newcommand{\rsqx}{$R^2_X$ }
+\newcommand{\rsqy}{$R^2_Y$ }
+\newcommand{\qsq}{$Q^2$ }
+
+\newcommand{\nnstar}{$n - n^\ast$ }
+\newcommand{\npistar}{$n - \pi^\ast$ }
+\newcommand{\nspistar}{$n_\sigma - \pi^\ast$ }
+\newcommand{\npipistar}{$n_\pi - \pi^\ast$ }
+\newcommand{\pipistar}{$\pi - \pi^\ast$ }
+\newcommand{\pistar}{$\pi^\ast$ }
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+
+\textbf{
+  \huge Chemometric and Bioinformatic Analyses of Cellular Biochemistry
+}
+\\[20pt]
+
+\emph{By} \\[12pt] {\large Bradley Worley} \\[40pt]
+
+\textsc{A Doctoral Dissertation} \\[40pt]
+
+Submitted to the faculty of the Graduate College \\
+at the University of Nebraska in partial fulfillment \\
+of requirements for the degree of Doctor of Philosophy
+\\[80pt]
+
+\textsc{Major:}
+\emph{Chemistry} \\[20pt]
+
+\textsc{Supervisor:}
+\emph{Professor Robert Powers} \\[20pt]
+
+Lincoln, Nebraska \\
+{\large \today}
+\\[180pt]
+
+Copyright \copyright{} 2015 Bradley Worley
+
+\clearpage
+\thispagestyle{empty}
+\emph{
+  \large For Wendell B. Worley. \\
+  I hope you have PDF viewers in heaven, \\
+  because you'd really love reading this. \\
+}
+
+\end{center}
+\end{titlepage}
+
+% ============================================================================
+
+\input{bworley-abs.tex}
+\input{bworley-ack.tex}
+\tableofcontents
+
+\include{bworley-ch1}
+\include{bworley-ch2}
+\include{bworley-ch3}
+\include{bworley-ch4}
+\include{bworley-ch5}
+\include{bworley-ch6}
+\include{bworley-ch7}
+\include{bworley-ch8}
+\include{bworley-ch9}
+
+% ============================================================================
+
+\appendix
+
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+
+\end{document}
