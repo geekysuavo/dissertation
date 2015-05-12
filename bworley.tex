@@ -1,5 +1,9 @@
+% define the document class as a report.
 \documentclass[letterpaper]{report}
 
+% include a metric crap-tonne of latex packages. the most important bit here
+% is the metadata specified during loading the hyperref package. you'll want
+% to change the pdfauthor and pdftitle fields to suit your purposes.
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -13,20 +17,28 @@
 \usepackage{etoolbox}
 \usepackage{graphicx}
 \usepackage{setspace}
+\usepackage{adjustbox}
 \usepackage[labelfont=bf]{caption}
 \usepackage{sidecap}
 
+% reference sections are typically un-numbered chapter headings, which don't
+% work with what we need to do in the thesis. this changes the bibliography
+% into a numbered section heading with the title `References'.
 \patchcmd{\thebibliography}{\chapter*}{\section}{}{}
 \renewcommand{\bibname}{References}
 
+% define the margins and turn off indentation.
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{9in}
 \setlength{\oddsidemargin}{0in}
 \setlength{\topmargin}{-.5in}
 \setlength{\parindent}{0em}
 
+% math operators require a different definition from regular tex commands.
 \DeclareMathOperator*{\argmin}{\arg\!\min}
 
+% define a bunch of shortcuts for denoting nmr-active nuclides, as well
+% as pairs of nuclides used in correlation spectroscopy.
 \newcommand{\hnmr}{$^{1}$H }
 \newcommand{\dnmr}{$^{2}$H }
 \newcommand{\cnmr}{$^{13}$C }
@@ -38,11 +50,14 @@
 \newcommand{\hcnmr}{$^{1}$H--$^{13}$C }
 \newcommand{\hnnmr}{$^{1}$H--$^{15}$N }
 
+% define a few of the commonly used statistics generated from internally
+% cross-validating bilinear matrix factorizations.
 \newcommand{\rsq}{$R^2$ }
 \newcommand{\rsqx}{$R^2_X$ }
 \newcommand{\rsqy}{$R^2_Y$ }
 \newcommand{\qsq}{$Q^2$ }
 
+% define a few shortcuts for molecular orbital transitions and interactions.
 \newcommand{\nnstar}{$n - n^\ast$ }
 \newcommand{\npistar}{$n - \pi^\ast$ }
 \newcommand{\nspistar}{$n_\sigma - \pi^\ast$ }
@@ -50,37 +65,58 @@
 \newcommand{\pipistar}{$\pi - \pi^\ast$ }
 \newcommand{\pistar}{$\pi^\ast$ }
 
+% define a new command and tabular column type to rotate text ninety
+% degrees counterclockwise inside table environments.
+\newcolumntype{R}[2]{%
+    >{\adjustbox{angle=#1,lap=\width-(#2)}\bgroup}%
+    l%
+    <{\egroup}%
+}
+\newcommand*\rot{\multicolumn{1}{R{90}{1em}}}
+
+% big bang.
 \begin{document}
 
+% a bunch of anal-retentive exact spacing follows from here.
 \begin{titlepage}
 \begin{center}
 
+% write a big, impressive title with big, impressive words.
 \textbf{
   \huge Chemometric and Bioinformatic Analyses of Cellular Biochemistry
 }
 \\[20pt]
 
+% you should put your name here instead of mine.
 \emph{By} \\[12pt] {\large Bradley Worley} \\[40pt]
 
+% no shit, sherlock.
 \textsc{A Doctoral Dissertation} \\[40pt]
 
+% more obvious things.
 Submitted to the faculty of the Graduate College \\
 at the University of Nebraska in partial fulfillment \\
 of requirements for the degree of Doctor of Philosophy
 \\[80pt]
 
+% i'm still shocked that i'm getting a degree in chemistry...
 \textsc{Major:}
 \emph{Chemistry} \\[20pt]
 
+% yup, the boss man.
 \textsc{Supervisor:}
 \emph{Professor Robert Powers} \\[20pt]
 
+% it all happened here.
 Lincoln, Nebraska \\
 {\large \today}
 \\[180pt]
 
+% damn right! but change the notice for your thesis.
 Copyright \copyright{} 2015 Bradley Worley
 
+% unless you want to give my gramps a dedication, maybe change this
+% to what you want to say?
 \clearpage
 \thispagestyle{empty}
 \emph{
@@ -89,15 +125,22 @@ Copyright \copyright{} 2015 Bradley Worley
   because you'd really love reading this. \\
 }
 
+% oh thank god, the anal-rententiveness is finally over.
 \end{center}
 \end{titlepage}
 
-% ============================================================================
-
+% source in the abstract and acknowledgements as if they were written here.
 \input{bworley-abs.tex}
 \input{bworley-ack.tex}
+
+% write the table of contents.
 \tableofcontents
 
+% include each chapter in turn. these are `include' commands instead of
+% `input' commands because we need to run bibtex on the auxiliary files
+% generated after the first run of pdflatex during `make all'. this is
+% just the way the `chapterbib' package works. accept it and move on
+% with your life. it's stressful enough already.
 \include{bworley-ch1}
 \include{bworley-ch2}
 \include{bworley-ch3}
@@ -108,14 +151,16 @@ Copyright \copyright{} 2015 Bradley Worley
 \include{bworley-ch8}
 \include{bworley-ch9}
 
-% ============================================================================
-
+% not even sure if this is necessary, but it makes sense. #logic #spock #llap
 \appendix
 
+% write the list of figures and add a link to it in the table of contents.
 \listoffigures
 \addcontentsline{toc}{chapter}{List of Figures}
 
+% write a list of tables and add a link to it in the table of contents.
 \listoftables
 \addcontentsline{toc}{chapter}{List of Tables}
 
+% big crunch.
 \end{document}
