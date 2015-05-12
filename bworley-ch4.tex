@@ -3,7 +3,138 @@
 
 \section{Introduction}
 
-FIXME \cite{worley:acscb2014}.
+\begin{doublespace}
+The biochemical laboratory procedures involved in metabolomics experiments
+are potentially straightforward and inexpensive, depending on the biological
+systems and pathways under study \cite{zhang:jiomic2013}. The minimal sample
+handling requirements of 1D \hnmr NMR spectroscopy and the immense sensitivity
+of multivariate bilinear factorizations such as principal component analysis
+(PCA) and partial least squares (PLS) make NMR metabolic fingerprinting
+especially attainable. This low barrier to entry has no doubt contributed to
+the rapid recent growth of the field. Unfortunately, the data handling tasks
+of NMR metabolomics are far more difficult to properly execute. Commercial
+software packages available for multivariate analysis (e.g. SIMCA, PLS Toolbox,
+The Unscrambler, {\it etc.}) tend to be expensive and require more software for
+upstream processing and treatment of spectral data. Analysts are thus required
+to first open and process NMR data in packages such as ACD/1D NMR Manager
+(Advanced Chemistry Development), Mnova NMR (Mestrelabs Research) and perform
+further statistical treatment in MATLAB (The Mathworks, Natick, MA), R, or
+Microsoft Excel. This results in an unnecessarily cumbersome and time-consuming
+data handling pipeline by forcing the analyst to pass data between multiple
+software packages. As a result, the field of metabolomics research is littered
+with unpublished ``in-house'' software solutions created for processing,
+treating or modeling NMR datasets
+\cite{viant:bbrc2003,
+      verhoeckx:immpc2004,
+      cloarec:anchem2005a,
+      cloarec:anchem2005b,
+      dieterle:anchem2006,
+      kang:food2008,
+      wiklund:anchem2008}. This continued reinvention of the wheel impedes
+progress in the field and complicates the tasks of standardization and
+communication of protocols that the metabolomics community is desperately
+attempting to achieve \cite{lindon:nbiot2005,goodacre:metab2007}. Insult is
+then added to injury, as these in-house solutions are far less likely than
+their commercial counterparts to include proper means of validating trained
+multivariate models, further contributing to the general lack of model
+validation already present in the field \cite{westerhuis:metab2008}. While
+the community has released several official software packages targeted at
+metabolomics
+\cite{jarvis:binf2006,
+      daszykowski:cils2007,
+      wang:bmcb2009,
+      izquierdo:bmcb2009,
+      xia:nar2012,
+      gaude:cmb2013,
+      alonso:anchem2014}, none provide a complete, well-validated data path.
+At the time of this writing, no single software package existed to bring raw
+NMR data along its complete journey to validated, interpretable multivariate
+models.
+\\\\
+These issues motivated the development of a free and open-source software
+package, MVAPACK, that provides a complete pipeline of functions for NMR
+chemometrics and metabolomics. MVAPACK is written in the GNU Octave
+mathematical programming language \cite{eaton2008}, which is also open-source
+and nearly syntactically identical to MATLAB. Thus, the installation of
+GNU/Linux, Octave and MVAPACK onto a commodity workstation provides a uniform
+environment in which a data analyst may truly work ``from FIDs to models'' in
+a few minutes using a set of well-documented, open-source, high-level data
+handling functions.
+\end{doublespace}
+
+\section{Materials and Methods}
+
+\subsection{Software Implementation}
+
+\begin{doublespace}
+FIXME
+\end{doublespace}
+
+\subsection{Feature Set}
+
+\begin{doublespace}
+FIXME
+\end{doublespace}
+
+\section{Discussion and Conclusions}
+
+\begin{doublespace}
+This chapter presents MVAPACK, a completely free and open-source data handling
+environment tailor-suited to NMR chemometrics and \hnmr NMR and MS metabolic
+fingerprinting applications. Unlike data handling chains composed of multiple
+commercial software packages, MVAPACK is free to use, modify and distribute
+according to the GNU General Public License \cite{gpl3} and provides a single
+consistent data handling environment. Because MVAPACK is written for GNU
+Octave, researchers already familiar with MATLAB syntax will also be familiar
+with MVAPACK without a considerable learning curve. Datasets and results
+obtained using MVAPACK are readily saved and exhanged using GNU Octave built-in
+support for the MATLAB {\it mat}-file format.
+\\\\
+A recent review \cite{izquierdo:pnmrs2011} of software packages targeted at
+metabolomics highlights the piecemeal nature of 1D \hnmr NMR data handling in
+the field, where no single package is capable of performing all the tasks
+required by the analyst. MVAPACK addresses this need by providing a complete
+pipeline that is tuned for metabolic fingerprinting. Use of MVAPACK reduces
+data analysis time in metabolic fingerprinting from days to minutes, simply
+by collecting all the required functions into a single scriptable environment.
+In fact, the example script in Figure 4.1 would execute in under five minutes
+on a modern GNU/Linux or Mac OS X computer system.
+\\\\
+The routine processing of {\it any} 1D and 2D NMR spectral data may be readily
+done with MVAPACK, and processing routines are easily batched. The MVAPACK
+scripts written to analyze the datasets in \hyperlink{chapter.3}{Chapter 3}
+are composed of intuitive, modular commands that logically subdivide the script
+into recognizable tasks like automatic phase correction, spectral alignment,
+normalization, {\it etc}. Furthermore, aside from physical memory limitations
+of the host computer, MVAPACK does not impose any limit on the number of NMR
+observations that may be simultaneously handled.
+\\\\
+A major advantage of MVAPACK is the seamless transfer of the processed, treated
+NMR data to multivariate statistical analyses. The PCA, PLS, OPLS and LDA
+bilinear modeling algorithms, now ubiquitous in the metabolomics community,
+are all implemented in MVAPACK using a consistent under-the-hood framework.
+Model results may be visualized and interpreted using MVAPACK routines that
+provide scatter, line and bar plots of model scores, loadings and validation
+statistics. Critically, MVAPACK automatically ensures that {\it all} trained
+models are valid using leave-one-out and Monte Carlo leave-$n$-out internal
+cross-validation routines and provides further means of validating supervised
+models in the form of CV-ANOVA and response permutation significance testing.
+Several powerful examples of MVAPACK applied to real datasets are presented in
+\hyperlink{chapter.3}{Chapter 3}. Because it implements well-established
+algorithms available from peer-reviewed chemometrics literature, MVAPACK
+generates identical results when compared to expensive software packages
+like Umetrics SIMCA-P+.
+\\\\
+In short, MVAPACK provides a complete platform for NMR chemometric data
+handling that is ideal for both routine handling of metabolomics datasets and
+development of novel algorithms. Unlike its closed-source predecessors, the
+modular, open-source design of MVAPACK readily accepts new functionality,
+allowing it to grow and maintain pace with the state-of-the-art in the
+chemometrics literature. MVAPACK is freely available for download at
+\url{http://bionmr.unl.edu/mvapack.php}. Detailed documentation of MVAPACK,
+all datasets presented in \hyperlink{chapter.3}{Chapter 3}, and the scripts
+used to handle them are also available for download.
+\end{doublespace}
 
 \bibliographystyle{abbrv}
 \bibliography{bworley}
