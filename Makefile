@@ -1,6 +1,8 @@
 
+# all: default compilation target.
 all: bworley.pdf
 
+# .pdf: actual compilation target.
 bworley.pdf:
 	pdflatex -draftmode bworley
 	bibtex bworley-ch1
@@ -15,6 +17,7 @@ bworley.pdf:
 	pdflatex -draftmode bworley
 	pdflatex bworley
 
+# clean: target to remove all intermediate compilation results.
 clean:
 	rm -f bworley.pdf
 	rm -f bworley.aux bworley.log bworley.out
@@ -29,11 +32,18 @@ clean:
 	rm -f bworley-ch8.aux bworley-ch8.bbl bworley-ch8.blg
 	rm -f bworley-ch9.aux bworley-ch9.bbl bworley-ch9.blg
 
+# again: target to clean and recompile the default target.
 again: clean all
 
+# lines: target to count the number of lines of tex.
 lines:
 	wc -l *.tex
 
+# dist: target to package the current source tree into a tarball.
 dist: clean
 	tar czf ../thesis.tar.gz ./*
+
+# diff: target to diff all tracked changes in the git repo.
+diff:
+	git diff --color
 
