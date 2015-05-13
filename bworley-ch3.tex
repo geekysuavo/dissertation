@@ -294,19 +294,19 @@ Mathematically, 1D NMR free induction decays are described by the following
 commonly used parametric signal model:
 
 \begin{equation}
-F(t) = \sum_{m=1}^M \alpha_m \exp\left\{
+f(t) = \sum_{m=1}^M \alpha_m \exp\left\{
   u_1 \omega_m t + u_1 \theta_m - \rho_m t
   \right\}
 \end{equation}
 
 where $\alpha_m$, $\omega_m$, $\theta_m$ and $\rho_m$ represent the amplitude,
-frequency, phase error and decay rate of the $m$-th damped quadrature sinusoid
-in the model $F(t)$. Using the above formalism for hypercomplex tensors, this
+frequency, phase error and decay rate of the $m$-th damped complex exponential
+in the model $f(t)$. Using the above formalism for hypercomplex tensors, this
 signal model is trivially extended to any number of dimensions. For example,
 a 2D FID may be modeled as follows:
 
 \begin{equation}
-F(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
+f(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
   u_1 \omega_{m,1} t_1 + u_1 \theta_{m,1} - \rho_{m,2} t_1 +
   u_2 \omega_{m,1} t_2 + u_2 \theta_{m,2} - \rho_{m,1} t_2
   \right\}
@@ -314,7 +314,7 @@ F(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
 
 In short, NMR free induction decays may be treated as sums of damped
 hypercomplex exponentials. While it is possible to directly parameterize
-$F(t)$ or $F(t_1, t_2)$ using either maximum likelihood estimation
+$f(t)$ or $f(t_1, t_2)$ using either maximum likelihood estimation
 \cite{chylla:jbnmr1995,chylla:jbnmr1998,chylla:anchem2011} or Bayesian
 model selection and estimation
 \cite{bretthorst:jmr1990a,
@@ -329,7 +329,7 @@ processing tasks required by these hypercomplex tensors.
 \subsection{Time-domain Processing}
 
 \begin{doublespace}
-FIXME. Apodization, digital filtering, zero-filling. First-point scaling.
+FIXME. Apodization and first-point scaling, digital filtering, zero-filling.
 \end{doublespace}
 
 \subsection{Frequency-domain Processing}
@@ -415,7 +415,7 @@ outer products of each pair of scores and loadings. Because $A$ is commonly
 much less than either $N$ or $K$, these bilinear factorizations are also
 referred to as low-rank approximations of their data matrices.
 \\\\
-It is important to note that nearly every data matrix modeled by equation (3.1)
+It is important to note that nearly every data matrix modeled by equation (3.x)
 in metabolomics contains far fewer observations than variables
 (i.e. $N \ll K$) \cite{worley:cmb2013}. In this situation, there are infinitely
 many solutions to the equation that yield the same error $\mathbf{E}$. This is
@@ -435,7 +435,7 @@ where $\hat{\mathbf{T}} = \mathbf{T} \mathbf{R}$ and
 $\hat{\mathbf{P}} = \mathbf{P} \mathbf{R}$. A similar expansion of the solution
 set may be accomplished by multiplying the scores by a diagonal $A \times A$
 matrix, and multiplying the loadings by the inverse of the same diagonal
-matrix. This equivalence of an infinite number of solutions to equation (3.1),
+matrix. This equivalence of an infinite number of solutions to equation (3.x),
 known as the problems of rotational and scale ambiguity, is solved by placing
 constraints on the values that scores and loadings may take
 \cite{dejuan:aca1997,jolliffe2002}. The choice of constraints defines a
