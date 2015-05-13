@@ -88,7 +88,7 @@ of data in metabolomics requires robust methodologies in order to expose
 underlying chemical trends from highly complex systems in the form of
 statistically valid mathematical models. This chapter describes the theory
 and best practices of chemometric analyses of data produced by metabolomics
-experiments, with a focus on 1D \hnmr and 2D \hcnmr NMR datasets.
+experiments, with a focus on 1D \hnmr{} and 2D \hcnmr{} NMR datasets.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -123,7 +123,7 @@ form of second-order tensors in $\mathbb{R}^{N \times K}$. More simply, these
 datasets are real matrices having $N$ rows and $K$ columns. By convention,
 the data are arranged as $N$ observation row vectors of length $K$, where $K$
 is referred to as the dimensionality of the dataset (Figure 3.1). Typical
-examples of 1D datasets include sets of \hnmr or \cnmr NMR spectra
+examples of 1D datasets include sets of \hnmr{} or \cnmr{} NMR spectra
 \cite{beckonert:nprot2007,koh:colon2009}, direct-injection mass spectra
 (DI-MS, \cite{castrillo:phch2003,southam:anchem2007,zhou:asms2010}), infrared
 (IR) and Raman spectra \cite{ellis:analyst2006,cherney:anchem2007}, or
@@ -139,7 +139,7 @@ The dimensionality of a multivariate dataset may be increased by adding another
 cases, the total dimensionality of the dataset is now the product of the
 dimensionalities along each mode of the data tensor (e.g. $K_1 \times K_2$).
 Third-order tensors are the natural data structures for sets of two-dimensional
-observations, including \hhnmr, \hcnmr and \hnnmr NMR spectra, hyphenated
+observations, including \hhnmr{}, \hcnmr{} and \hnnmr{} NMR spectra, hyphenated
 chromatography-mass spectra (LC-MS, GC-MS), hyphenated electrophoresis-mass
 spectra (CE-MS), and hyphenated ion-mobility mass spectra (IM-MS). While
 third-order data tensors may hold substantially more chemical information than
@@ -200,9 +200,9 @@ Bilinear methods such as consensus PCA (CPCA), hierarchical PCA and PLS, and
 multiblock PLS may then be used to provide information about data variation
 that is correlated between data blocks. Recent examples of multiblock modeling
 in metabolomics include fusions of near-IR and mid-IR spectra
-\cite{bras:cils2005}, \hnmr NMR and direct injection electrospray mass spectra
-(DI-ESI-MS, \cite{marshall:metab2015}), and observations from multiple sensors
-in process control applications \cite{ferreira:jchemo2010}.
+\cite{bras:cils2005}, \hnmr{} NMR and direct injection electrospray mass
+spectra (DI-ESI-MS, \cite{marshall:metab2015}), and observations from multiple
+sensors in process control applications \cite{ferreira:jchemo2010}.
 \end{doublespace}
 
 \section{Spectral Processing}
@@ -211,7 +211,66 @@ in process control applications \cite{ferreira:jchemo2010}.
 Following the acquisition of experimental data, instrumentation-specific
 processing must be applied to transform the data into a suitable set of
 real matrices for bilinear modeling, or tensors for multilinear modeling.
-FIXME. Section will be NMR-centric.
+Because the majority of data presented herein originated from an NMR
+spectrometer, and because NMR spectra present unique challenges to the
+analyst during data handling, the following discussions will center around
+processing of 1D and 2D NMR datasets.
+\end{doublespace}
+
+\subsection{NMR Signals}
+
+\begin{doublespace}
+Modern NMR spectrometers effectively acquire a rotating-frame free induction
+decay (FID) through the use of quadrature phase detection of the incoming
+signal \cite{levitt2008}. This detection method imparts relative phase
+information to the time-domain decays by creating an ``in-phase'' signal
+component $i(t)$ and a ``quadrature'' component $q(t)$ phased ninety degrees
+from $i(t)$. Indirect dimensions of multidimensional NMR experiments are also
+collected in quadrature through interleaved acquisition of one-dimensional
+decays that have been cosine- and sine-modulated by the indirect-dimension
+signals \cite{states:jmr1982}. As a result, each data point in a
+$D$-dimensional NMR signal collected in complete quadrature exists in a
+hypercomplex space $\mathbb{H}_D$ \cite{schuyler:jmr2013}, which is defined by
+a real basis element and $D$ complex basis elements:
+
+\begin{equation}
+\Phi_D \equiv \{ 1 \cdot u_1 \cdots u_D \}
+\end{equation}
+
+where multiplication by any complex element $u_d$ results in a ninety degree
+phase shift in dimension $d$, and the basis elements combine commutatively
+under multiplication, as follows:
+\begin{align}
+u_i u_j =& u_j u_i \\
+u_i^2 =& -1
+\end{align}
+
+The basis elements in $\Phi_D$ are a generating set for the complete set of
+components of the hypercomplex space $\mathbb{H}_D$. For example, in three
+dimensions:
+
+\begin{equation}
+\Phi_3 = \{ 1, u_1, u_2, u_1 u_2, u_3, u_1 u_3, u_2 u_3, u_1 u_2 u_3 \}
+\end{equation}
+
+A scalar in $\mathbb{H}_D$ is then expressed as a linear combination of this
+component set. For the three-dimensional example:
+
+\begin{equation}
+x = a + b u_1 + c u_2 + d u_1 u_2
+  + e u_3 + f u_1 u_3 + g u_2 u_3 + h u_1 u_2 u_3
+\end{equation}
+
+In general, any scalar in $\mathbb{H}_D$ -- and therefore any data point in
+a $D$-dimensional quadrature-complete NMR dataset -- shall require $2^D$ real
+coefficients in order to be completely determined. While the hypercomplex
+algebras $\mathbb{H}_0$ and $\mathbb{H}_1$ are isomorphic to the real 
+($\mathbb{R}$) and complex ($\mathbb{C}$) numbers, respectively, $\mathbb{H}_2$
+and $\mathbb{H}_3$ are {\it not} isomorphic to the quaternions and octonions,
+as the latter are noncommutative under multiplication. This hypercomplex
+algebra, introduced for partial-component nonuniform subsampling by Schuyler
+et al. \cite{schuyler:jmr2013}, provides an elegant formalism for expressing
+and handling NMR data.
 \end{doublespace}
 
 \subsection{Time-domain Processing}
@@ -227,6 +286,18 @@ FIXME. DFT, MEM, phasing, referencing.
 \end{doublespace}
 
 \section{Statistical Treatment}
+
+\begin{doublespace}
+The properties of the bilinear factorizations commonly applied in metabolomics
+dictate that processed data tensors be treated by one or more operations before
+they are suitable for modeling. These statistical treatments generally aim to
+either reduce the dimensionality of the data tensor (i.e. binning and variable
+selection) or increase the self-consistency of observations and variables
+(i.e. alignment, normalization and scaling). Treatment operations are usually
+instrumentation-agnostic, as the data at this stage of handling almost always
+fall into one of the general structures outlined in
+\hyperlink{section.3.2}{Section 3.2}.
+\end{doublespace}
 
 \subsection{Binning}
 
@@ -308,12 +379,15 @@ matrix $\mathbf{R} \in \mathbb{R}^{A \times A}$:
 \end{align}
 
 where $\hat{\mathbf{T}} = \mathbf{T} \mathbf{R}$ and
-$\hat{\mathbf{P}} = \mathbf{P} \mathbf{R}$. This equivalence of an infinite
-number of solutions to equation (3.1), known as the problem of rotational
-ambiguity, is solved by placing constraints on the values that scores and
-loadings may take \cite{dejuan:aca1997,jolliffe2002}. The choice of constraints
-defines a particular bilinear factorization method as unique, and determines
-what kind of information is sought from a data matrix using that method.
+$\hat{\mathbf{P}} = \mathbf{P} \mathbf{R}$. A similar expansion of the solution
+set may be accomplished by multiplying the scores by a diagonal $A \times A$
+matrix, and multiplying the loadings by the inverse of the same diagonal
+matrix. This equivalence of an infinite number of solutions to equation (3.1),
+known as the problems of rotational and scale ambiguity, is solved by placing
+constraints on the values that scores and loadings may take
+\cite{dejuan:aca1997,jolliffe2002}. The choice of constraints defines a
+particular bilinear factorization method as unique, and determines what
+kind of information is sought from a data matrix using that method.
 \end{doublespace}
 
 \subsection{Principal Component Analysis}
@@ -340,7 +414,13 @@ FIXME.
 FIXME.
 \end{doublespace}
 
-\section{\hnmr NMR Fingerprinting of Brewed Coffees}
+\subsection{Multiblock PCA and PLS}
+
+\begin{doublespace}
+FIXME.
+\end{doublespace}
+
+\section{\hnmr{} NMR Fingerprinting of Brewed Coffees}
 
 \begin{doublespace}
 FIXME.
@@ -358,7 +438,7 @@ FIXME.
 FIXME.
 \end{doublespace}
 
-\section{Profiling of Joint \hnmr NMR and DI-ESI-MS Data}
+\section{Profiling of Joint \hnmr{} NMR and DI-ESI-MS Data}
 
 \begin{doublespace}
 FIXME.

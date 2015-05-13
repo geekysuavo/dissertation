@@ -22,27 +22,27 @@
   in regions 1 and 2 is maximal and greater than the original bin's objective
   value. ({\bf B}) In the $D$-dimensional case, there are now $D$ possible
   dimensions along which an optimal subdivision may exist. The optimal
-  subdivision along the \hnmr dimension ({\it triangle}) occurs when the sum of
-  the objective values in regions 3+6 and 4+5 is maximal and greater than that
-  of the original bin. Similarly, the optimal subdivision along the \cnmr
-  dimension ({\it circle}) occurs when the sum of the objective values in
-  regions 3+4 and 5+6 is maximal and above the original bin objective. A
+  subdivision along the \hnmr{} dimension ({\it triangle}) occurs when the sum
+  of the objective values in regions 3+6 and 4+5 is maximal and greater than
+  that of the original bin. Similarly, the optimal subdivision along the
+  \cnmr{} dimension ({\it circle}) occurs when the sum of the objective values
+  in regions 3+4 and 5+6 is maximal and above the original bin objective. A
   comparison between all possible optimal subdivisions along all dimensions
-  yields the best possible subdivision (\cnmr, {\it circle}).
+  yields the best possible subdivision (\cnmr{}, {\it circle}).
 }
 \end{figure}
 
 \begin{doublespace}
 By and large, the phase ``NMR metabolic fingerprinting'' implies the use of
-one-dimensional (1D) \hnmr NMR spectroscopic methods, due in no small part to
-the ease and speed of 1D data collection and the large natural abundance of
-NMR-active protons found in metabolomics samples
+one-dimensional (1D) \hnmr{} NMR spectroscopic methods, due in no small part
+to the ease and speed of 1D data collection and the large natural abundance
+of NMR-active protons found in metabolomics samples
 \cite{lindon:cmr2000,worley:cmb2013}. Before processed spectra are
 submitted to PCA or PLS for modeling, they are often subdivided into bins
 to simplify multivariate analyses. Spectral binning, introduced and described
 in detail in \hyperlink{chapter.3}{Chapter 3}, reduces the dimensionality of
 a data matrix and masks chemical shift variability between samples at the
-expense of decreased model interpretability: any given bin in a 1D \hnmr NMR
+expense of decreased model interpretability: any given bin in a 1D \hnmr{} NMR
 spectral dataset may contain several overlapped signals from multiple distinct
 metabolites \cite{aberg:abc2009}. Thus, without utilizing
 computationally intensive methods of deconvolution to tease apart signal
@@ -51,14 +51,14 @@ contributions from individual metabolites
 binned 1D dataset is usually limited to high-level inference about metabolic
 trends.
 \\\\
-By leveraging the connectivities between \hnmr and \cnmr nuclei in metabolites,
-two-dimensional (2D) heteronuclear NMR methods reduce spectral overlap by
-spreading \hnmr information over a second (\cnmr) chemical shift dimension
-\cite{mandal:cmr2004}. Heteronuclear single quantum coherence (HSQC)
+By leveraging the connectivities between \hnmr{} and \cnmr{} nuclei in
+metabolites, two-dimensional (2D) heteronuclear NMR methods reduce spectral
+overlap by spreading \hnmr{} information over a second (\cnmr) chemical shift
+dimension \cite{mandal:cmr2004}. Heteronuclear single quantum coherence (HSQC)
 experiments are commonly performed in NMR metabolic profiling studies, and
-provide an NMR singlet or multiplet for each directly bonded \hcnmr pair
+provide an NMR singlet or multiplet for each directly bonded \hcnmr{} pair
 in the sample. Developments in NMR hardware and acquisition techniques have
-brought natural abundance \hcnmr HSQC experiment times down to values
+brought natural abundance \hcnmr{} HSQC experiment times down to values
 compatible with high-throughput metabolic fingerprinting studies
 \cite{motta:anchem2010,rai:anchem2012}. However, multivariate analysis
 of 2D NMR datasets is still a nontrivial undertaking that requires either
@@ -200,7 +200,7 @@ data matrix.
 \subsection{Human Liver Dataset}
 
 \begin{doublespace}
-Two independently collected \hcnmr HSQC NMR datasets from ongoing
+Two independently collected \hcnmr{} HSQC NMR datasets from ongoing
 metabolomics studies were used as test cases for the GAI-binning algorithm.
 For the first dataset, twenty-four 1.0 mL samples of SK-Hep1 human liver cells
 were provided for metabolic fingerprinting, half of which were treated with
@@ -212,16 +212,16 @@ hours, and finally redissolved in 600 $\mu$L of 50.0 mM phosphate buffer in
 pH-adjusted samples were then collected into NMR tubes.
 \\\\
 Experiments were collected on a Bruker Avance III HD 700 MHz spectrometer
-equipped with a 5 mm inverse quadruple-resonance (\hnmr, \cnmr, \nnmr, \pnmr)
-cryoprobe with cooled \hnmr and \cnmr channels and a {\it z}-axis gradient.
-A Bruker SampleJet and ICON-NMR were used to automate NMR data collection. A
-2D gradient-enhanced \hcnmr HSQC with improved sensitivity
+equipped with a 5 mm inverse quadruple-resonance (\hnmr{}, \cnmr{}, \nnmr{},
+\pnmr{}) cryoprobe with cooled \hnmr{} and \cnmr{} channels and a {\it z}-axis
+gradient. A Bruker SampleJet and ICON-NMR were used to automate NMR data
+collection. A 2D gradient-enhanced \hcnmr{} HSQC with improved sensitivity
 \cite{palmer:jmr1991,kay:jacs1992} ({\it hsqcetgpsi}) was collected for
 each sample. Spectra were collected with 4 scans and 16 dummy scans over a
-uniform Nyquist grid of 512 and 64 complex points along the \hnmr and \cnmr
+uniform Nyquist grid of 512 and 64 complex points along the \hnmr{} and \cnmr{}
 dimensions, respectively. Spectral windows were set to 3,285 $\pm$ 4,545 Hz
-along \hnmr and 12,677 $\pm$ 14,620 Hz along \cnmr. All spectra were collected
-at a sample temperature of 298.0 K.
+along \hnmr{} and 12,677 $\pm$ 14,620 Hz along \cnmr{}. All spectra were
+collected at a sample temperature of 298.0 K.
 \end{doublespace}
 
 \begin{figure}[hb!]
@@ -230,7 +230,7 @@ at a sample temperature of 298.0 K.
       [Binned Liver Dataset.]{
   {\bf Binned Liver Dataset.}
   \\
-  Processed \hcnmr HSQC mean spectrum of the liver data tensor, with
+  Processed \hcnmr{} HSQC mean spectrum of the liver data tensor, with
   overlaid uniform ({\bf A}) and GAI ({\bf B}) bin boundaries.
 }
 \end{figure}
@@ -240,7 +240,7 @@ at a sample temperature of 298.0 K.
 \begin{doublespace}
 A second set of samples from kinase suppressor of Ras 1 (KSR1) knockout mouse
 embryonic fibroblast (MEF) cells was also provided to generate a test
-\hcnmr HSQC dataset for GAI-binning. For this second dataset, ten cell
+\hcnmr{} HSQC dataset for GAI-binning. For this second dataset, ten cell
 samples from $ksr^{-/-}$ MEFs and ten samples from KSR1-rescued $ksr^{-/-}$
 MEFs were used to produce metabolite extracts. The cells were washed, extracted
 into 80:20 methanol:water, spun in a rotary evaporator, lyophilized and
@@ -248,14 +248,14 @@ redissolved according to the procedures used to extract metabolites from the
 liver cell samples.
 \\\\
 Experiments were collected on a Bruker Avance DRX 500 MHz spectrometer equipped
-with a 5 mm inverse triple-resonance (\hnmr, \cnmr, \nnmr) cryoprobe with a
-{\it z}-axis gradient. A Bruker BACS-120 sample changer and ICON-NMR software
-were used to automate data collection. A 2D gradient-enhanced \hcnmr
+with a 5 mm inverse triple-resonance (\hnmr{}, \cnmr{}, \nnmr{}) cryoprobe with
+a {\it z}-axis gradient. A Bruker BACS-120 sample changer and ICON-NMR software
+were used to automate data collection. A 2D gradient-enhanced \hcnmr{}
 HSQC ({\it hsqcetgp}) was collected for each sample. Spectra were collected
 with 128 scans and 16 dummy scans over a uniform grid of 1024 and 32 complex
-points along the \hnmr and \cnmr dimensions, respectively. Spectral windows
-were set to 2,359 $\pm$ 2,367 Hz along \hnmr and 8,174 $\pm$ 8,803 Hz along
-\cnmr. All spectra were collected at a sample temperature of 293 K.
+points along the \hnmr{} and \cnmr{} dimensions, respectively. Spectral windows
+were set to 2,359 $\pm$ 2,367 Hz along \hnmr{} and 8,174 $\pm$ 8,803 Hz along
+\cnmr{}. All spectra were collected at a sample temperature of 293 K.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -264,7 +264,7 @@ were set to 2,359 $\pm$ 2,367 Hz along \hnmr and 8,174 $\pm$ 8,803 Hz along
       [Binned Fibroblast Dataset.]{
   {\bf Binned Fibroblast Dataset.}
   \\
-  Processed \hcnmr HSQC mean spectrum of the MEF data tensor, with
+  Processed \hcnmr{} HSQC mean spectrum of the MEF data tensor, with
   overlaid uniform ({\bf A}) and GAI ({\bf B}) bin boundaries.
 }
 \end{figure}
@@ -277,12 +277,13 @@ All processing, treatment and statistical modeling was performed in GNU Octave
 toolbox for NMR chemometrics \cite{worley:acscb2014}, discussed in
 \hyperlink{chapter.4}{Chapter 4}. The 2D raw serial files were loaded
 \cite{delaglio:jbnmr1995}, apodized with a squared-sine window,
-zero-filled once along \hnmr and twice along \cnmr, and Fourier-transformed.
-Spectra from the liver cell extracts were manuall phase-corrected and cropped
-(1.0 -- 6.6 ppm along \hnmr; 16 -- 112 ppm along \cnmr), and spectra from the
-MEF extracts were similarly phase corrected and cropped (1.25 -- 6.2 ppm along
-\hnmr; 8 -- 102 ppm along \cnmr). Both uniform and GAI-binning were performed
-on each data tensor using minimum \hnmr and \cnmr bin widths of 0.025 and 2.5
+zero-filled once along \hnmr{} and twice along \cnmr{}, and
+Fourier-transformed. Spectra from the liver cell extracts were manuall
+phase-corrected and cropped (1.0 -- 6.6 ppm along \hnmr{}; 16 -- 112 ppm
+along \cnmr{}), and spectra from the MEF extracts were similarly phase
+corrected and cropped (1.25 -- 6.2 ppm along \hnmr{}; 8 -- 102 ppm
+along \cnmr{}). Both uniform and GAI-binning were performed on each data tensor
+using minimum \hnmr{} and \cnmr{} bin widths of 0.025 and 2.5
 ppm, respectively, and a GAI resolution parameter of 0.1. Binned regions
 identified to be less intense than three times the standard deviation of the
 spectral noise ($k = 3$) were removed after binning. The mean spectra of the
@@ -295,8 +296,8 @@ the data, the spectral regions identified by each binning method were doubly
 integrated. Scores and loadings were then calculated using the Nonlinear
 Iterative Partial Least Squares (NIPALS) algorithm
 \cite{jolliffe2002}. Internal leave-one-out cross-validation (LOOCV)
-of each computed PCA model was performed to yield model fit (\rsqx) and
-predictive ability (\qsq) statistics
+of each computed PCA model was performed to yield model fit (\rsqx{}) and
+predictive ability (\qsq{}) statistics
 \cite{krzanowski:biom1987,eshghi:cils2014}. For OPLS-DA, spectral data
 points within the identified bins were vectorized row-wise into a data matrix
 as previously described \cite{hedenstrom:cils2008}. During
@@ -308,8 +309,8 @@ interpretation over binned loadings \cite{wiklund:anchem2008}.
 Modeling by an OSC-filtered NIPALS algorithm
 \cite{trygg:jchemo2002} and 100 rounds of seven-fold Monte Carlo
 cross-validation (MCCV) \cite{xu:jchemo2004} were performed to
-compute data fit (\rsqx), response fit (\rsqy) and model predictive ability
-(\qsq) statistics. The binned data matrices produced via double integration
+compute data fit (\rsqx{}), response fit (\rsqy{}) and model predictive ability
+(\qsq{}) statistics. The binned data matrices produced via double integration
 were also subjected to OPLS-DA modeling in the same manner as the vectorized
 data. All OPLS-DA models were further validated using CV-ANOVA
 \cite{eriksson:jchemo2008} and 1,000 iterations of response
@@ -328,11 +329,11 @@ Pareto scaled \cite{vandenberg:bmcg2006} prior to modeling.
 \section{Results and Discussion}
 
 \begin{doublespace}
-Processing of the liver extract spectra yielded a real data tensor of 24 \hcnmr
-HSQC spectra having 442$\times$149 points each, and processing of the
+Processing of the liver extract spectra yielded a real data tensor of 24
+\hcnmr{} HSQC spectra having 442$\times$149 points each, and processing of the
 fibroblast spectra yielded a tensor of 17 spectra having 1,071$\times$172
 real data points each. The observation counts ($N$), variable counts ($K$)
-and PCA/OPLS cross-validation statistics (\rsq, \qsq) for each dataset and
+and PCA/OPLS cross-validation statistics (\rsq{}, \qsq{}) for each dataset and
 variable reduction method are summarized in Table 6.1. Further validation
 results from the OPLS models, all of which indicate varying degrees of high
 model reliability, are also summarized in Table 6.2. Through examination of the
@@ -340,14 +341,14 @@ variable counts within Table 6.1, it is readily apparent that GAI-binning is
 dramatically more effective than uniform binning at discriminating between
 signal and noise regions within spectral data. On average, GAI-binning
 segmented each data tensor into less than half the number of bins produced by
-uniform binning, and produced PCA models with markedly higher \rsqx and \qsq
-statistics. Moreover, even with the greatly reduced variable counts produced by
-GAI-binning relative to uniform binning, the OPLS \qsq statistics between the
-two methods are statistically indistinguishable. In fact, the variable counts
-resulting from GAI-binning these third-order tensors are substantially lower
-than the few hundred variables typically produced by binning
-{\it one}-dimensional spectra. Resulting scores from PCA modeling of the
-GAI-binned liver data tensor are shown in Figure 6.4.
+uniform binning, and produced PCA models with markedly higher \rsqx{} and
+\qsq{} statistics. Moreover, even with the greatly reduced variable counts
+produced by GAI-binning relative to uniform binning, the OPLS \qsq{} statistics
+between the two methods are statistically indistinguishable. In fact, the
+variable counts resulting from GAI-binning these third-order tensors are
+substantially lower than the few hundred variables typically produced by
+binning {\it one}-dimensional spectra. Resulting scores from PCA modeling
+of the GAI-binned liver data tensor are shown in Figure 6.4.
 \end{doublespace}
 
 \begin{table}[h!]
@@ -355,31 +356,31 @@ GAI-binned liver data tensor are shown in Figure 6.4.
 \begin{center}
 \begin{tabular}{l l | l l l l l | l l l}
   \hline
-              &       &
+              &         &
     \multicolumn{5}{c|}{{\bf Integration}} &
     \multicolumn{3}{c}{{\bf Vectorization}} \\
-              &       &
+              &         &
     \multicolumn{3}{c}{PCA} &
     \multicolumn{2}{c|}{OPLS} & &
     \multicolumn{2}{c}{OPLS} \\
   \hline
-              &       &
-    $K$       & \rsqx & \qsq & \rsqy & \qsq &
-    $K$                      & \rsqy & \qsq \\
+              &         &
+    $K$       & \rsqx{} & \qsq{} & \rsqy{} & \qsq{} &
+    $K$                          & \rsqy{} & \qsq{} \\
   \hline
-  {\bf Liver} & Unif. &
-    248       & 0.82  & 0.71 & 0.993 & 0.938 $\pm$ 0.002 &
-    11,160                   & 0.993 & 0.929 $\pm$ 0.003 \\
-  $N = 24$    & GAI   &
-    113       & 0.89  & 0.75 & 0.991 & 0.928 $\pm$ 0.003 &
-    10,474                   & 0.994 & 0.933 $\pm$ 0.003 \\
+  {\bf Liver} & Unif.   &
+    248       & 0.82    & 0.71   & 0.993   & 0.938 $\pm$ 0.002 &
+    11,160                       & 0.993   & 0.929 $\pm$ 0.003 \\
+  $N = 24$    & GAI     &
+    113       & 0.89    & 0.75   & 0.991   & 0.928 $\pm$ 0.003 &
+    10,474                       & 0.994   & 0.933 $\pm$ 0.003 \\
   \hline
-  {\bf MEF}   & Unif. &
-    334       & 0.48  & 0.40 & 0.994 & 0.974 $\pm$ 0.004 &
-    18,348                   & 0.994 & 0.963 $\pm$ 0.005 \\
-  $N = 17$    & GAI   &
-    93        & 0.71  & 0.56 & 0.994 & 0.973 $\pm$ 0.005 &
-    18,789                   & 0.996 & 0.962 $\pm$ 0.006
+  {\bf MEF}   & Unif.   &
+    334       & 0.48    & 0.40   & 0.994   & 0.974 $\pm$ 0.004 &
+    18,348                       & 0.994   & 0.963 $\pm$ 0.005 \\
+  $N = 17$    & GAI     &
+    93        & 0.71    & 0.56   & 0.994   & 0.973 $\pm$ 0.005 &
+    18,789                       & 0.996   & 0.962 $\pm$ 0.006
 \end{tabular}
 \end{center}
 \end{table}
@@ -414,17 +415,17 @@ GAI-binned liver data tensor are shown in Figure 6.4.
   {\bf PCA Scores of a GAI-binned Tensor.}
   \\
   Principal component analysis scores resulting from modeling the GAI-binned
-  \hcnmr HSQC liver data matrix, indicating a high degree of separation
-  between experimental groups. Model \rsqx and \qsq were 0.68 and 0.64 for the
-  first principal component ($t_1$) and 0.12 and 0.09 for the second ($t_2$).
-  Class separations of this magnitude are readily achievable using data
-  matrices generated by GAI-binning, due in large part to the low variable
+  \hcnmr{} HSQC liver data matrix, indicating a high degree of separation
+  between experimental groups. Model \rsqx{} and \qsq{} were 0.68 and 0.64 for
+  the first principal component ($t_1$) and 0.12 and 0.09 for the second
+  ($t_2$). Class separations of this magnitude are readily achievable using
+  data matrices generated by GAI-binning, due in large part to the low variable
   counts it generally produces.
 }
 \end{SCfigure}
 
 \begin{doublespace}
-Backscaled predictive OPLS-DA loadings of the vectorized \hcnmr HSQC spectral
+Backscaled predictive OPLS-DA loadings of the vectorized \hcnmr{} HSQC spectral
 data tensors (Figure 6.5) lend further support for the use of multidimensional
 binning in metabolic fingerprinting studies. Even when vectorization is
 performed in place of integration to produce a data matrix, binning offers an
@@ -480,7 +481,7 @@ unnecessarily long computation times during bin region determination.
   {\bf Pseudospectral HSQC Loadings.}
   \\
   Backscaled full-resolution pseudospectral loadings from OPLS-DA modeling of
-  the GAI-reduced ({\bf A}) liver and ({\bf B}) fibroblast \hcnmr HSQC data
+  the GAI-reduced ({\bf A}) liver and ({\bf B}) fibroblast \hcnmr{} HSQC data
   tensors. Positive and negative loadings are represented by red and blue
   contours, respectively.
 }
@@ -513,13 +514,13 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   \\
   Response permutation test results for OPLS-DA models from the uniformly
   binned (integrated) liver ({\bf A}, {\bf B}) and fibroblast
-  ({\bf C}, {\bf D}) data tensors. Model fit (\rsqy) statistics
-  ({\bf A}, {\bf C}) are shown in blue, and model predictive ability (\qsq)
-  statistics ({\bf B}, {\bf D}) are shown in green. True values of \rsqy and
-  \qsq are represented by vertical bars, and null distributions are computed
+  ({\bf C}, {\bf D}) data tensors. Model fit (\rsqy{}) statistics
+  ({\bf A}, {\bf C}) are shown in blue, and model predictive ability (\qsq{})
+  statistics ({\bf B}, {\bf D}) are shown in green. True values of \rsqy{} and
+  \qsq{} are represented by vertical bars, and null distributions are computed
   through kernel density estimation of the values from permutation. Scatter
-  plots of the permutation (null) \rsqy and \qsq statistics are shown in the
-  lower panes.
+  plots of the permutation (null) \rsqy{} and \qsq{} statistics are shown in
+  the lower panes.
 }
 \end{figure}
 

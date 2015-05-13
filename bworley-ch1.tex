@@ -82,28 +82,29 @@ order to ensure maximal information extraction and minimal analyst errors.
 Nuclear Magnetic Resonance (NMR) spectroscopy is a popular analytical platform
 for chemometric analyses of protein structure and cellular metabolism, due to
 its ability to simultaneously report atomic-level details of the chemical
-environments and motional dynamics of \hnmr, \cnmr and \nnmr nuclei in
+environments and motional dynamics of \hnmr{}, \cnmr{} and \nnmr{} nuclei in
 biomolecules \cite{abragam1961,levitt2008}. While the amount of
 information contained within one-dimensional (1D) NMR spectra is high, it is
 commonly held in a relatively narrow spectral width
-(e.g. -2.0 -- 16 ppm for \hnmr spectra). As a result, 1D \hnmr NMR spectra of
-complex metabolite mixtures or biomacromolecules suffer from severe signal
+(e.g. -2.0 -- 16 ppm for \hnmr{} spectra). As a result, 1D \hnmr{} NMR spectra
+of complex metabolite mixtures or biomacromolecules suffer from severe signal
 overlap that confounds analysis and interpretation.
 \\\\
 Ever since the introduction of two-dimensional NMR methods by Jeener and Ernst
 \cite{ernst:chim1975,maudsley:cpl1977} and the popularization of
 three-dimensional methods for studying proteins by Bax and colleagues
 \cite{marion:jacs1989,kay:bioc1989}, NMR spectroscopists have been
-leveraging \hcnmr and \hnnmr connectivities to spread biomolecular information
-from 1D \hnmr spectra into two or more dimensions. While multidimensional
-experiments alleviate signal overlap, they require significantly more time
-to acquire than 1D spectra, as any $D$-dimensional experiment is effectively
-a $(D-1)$-dimensional array of $2^{D-1}$ one-dimensional experiments. Time
-constraints imposed by throughput requirements, sample stability and
-instrumental maintenance have historically forced spectroscopists to harshly
-undersample their multidimensional datasets in the time domain, resulting in
-frequency domain digital resolutions much lower than the intrinsic linewidth
-of their samples \cite{szyperski:pnas2002,rovnyak:jbnmr2004}.
+leveraging \hcnmr{} and \hnnmr{} connectivities to spread biomolecular
+information from 1D \hnmr{} spectra into two or more dimensions. While
+multidimensional experiments alleviate signal overlap, they require
+significantly more time to acquire than 1D spectra, as any $D$-dimensional
+experiment is effectively a $(D-1)$-dimensional array of $2^{D-1}$
+one-dimensional experiments. Time constraints imposed by throughput
+requirements, sample stability and instrumental maintenance have historically
+forced spectroscopists to harshly undersample their multidimensional datasets
+in the time domain, resulting in frequency domain digital resolutions much
+lower than the intrinsic linewidth of their samples
+\cite{szyperski:pnas2002,rovnyak:jbnmr2004}.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -175,19 +176,19 @@ na\"{\i}ve uniform subdivision algorithms
 methods \cite{davis:cils2007,demeyer:anchem2008}. However, at the time
 of this writing, no methods of intelligently (non-uniformly) binning
 multidimensional datasets have been developed, essentially restricting bilinear
-PCA and PLS modeling to using 1D \hnmr NMR spectral data in NMR chemometric
+PCA and PLS modeling to using 1D \hnmr{} NMR spectral data in NMR chemometric
 studies of metabolism.
 \end{doublespace}
 
 \begin{figure}[hb!]
 \includegraphics[width=6.5in]{figs/intro/03.png}
 \caption
-      [Example Binning Result from a 1D \hnmr NMR Dataset.]{
-  {\bf Example Binning Result from a 1D \hnmr NMR Dataset.}
+      [Example Binning Result from a 1D \hnmr{} NMR Dataset.]{
+  {\bf Example Binning Result from a 1D \hnmr{} NMR Dataset.}
   \\
   Full-resolution ({\bf A}) and adaptively intelligently binned ({\bf B}) 1D
-  \hnmr NMR spectra from a chemometric study of brewed coffee roasts. Spectral
-  color indicates the observation index, and dashed lines indicate bin
+  \hnmr{} NMR spectra from a chemometric study of brewed coffee roasts.
+  Spectral color indicates the observation index, and dashed lines indicate bin
   boundaries. Further discussion of binning may be found in Chapters 3 and 6.
 }
 \end{figure}
@@ -289,10 +290,10 @@ relationships using both bootstrap-based and parametric methods.
 \\\\
 \hyperlink{chapter.8}{Chapter 8} outlines the generation of a set of
 bioinformatic tools to analyze the relationship between the geometry of
-interacting pairs of carbonyls in protein backbones and their \cnmr chemical
+interacting pairs of carbonyls in protein backbones and their \cnmr{} chemical
 shift values \cite{worley:pone2012}. These tools, combined with quantum
 chemical computations, provide strong evidence for the nonexistence of
-\npistar interactions between these carbonyl groups in native protein
+\npistar{} interactions between these carbonyl groups in native protein
 structures.
 \\\\
 Finally, \hyperlink{chapter.9}{Chapter 9} summarizes the solutions provided
