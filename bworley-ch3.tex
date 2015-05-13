@@ -261,9 +261,27 @@ x = a + b u_1 + c u_2 + d u_1 u_2
   + e u_3 + f u_1 u_3 + g u_2 u_3 + h u_1 u_2 u_3
 \end{equation}
 
-In general, any scalar in $\mathbb{H}_D$ -- and therefore any data point in
-a $D$-dimensional quadrature-complete NMR dataset -- shall require $2^D$ real
-coefficients in order to be completely determined. While the hypercomplex
+or, more generally and succinctly:
+
+\begin{equation}
+x = \sum_{\phi \in \Phi_D} x \{ \phi \} \cdot \phi
+\end{equation}
+
+where $x\{\phi\}$ denotes the real coefficient of $x$ that scales the basis
+component $\phi$ in $x$. For the above three-dimensional example, the
+expression $x\{u_1 u_3\}$ would evaluate to $f$. Finally, the expression of
+hypercomplex tensors is formally accomplished by defining each coefficient
+as a real tensor of appropriate size, like so:
+
+\begin{equation}
+x \{ \phi \} \in \mathbb{R}^{k_1 \cdots k_K} \quad \forall \phi \in \Phi_D
+\end{equation}
+
+where $K$ is the number of modes of the tensor. The above equation may be
+compactly written as $\mathbb{H}_D^{k_1 \cdots k_K}$. Any scalar
+in $\mathbb{H}_D$ -- and therefore any data point in a $D$-dimensional
+quadrature-complete NMR dataset -- shall require $2^D$ real coefficients
+in order to be completely determined. While the hypercomplex
 algebras $\mathbb{H}_0$ and $\mathbb{H}_1$ are isomorphic to the real 
 ($\mathbb{R}$) and complex ($\mathbb{C}$) numbers, respectively, $\mathbb{H}_2$
 and $\mathbb{H}_3$ are {\it not} isomorphic to the quaternions and octonions,
@@ -271,6 +289,41 @@ as the latter are noncommutative under multiplication. This hypercomplex
 algebra, introduced for partial-component nonuniform subsampling by Schuyler
 et al. \cite{schuyler:jmr2013}, provides an elegant formalism for expressing
 and handling NMR data.
+\\\\
+Mathematically, 1D NMR free induction decays are described by the following
+commonly used parametric signal model:
+
+\begin{equation}
+F(t) = \sum_{m=1}^M \alpha_m \exp\left\{
+  u_1 \omega_m t + u_1 \theta_m - \rho_m t
+  \right\}
+\end{equation}
+
+where $\alpha_m$, $\omega_m$, $\theta_m$ and $\rho_m$ represent the amplitude,
+frequency, phase error and decay rate of the $m$-th damped quadrature sinusoid
+in the model $F(t)$. Using the above formalism for hypercomplex tensors, this
+signal model is trivially extended to any number of dimensions. For example,
+a 2D FID may be modeled as follows:
+
+\begin{equation}
+F(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
+  u_1 \omega_{m,1} t_1 + u_1 \theta_{m,1} - \rho_{m,2} t_1 +
+  u_2 \omega_{m,1} t_2 + u_2 \theta_{m,2} - \rho_{m,1} t_2
+  \right\}
+\end{equation}
+
+In short, NMR free induction decays may be treated as sums of damped
+hypercomplex exponentials. While it is possible to directly parameterize
+$F(t)$ or $F(t_1, t_2)$ using either maximum likelihood estimation
+\cite{chylla:jbnmr1995,chylla:jbnmr1998,chylla:anchem2011} or Bayesian
+model selection and estimation
+\cite{bretthorst:jmr1990a,
+      bretthorst:jmr1990b,
+      bretthorst:jmr1990c,
+      chylla:jbnmr1993}, this chapter will focus on the soft modeling of
+multiple NMR free induction decays using bilinear matrix factorizations.
+However, such a description of NMR data is useful in understanding various
+processing tasks required by these hypercomplex tensors.
 \end{doublespace}
 
 \subsection{Time-domain Processing}
