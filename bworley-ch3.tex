@@ -330,21 +330,116 @@ model selection and estimation
       bretthorst:jmr1990b,
       bretthorst:jmr1990c,
       chylla:jbnmr1993}, this chapter will focus on the soft modeling of
-multiple NMR free induction decays using bilinear matrix factorizations.
-However, such a description of NMR data is useful in understanding various
+multiple NMR spectra using bilinear matrix factorizations. However, the above
+parametric description of NMR data is useful in understanding various
 processing tasks required by these hypercomplex tensors.
 \end{doublespace}
 
 \subsection{Time-domain Processing}
 
 \begin{doublespace}
-FIXME. Apodization and first-point scaling, digital filtering, zero-filling.
+Processing of acquired NMR data is broken into two stages, where time-domain
+data is manipulated, transformed into the frequency domain, and further
+processed using frequency-domain functions \cite{hoch1996}.
+The most routinely used time-domain NMR processing function -- and the first
+to be applied during processing -- is referred to as apodization, where the
+free induction decay tensor is multiplied pointwise by a window function
+$w(\mathbf{t})$ that varies over $\mathbf{t}$. Multiplication by this window
+function serves several purposes, including noise reduction, resolution
+enhancement, shaping of individual resonances and removal of $\sin(x)/x$
+truncation artifacts in the frequency domain. During apodization, it is also
+common practice to selectively scale the first collected data point in an
+attempt to reduce later frequency-domain baseline distortions
+\cite{stoch:jmr2005,ebel:jmr2006}.
+\\\\
+Following apodization, one or more dimensions of the time-domain NMR data may
+be extended with zeros, a process known as zero-filling. Doubling of the number
+of data points by zero-filling is a well-established method of increasing both
+the digital resolution and the signal-to-noise ratio (SNR) of an NMR signal,
+and further zero-filling only achieves a smoother interpolation of signals in
+the frequency domain \cite{ebel:jmr2006}. A final use of zero-filling is to
+augment the size of a given dimension into a power of two, enabling the use of
+a fast Fourier transform (FFT, \cite{cooley:mcomp1965}) in lieu of the slower
+discrete Fourier transform (DFT) to move the data into the frequency domain.
 \end{doublespace}
 
 \subsection{Frequency-domain Processing}
 
 \begin{doublespace}
-FIXME. DFT, MEM, phasing, referencing.
+When NMR free induction decays have been digitized on a grid of uniformly
+spaced time-domain points, the most convenient method of transforming them
+into the frequency domain is the discrete Fourier transform (DFT,
+\cite{bretthorst:cmr2008,schuyler:jmr2013}). Using the introduced formalism for
+hypercomplex NMR data, the DFT along dimension $d$ of a time-domain vector
+$\mathbf{f} \in \mathbb{H}_D^N$ is defined as:
+
+\begin{equation}
+\mathbf{s}_k = \frac{1}{\sqrt{N}} \sum_{n=0}^{N-1}
+  \exp\left\{ -2 \pi u_d \frac{n k}{N} \right\}
+  \mathbf{f}_n
+  \quad \forall k \in \{ 0, 1, \dots N-1 \}
+\end{equation}
+
+which is a linear transformation
+$\mathcal{F}_d : \mathbb{H}_D^N \to \mathbb{H}_D^N$. Discrete Fourier
+transformation of multidimensional NMR data along one dimension requires the
+application of $\mathcal{F}_d$ to every $d$-mode vector of the hypercomplex
+tensor, and full Fourier transformation requires such an operation along each
+mode of the tensor. Discrete Fourier transformation is computationally
+efficient when using the FFT, and requires no prior knowledge about the
+frequency content of the data. However, when only a subset of data points
+have been collected from a uniform Nyquist grid, as is the case during
+nonuniform sampling (NUS), the DFT is a sub-optimal estimator of frequency
+content, and other non-Fourier methods of transformation are required
+\cite{bretthorst:cmr2008,mobli:pnmrs2014}.
+\\\\
+Once transformed into the frequency domain, NMR spectra require a phase
+correction processing step, in which a phase factor $\Theta(\omega)$ is
+multiplied pointwise with the data to correct for phase errors
+(i.e. $\theta_{m,d}$ terms in $f(\mathbf{t})$) in the data. For example, a
+1D phase-factor along dimension $d$ would have the following form:
+
+\begin{equation}
+\Theta(\omega) = e^{ -u_d \theta(\omega) }
+\end{equation}
+
+Ideally, the detected time-domain free induction decays would arrive in-phase
+with respect to the receiver, and fine tuning of acquisition parameters can
+often accomplish this \cite{chylla:jbnmr1998}.
+However, variations in receiver phase, dead time
+between the transmit and receive gating circuits, and delays arising from
+analog and digital filtering can all introduce phase errors. These phase
+errors mix the in-phase and quadrature components of the hypercomplex signal,
+and produce a mixture of desirable absorptive spectral lines and broad
+dispersive lines between the real and imaginary components of each data point.
+Unmixing of these absorptive and dispersive contributions to the real spectral
+component involves the identification of the phase error $\theta(\omega)$, an
+expansion of phase error terms as powers of $\omega$:
+
+\begin{equation}
+\theta(\omega) = \theta_0 + \theta_1 \omega + \theta_2 \omega^2 + \dots
+\end{equation}
+
+Realistically, phase errors higher than first-order are not observed in modern
+NMR spectra, and phase correction rests on the determination of a zero-order
+phase error ($\theta_0$) and a first-order phase error ($\theta_1$) in each
+dimension. This determination may be performed manually, through
+software-interactive adjustment of zero- and first-order corrections by the
+analyst. However, manual phase correction is generally too time-consuming in
+the case of chemometric studies, where there are tens to hundreds of spectra
+to correct. In that case, the task of phase correction is handed to any number
+of automated routines that correct each spectrum individually. Spectra may be
+automatically phase-corrected by maximization of the most negative absorptive
+data point \cite{siegel:aca1981}, analysis of the absorption-versus-dispersion
+\cite{craig:jmr1988} or symmetry \cite{heuer:jmr1991} characteristics of
+spectral lines, baseline optimization \cite{brown:jmr1989} or entropy
+minimization \cite{chen:jmr2002}, to name a few. It is important to note that,
+when the ultimate fast of the spectral data is multivariate analysis, the
+phase-correction of each spectrum in isolation is wasteful of information that
+is available from treating the dataset as an ensemble \cite{worley:cils2014},
+as phase differences {\it between} spectra non-linearly affect both line shapes
+and baseline, possibly emphasizing spectral details that contain no
+chemically or biochemically relevant information.
 \end{doublespace}
 
 \section{Statistical Treatment}
@@ -376,7 +471,34 @@ FIXME. Warping, global shifting, local shifting. Region selection.
 \subsection{Normalization}
 
 \begin{doublespace}
-FIXME. CS, PQ, HM, SNV, MSC, (cf. PSC).
+Despite the quantitative nature of most spectroscopic platforms, chemometric
+samples exhibit variable total analyte concentrations due to variations in
+sample preparation, instrument stability, or even the samples themselves.
+These ``dilution errors'' are especially common in metabolomics experiments
+using samples of biofluids such as urine, where total concentrations may vary
+several orders of magnitude. To ensure spectral intensities in a data tensor
+are directly comparable across each observation, normalization is applied to
+the tensor \cite{worley:cmb2013}. The most common normalization method used in
+chemometrics is unit-integral or constant-sum (CS) normalization, where each
+observation is scaled such that its total integral is unity
+\cite{craig:anchem2006}. CS normalization does more harm that good, however,
+as it introduces false correlations between variables and poorly tolerates
+large disparities in intensities between each observation.
+\\\\
+In an attempt to overcome the drawbacks of CS normalization, Dieterle et al.
+introduced probabilistic quotient (PQ) normalization, in which the median
+normalization quotient between all corresponding data points is used as an
+estimator of the true dilution factor \cite{dieterle:anchem2006}. Shortly
+after, a method of normalization based on intensity histogram matching (HM)
+was proposed as an alternative to PQ normalization, taking cues from image
+processing algorithms \cite{torgrip:metab2008}. Based on their ability to
+more accurately recover true dilution factors, both PQ and HM normalization
+were reported to outperform CS normalization on real and simulated \hnmr{}
+NMR metabolomics data matrices. Finally, while more commonly applied to
+IR spectroscopic data, standard normal variate (SNV) and its mathematical
+cousin, multiplicative scatter correction (MSC) and also candidate methods
+for normalizing data tensors produced by NMR and other spectroscopies
+\cite{fearn:cils2009}.
 \end{doublespace}
 
 \subsection{Scaling}
