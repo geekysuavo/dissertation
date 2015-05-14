@@ -15,6 +15,7 @@ bworley.pdf:
 	bibtex bworley-ch8
 	bibtex bworley-ch9
 	pdflatex -draftmode bworley
+	pdflatex -draftmode bworley
 	pdflatex bworley
 
 # clean: target to remove all intermediate compilation results.

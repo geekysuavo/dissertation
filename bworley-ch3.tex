@@ -302,8 +302,16 @@ f(t) = \sum_{m=1}^M \alpha_m \exp\left\{
 where $\alpha_m$, $\omega_m$, $\theta_m$ and $\rho_m$ represent the amplitude,
 frequency, phase error and decay rate of the $m$-th damped complex exponential
 in the model $f(t)$. Using the above formalism for hypercomplex tensors, this
-signal model is trivially extended to any number of dimensions. For example,
-a 2D FID may be modeled as follows:
+signal model is trivially extended to any number of dimensions by multiplying
+in a modulation term for each dimension:
+
+\begin{equation}
+f(\mathbf{t}) = \sum_{m=1}^M \alpha_m \prod_{d=1}^D \exp\left\{
+  u_d (\omega_{m,d} t_d + \theta_{m,d}) - \rho_{m,d} t_d
+  \right\}
+\end{equation}
+
+For example, a 2D FID may be modeled as follows:
 
 \begin{equation}
 f(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
@@ -315,7 +323,7 @@ f(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
 
 In short, NMR free induction decays may be treated as sums of damped
 hypercomplex exponentials. While it is possible to directly parameterize
-$f(t)$ or $f(t_1, t_2)$ using either maximum likelihood estimation
+$f(\mathbf{t})$ using either maximum likelihood estimation
 \cite{chylla:jbnmr1995,chylla:jbnmr1998,chylla:anchem2011} or Bayesian
 model selection and estimation
 \cite{bretthorst:jmr1990a,

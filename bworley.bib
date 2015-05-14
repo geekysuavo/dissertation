@@ -2689,6 +2689,17 @@
   pages = {179--187}
 }
 
+% cladistics =================================================================
+
+@article{felsenstein:clad1989,
+  title = {{PHYLIP -- Phylogeny Inference Package (version 3.2)}},
+  author = {Felsenstein, J.},
+  journal = {Cladistics},
+  year = {1989},
+  volume = {5},
+  pages = {164--166}
+}
+
 % clinical biochemistry ======================================================
 
 @article{taylor:clbioc2005,
@@ -5653,6 +5664,18 @@
   pages = {321--337}
 }
 
+@article{benjamini1995,
+  title = {{Controlling the False Discovery Rate: A Practical and
+            Powerful Approach to Multiple Testing}},
+  author = {Benjamini, Yoav and
+            Hochberg, Yosef},
+  journal = {Journal of the Royal Statistical Society},
+  volume = {57},
+  number = {1},
+  year = {1995},
+  pages = {289--300}
+}
+
 @article{richardson:jrss1997,
   title = {{On Bayesian Analysis of Mixtures with an Unknown Number of
             Components}},
@@ -6281,6 +6304,20 @@
   number = {2},
   year = {2000},
   pages = {243--258}
+}
+
+@article{dieterle:mmbio2011,
+  title = {{NMR and MS Methods for Metabonomics}},
+  author = {Dieterle, Frank and
+            Riefke, Bjorn and
+            Schlotterbeck, Gotz and
+            Ross, Alfred and
+            Senn, Hans and
+            Amberg, Alexander},
+  journal = {Methods in Molecular Biology},
+  volume = {691},
+  year = {2011},
+  pages = {385--415}
 }
 
 @article{baker:mmbio2012,
@@ -8382,7 +8419,7 @@
   pages = {1181--1189}
 }
 
-% books/miscellany ===========================================================
+% books ======================================================================
 
 @book{abragam1961,
   title = {{The Principles of Nuclear Magnetism}},
@@ -8405,39 +8442,19 @@
   title = {{Empirical Model-Building and Response Surfaces}},
   author = {Box, G. E. P. and
             Draper, N. R.},
-  year = {1987}
+  publisher = {Wiley},
+  year = {1987},
+  pages = {669}
 }
 
-@book{wold1987,
-  title = {{PLS modeling with latent variables in two or more dimensions}},
-  author = {Wold, Svante},
-  year = {1987}
-}
-
-@inbook{wold1993,
-  title = {{PLS}},
+@book{wold1993,
+  title = {{PLS: Partial Least Squares Projections to Latent Structures}},
   author = {Wold, S. and
             Johansson, E. and
             Cocchi, M.},
+  publisher = {KLUWER ESCOM Science Publisher},
   year = {1993},
   pages = {523--550}
-}
-
-@misc{felsenstein1993,
-  title = {{PHYLIP (Phylogeny Inference Package)}},
-  author = {Felsenstein, J.},
-  year = {1993}
-}
-
-@misc{benjamini1995,
-  title = {{Controlling the False Discovery Rate: A Practical and
-            Powerful Approach to Multiple Testing}},
-  author = {Benjamini, Yoav and
-            Hochberg, Yosef},
-  volume = {57},
-  number = {1},
-  year = {1995},
-  pages = {289--300}
 }
 
 @book{hoch1996,
@@ -8451,7 +8468,11 @@
 
 @book{deberg2000,
   title = {{Computational Geometry: Algorithms and Applications}},
-  author = {{de Berg}, M.},
+  author = {{de Berg}, M. and
+            {van Kreveld}, M. and
+            Overmars, M. and
+            Schwarzkopf, O.},
+  publisher = {Springer},
   year = {2000}
 }
 
@@ -8459,30 +8480,17 @@
   title = {{Principal Component Analysis}},
   author = {Jolliffe, I. T.},
   publisher = {Springer},
-  year = {2002}
+  year = {2002},
+  pages = {488}
 }
 
 @book{koutroumbas2006,
   title = {{Pattern Recognition}},
   author = {Koutroumbas, Konstantinos and
-            Theodoridis, Sergio },
-  year = {2006}
-}
-
-@misc{gpl2,
-  title = {{GNU General Public License, version 2}},
-  howpublished = {\url{http://www.gnu.org/licenses/old-licenses/gpl-2.0.html}},
-  note = {Last retrieved 2015-05-11},
-  year = {1991},
-  month = {June}
-}
-
-@misc{gpl3,
-  title = {{GNU General Public License, version 3}},
-  howpublished = {\url{http://www.gnu.org/licenses/gpl.html}},
-  note = {Last retrieved 2015-05-11},
-  year = {2007},
-  month = {June}
+            Theodoridis, Sergio},
+  publisher = {Academic Press},
+  year = {2006},
+  pages = {984}
 }
 
 @book{levitt2008,
@@ -8498,10 +8506,38 @@
   author = {Eaton, John W. and
             Bateman, David and
             Hauberg, Soren},
+  publisher = {Network Theory Limited},
   year = {2008}
 }
 
-@article{gaussian2009,
+@book{hardle2012,
+  title = {{Applied multivariate statistical analysis}},
+  author = {Hardle, Wolfgang and
+            Simar, Leopold},
+  publisher = {Springer},
+  year = {2012},
+  pages = {516}
+}
+
+% conference proceedings =====================================================
+
+@inproceedings{wold1987,
+  booktitle = {{Partial Least Squares Model Building:
+                Theory and Applications}},
+  title = {{PLS modeling with latent variables in two or more dimensions}},
+  author = {Wold, S. and
+            Hellberg, S. and
+            Lundstedt, T. and
+            Sjostrom, M. and
+            Wold, H.},
+  address = {Frankfurt am Main, Germany},
+  month = {September},
+  year = {1987}
+}
+
+% miscellaneous, software and licenses =======================================
+
+@misc{gaussian2009,
   title = {{Gaussian-09, Revision A.02}},
   author = {M. J. Frisch and
             G. W. Trucks and
@@ -8579,30 +8615,27 @@
   year = {2009}
 }
 
-@article{dieterle2011,
-  title = {{NMR and MS Methods for Metabonomics}},
-  author = {Dieterle, Frank and
-            Riefke, Bjorn and
-            Schlotterbeck, Gotz and
-            Ross, Alfred and
-            Senn, Hans and
-            Amberg, Alexander},
-  volume = {691},
-  year = {2011},
-  pages = {385--415}
-}
-
-@book{hardle2012,
-  title = {{Applied multivariate statistical analysis}},
-  author = {Hardle, Wolfgang and
-            Simar, Leopold},
-  year = {2012},
-  pages = {516}
-}
-
 @misc{wolfram2014,
   title = {{Mathematica}},
   author = {Wolfram Research, Inc.},
   year = {2014}
+}
+
+@misc{gpl2,
+  title = {{GNU General Public License, version 2}},
+  author = {Free Software Foundation},
+  howpublished = {\url{http://www.gnu.org/licenses/old-licenses/gpl-2.0.html}},
+  note = {Last retrieved 2015-05-11},
+  year = {1991},
+  month = {June}
+}
+
+@misc{gpl3,
+  title = {{GNU General Public License, version 3}},
+  author = {Free Software Foundation},
+  howpublished = {\url{http://www.gnu.org/licenses/gpl.html}},
+  note = {Last retrieved 2015-05-11},
+  year = {2007},
+  month = {June}
 }
 
