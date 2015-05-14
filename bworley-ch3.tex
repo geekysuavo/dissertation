@@ -295,7 +295,7 @@ commonly used parametric signal model:
 
 \begin{equation}
 f(t) = \sum_{m=1}^M \alpha_m \exp\left\{
-  u_1 \omega_m t + u_1 \theta_m - \rho_m t
+  u_1 (\omega_m t + \theta_m) - \rho_m t
   \right\}
 \end{equation}
 
@@ -307,8 +307,9 @@ a 2D FID may be modeled as follows:
 
 \begin{equation}
 f(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
-  u_1 \omega_{m,1} t_1 + u_1 \theta_{m,1} - \rho_{m,2} t_1 +
-  u_2 \omega_{m,1} t_2 + u_2 \theta_{m,2} - \rho_{m,1} t_2
+  u_1 (\omega_{m,1} t_1 + \theta_{m,1}) +
+  u_2 (\omega_{m,1} t_2 + \theta_{m,2}) -
+  \rho_{m,1} t_1 - \rho_{m,2} t_2
   \right\}
 \end{equation}
 
