@@ -7,7 +7,7 @@
 Normalization applied directly to hypercomplex NMR data (or its real component)
 is sub-optimal, as even small phase differences between observations can
 frustrate the estimation of normalization factors
-(See \hyperlink{section.3.3.3}{Section 3.3.3}). Possibly worse, blind
+(See \hyperlink{section.3.3}{Section 3.3}). Possibly worse, blind
 normalization of poorly phased spectral data can accentuate experimentally
 irrelevant spectral features in a data tensor during multivariate modeling,
 leading the analyst to erroneous conclusions. These difficulties motivated
@@ -30,8 +30,74 @@ FIXME.
 
 \section{Theory}
 
+\subsection{Multiplicative Scatter Correction}
+
 \begin{doublespace}
-FIXME.
+Phase-scatter correction (PSC) is effectively an extension of multiplicative
+scatter correction (MSC) to handle phase errors during normalization. In MSC,
+each real spectrum is scaled around its mean intensity and shifted to match a
+reference spectrum, typically the mean of the dataset \cite{fearn:cils2009}.
+Optimal normalization factors ($\mathbf{b}$) of a data matrix $\mathbf{X}$ are
+determined by a linear regression of the mean-centered reference vector onto
+the mean-centered matrix:
+
+\begin{equation}
+(\mathbf{X} - \bar{\mathbf{X}})^T \mathbf{b} = (\mathbf{r} - \bar{r})^T
+\end{equation}
+
+where observations are stored as row vectors in $\mathbf{X}$, and $\mathbf{r}$
+is the reference observation row vector. The equation above represents an
+overdetermined system of linear equations, therefore the least-squares estimate
+of $\mathbf{b}$ may be computed rapidly, and MSC is rather computationally
+efficient.
+\end{doublespace}
+
+\subsection{Phase-scatter Correction}
+
+\begin{doublespace}
+PSC additionally corrects zero- and first-order phase errors during
+normalization, requiring a nonlinear optimization of the following objective:
+
+\begin{equation}
+Q(\mathbf{X} | \mathbf{p})
+ = \sum_{n=1}^N \| \mathbf{z}_n \circ \mathbf{x}_n - \mathbf{r} \|_2^2
+\end{equation}
+
+where $\circ$ denotes the element-wise product, the mean-centered matrix
+$\mathbf{X}$ lies in $\mathbb{H}_1^{N \times K}$, the mean-centered reference
+$\mathbf{r}$ lies in $\mathbb{H}_1^K$, and the set of parameters $\mathbf{p}$
+includes a normalization factor and two phase errors per observation
+in $\mathbf{X}$:
+
+\begin{equation}
+\mathbf{p} = \{
+  b_1, \dots b_N,
+  \theta_{0,1}, \dots \theta_{0,N},
+  \theta_{1,1}, \dots \theta_{1,N} \}
+\end{equation}
+
+and each vector $\mathbf{z}_n$ contains the normalization and phase corrections
+for the $n$-th observation $\mathbf{x}_n$:
+
+\begin{equation}
+z_{n,k} = b_n e^{u_1 (\theta_{0,n} + \theta_{1,n} k)}
+\end{equation}
+
+Because the reference observation $\mathbf{r}$ is fixed during optimization,
+minimization of $Q(\mathbf{X} | \mathbf{p})$ may be achieved by independently
+minimizing each observation's contributions. Minimization is carried out for
+every observation in the data matrix using Levenberg-Marquardt nonlinear least
+squares \cite{marquardt:jsiam1963} as implemented by the {\it leasqr} function
+in GNU Octave, a function similar to MATLAB's {\it nlinfit}. Each corrected
+spectrum $\hat{\mathbf{x}}_n$ is then returned from optimization as follows:
+
+\begin{equation}
+\hat{\mathbf{x}}_n = \mathbf{z}_n \circ \mathbf{x}_n + \bar{r}
+\end{equation}
+
+Phase-scatter correction of 50 1D \hnmr{} NMR spectra having 32$k$ complex
+points each requires approximately 30 seconds on a single-core 3.2 GHz Intel
+workstation running GNU Octave 3.6.
 \end{doublespace}
 
 \section{Materials and Methods}
