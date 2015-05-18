@@ -104,7 +104,7 @@ workstation running GNU Octave 3.6.
 \subsection{Ensemble Phase Correction}
 
 \begin{doublespace}
-Unfortunately, the phase-scatter correction objective function
+It is important recognize that the phase-scatter correction objective function
 $Q(\mathbf{X} \mid \mathbf{p})$ provides no measure of ideal phase values,
 meaning that PSC requires an additional phase correction step prior to its
 execution in order to ensure adequate initial conditions. Even when
@@ -141,10 +141,20 @@ as the current mean of the data, $\langle \mathbf{Z} \circ \mathbf{X} \rangle$.
 This floating reference requires the simultaneous optimization of all the
 parameters in $\mathbf{p}$, unlike phase-scatter correction. Efficient
 minimization of $\Lambda(\mathbf{X} \mid \mathbf{p})$ may be accomplished by
-a modified Nelder-Mead simplex optimization, which serially updates the
-simplices of all observations at each global iteration and maintains the
-current mean vector $\langle \mathbf{Z} \circ \mathbf{X} \rangle$ at each
-update.
+a modified Nelder-Mead simplex optimization procedure \cite{nelder:compj1964},
+which serially updates the simplices of all observations at each global
+iteration and maintains the current mean vector
+$\langle \mathbf{Z} \circ \mathbf{X} \rangle$ at each update.
+\\\\
+In contrast to phase-scatter correction, which seeks to minimize the scatter
+of data matrix observations around a fixed reference, ensemble phase correction
+approaches the dilemma of entwined phase and normalization errors from an
+opposing direction by introducing a scatter term into a standard automatic
+phase correction procedure. The amount of normalization achieved by EPC is
+directly controlled by the magnitude of $\lambda$: in the opposite limits of
+$\lambda = 0$ and $\lambda \to \infty$, EPC becomes equivalent to standard
+phase correction and phase-scatter correction with a floating reference,
+respectively.
 \end{doublespace}
 
 \section{Materials and Methods}
