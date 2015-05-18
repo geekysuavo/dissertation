@@ -101,6 +101,52 @@ points each requires approximately 30 seconds on a single-core 3.2 GHz Intel
 workstation running GNU Octave 3.6.
 \end{doublespace}
 
+\subsection{Ensemble Phase Correction}
+
+\begin{doublespace}
+Unfortunately, the phase-scatter correction objective function
+$Q(\mathbf{X} \mid \mathbf{p})$ provides no measure of ideal phase values,
+meaning that PSC requires an additional phase correction step prior to its
+execution in order to ensure adequate initial conditions. Even when
+$\mathbf{X}$ has been suitably phase-corrected, PSC may still attempt to
+minimize scatter between spectra by re-introducing phase errors. This
+undesirable behavior of PSC may be observed when large disparities in
+spectral intensities are present between observations. To correct this,
+a standard phase correction objective
+$f : \mathbb{H}_D^{K} \to \mathbb{R}$ may be combined with
+the PSC objective using a Lagrange multiplier, like so:
+
+\begin{equation}
+\Lambda(\mathbf{X} \mid \mathbf{p}) =
+ -\sum_{n=1}^N f(\boldsymbol{\theta}_n \circ \mathbf{x}_n) +
+ \lambda \sum_{n=1}^N \| \mathbf{z}_n \circ \mathbf{x}_n -
+            \langle \mathbf{Z} \circ \mathbf{X} \rangle \|_2^2
+\end{equation}
+
+where the correction matrix holds the same form as in PSC, expressed as a
+real diagonal matrix of normalization factors $\mathbf{B}$ and a hypercomplex
+matrix of phase factors $\mathbf{\Theta}$:
+
+\begin{equation}
+\mathbf{Z} = \mathbf{B} \mathbf{\Theta}
+\end{equation}
+
+and $\boldsymbol{\theta}_n$ is the $n$-th row of $\mathbf{\Theta}$. The new
+ensemble phase correction (EPC) objective function
+$\Lambda(\mathbf{X} \mid \mathbf{p})$ balances the potentially opposing goals
+of phase correction and scatter correction through the Lagrange multiplier
+$\lambda$, and does not require the specification of a reference observation
+$\mathbf{r}$. In effect, EPC allows its scatter correction reference to float
+as the current mean of the data, $\langle \mathbf{Z} \circ \mathbf{X} \rangle$.
+This floating reference requires the simultaneous optimization of all the
+parameters in $\mathbf{p}$, unlike phase-scatter correction. Efficient
+minimization of $\Lambda(\mathbf{X} \mid \mathbf{p})$ may be accomplished by
+a modified Nelder-Mead simplex optimization, which serially updates the
+simplices of all observations at each global iteration and maintains the
+current mean vector $\langle \mathbf{Z} \circ \mathbf{X} \rangle$ at each
+update.
+\end{doublespace}
+
 \section{Materials and Methods}
 
 \begin{doublespace}
