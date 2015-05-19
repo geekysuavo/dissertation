@@ -42,7 +42,8 @@ determined by a linear regression of the mean-centered reference vector onto
 the mean-centered matrix:
 
 \begin{equation}
-(\mathbf{X} - \bar{\mathbf{X}})^T \mathbf{b} = (\mathbf{r} - \bar{r})^T
+\big( \mathbf{X} - \langle \mathbf{X} \rangle \big)^T \mathbf{b}
+ = \big( \mathbf{r} - \langle \mathbf{r} \rangle \big)^T
 \end{equation}
 
 where observations are stored as row vectors in $\mathbf{X}$, and $\mathbf{r}$
@@ -93,7 +94,9 @@ nonlinear least squares \cite{marquardt:jsiam1963} as implemented by the
 from optimization as follows:
 
 \begin{equation}
-\hat{\mathbf{x}}_n = \mathbf{z}_n \circ \mathbf{x}_n + \bar{r}
+\hat{\mathbf{x}}_n
+ = \mathbf{z}_n \circ \mathbf{x}_n
+ + \langle \mathbf{r} \rangle
 \end{equation}
 
 Phase-scatter correction of 50 1D \hnmr{} NMR spectra having 32$k$ complex
@@ -123,9 +126,9 @@ the PSC objective using a Lagrange multiplier, like so:
             \langle \mathbf{Z} \circ \mathbf{X} \rangle \|_2^2
 \end{equation}
 
-where the correction matrix holds the same form as in PSC, expressed as a
-real diagonal matrix of normalization factors $\mathbf{B}$ and a hypercomplex
-matrix of phase factors $\mathbf{\Theta}$:
+where the correction matrix $\mathbf{Z}$ has the same form as in PSC, expressed
+as a real diagonal matrix of normalization factors $\mathbf{B}$ and a
+hypercomplex matrix of phase factors $\mathbf{\Theta}$:
 
 \begin{equation}
 \mathbf{Z} = \mathbf{B} \mathbf{\Theta}

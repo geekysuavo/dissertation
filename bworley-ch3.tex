@@ -459,12 +459,46 @@ fall into one of the general structures outlined in
 \subsection{Binning}
 
 \begin{doublespace}
-FIXME. Uniform, Optimized, and Intelligent.
+Because the chemical shifts of \hnmr{} nuclei depend strongly on temperature,
+pH, ionic strength, and several other factors that affect their electronic
+environment, spectral datasets acquired for NMR metabolic fingerprinting
+suffer from imprecisions in \hnmr{} chemical shifts between observations.
+This chemical shift imprecision, known as a problem of imperfect correspondence
+among variables in $\mathbf{X}$ \cite{aberg:abc2009}, decreases the reliability
+and interpretability of multivariate bilinear models (e.g. PCA, PLS) trained
+directly on full-resolution spectral data in $\mathbf{X}$. The traditional
+method of mitigating imperfect variable correspondence in a data matrix is
+to partition the original set of variables into a smaller set of regions,
+referred to as ``bins'', and to integrate each bin to yield a data matrix
+having reduced dimensionality.
+\\\\
+While binning masks variable mis-correspondence, filters incoherent spectral
+noise, and achieves substantial dimensionality reduction, it often hides
+potentially significant variation in low-intensity resonances nearby
+strong signals. If bin regions are specified with a uniform size, binning is
+nearly guaranteed to split signals or spectral features into multiple bins,
+resulting in undesirable multicollinearities within the reduced variable set.
+Optimized binning \cite{sousa:cils2013} attempts to avoid dividing signals
+between bins by adjusting uniform bin boundaries into local minima of the
+data matrix mean, $\langle\mathbf{X}\rangle$. However, because optimized
+binning begins with a uniform bin set, its practical ability to minimize peak
+splitting is limited. More complex methods of region identification use either
+peak detection \cite{davis:cils2007} or recursive subdivision
+\cite{demeyer:anchem2008} in order to define a more optimal bin set without
+relying on uniform bin boundaries.
 \end{doublespace}
 
 \subsection{Alignment}
 
 \begin{doublespace}
+Binning capably masks variability in signal positions and provides an effective
+means of dimensionality reduction, but it also results in a drastic loss of
+fine spectral information, as nearby distinct spectral features have been
+integrated together in the process. When full spectral resolution is required
+during model training and interpretation, the correspondence problem in NMR
+and chromatographic datasets may be alternatively addressed by signal alignment
+methods.
+\\\\
 FIXME. Warping, global shifting, local shifting. Region selection.
 \end{doublespace}
 
@@ -496,7 +530,7 @@ more accurately recover true dilution factors, both PQ and HM normalization
 were reported to outperform CS normalization on real and simulated \hnmr{}
 NMR metabolomics data matrices. Finally, while more commonly applied to
 IR spectroscopic data, standard normal variate (SNV) and its mathematical
-cousin, multiplicative scatter correction (MSC) and also candidate methods
+cousin, multiplicative scatter correction (MSC) are also candidate methods
 for normalizing data tensors produced by NMR and other spectroscopies
 \cite{fearn:cils2009}.
 \end{doublespace}
