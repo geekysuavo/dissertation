@@ -434,7 +434,7 @@ data point \cite{siegel:aca1981}, analysis of the absorption-versus-dispersion
 \cite{craig:jmr1988} or symmetry \cite{heuer:jmr1991} characteristics of
 spectral lines, baseline optimization \cite{brown:jmr1989} or entropy
 minimization \cite{chen:jmr2002}, to name a few. It is important to note that,
-when the ultimate fast of the spectral data is multivariate analysis, the
+when the ultimate fate of the spectral data is multivariate analysis, the
 phase-correction of each spectrum in isolation is wasteful of information that
 is available from treating the dataset as an ensemble \cite{worley:cils2014},
 as phase differences {\it between} spectra non-linearly affect both line shapes
@@ -466,15 +466,18 @@ suffer from imprecisions in \hnmr{} chemical shifts between observations.
 This chemical shift imprecision, known as a problem of imperfect correspondence
 among variables in $\mathbf{X}$ \cite{aberg:abc2009}, decreases the reliability
 and interpretability of multivariate bilinear models (e.g. PCA, PLS) trained
-directly on full-resolution spectral data in $\mathbf{X}$. The traditional
-method of mitigating imperfect variable correspondence in a data matrix is
-to partition the original set of variables into a smaller set of regions,
-referred to as ``bins'', and to integrate each bin to yield a data matrix
-having reduced dimensionality.
+directly on full-resolution spectral data in $\mathbf{X}$. Similar errors in
+correspondence may also occur in chromatographic datasets, where small drifts
+in retention time arise from instrumental instability, analyte interactions,
+and fluctuations in mobile phase and stationary phase composition
+\cite{nielsen:jchrom1998}. The traditional method of mitigating imperfect
+variable correspondence in a data matrix is to partition the original set
+of variables into a smaller set of regions, referred to as bins, and
+to integrate each bin to yield a data matrix having reduced dimensionality.
 \\\\
-While binning masks variable mis-correspondence, filters incoherent spectral
-noise, and achieves substantial dimensionality reduction, it often hides
-potentially significant variation in low-intensity resonances nearby
+While binning masks variable mis-correspondence, filters incoherent
+instrumental noise, and achieves substantial dimensionality reduction, it often
+hides potentially significant variation in low-intensity resonances nearby
 strong signals. If bin regions are specified with a uniform size, binning is
 nearly guaranteed to split signals or spectral features into multiple bins,
 resulting in undesirable multicollinearities within the reduced variable set.
@@ -494,12 +497,25 @@ relying on uniform bin boundaries.
 Binning capably masks variability in signal positions and provides an effective
 means of dimensionality reduction, but it also results in a drastic loss of
 fine spectral information, as nearby distinct spectral features have been
-integrated together in the process. When full spectral resolution is required
-during model training and interpretation, the correspondence problem in NMR
-and chromatographic datasets may be alternatively addressed by signal alignment
-methods.
-\\\\
-FIXME. Warping, global shifting, local shifting. Region selection.
+integrated together in the binning process. When full spectral resolution is
+required during model training and interpretation, the correspondence problem
+in NMR and chromatographic datasets may be alternatively addressed by signal
+alignment methods. The most commonly applied alignment algorithms rely on
+either a warping transformation
+\cite{nielsen:jchrom1998,
+      forshed:aca2003,
+      wu:jcim2006} or linear shifts
+\cite{veselkov:anchem2009,
+      savorani:jmr2010,
+      tomasi:jchrom2011} to bring individual variables of each observation
+into alignment with a reference observation, which is usually the mean of
+the data. Warping during alignment is more applicable in situations where
+a linear dependence between variable index (e.g. retention time) and peak
+width is expected. In contrast, shift-based alignment preserves peak width,
+which is ideal for spectroscopic datasets. Like binning, all alignment
+algorithms must first subdivide the variable set into regions that are then
+individually warped or shifted, and considerations similar to those in
+binning apply equally well during alignment region selection.
 \end{doublespace}
 
 \subsection{Normalization}
@@ -538,13 +554,124 @@ for normalizing data tensors produced by NMR and other spectroscopies
 \subsection{Scaling}
 
 \begin{doublespace}
-FIXME. Centering, UV, Pareto, Range, Level, VAST, MALS.
+Because bilinear factorization methods such as PCA and PLS generate models
+based on the eigenstructure of the covariance matrices of $\mathbf{X}$ and
+$\mathbf{Y}$ (vide infra), they are sensitive to the magnitudes of individual
+variables in those matrices. Variables with greater intensity -- and therefore
+greater variance -- in a data matrix will draw the attention of these methods,
+resulting in an unequal weighting of variable importance during model training
+\cite{jolliffe2002,smilde:anchem2005,vandenberg:bmcg2006}. As a consequence,
+analysts commonly apply one or more scaling transformations to their data prior
+to modeling. The simplest and most pervasive method, referred to as Unit
+Variance (UV) scaling, centers each variable with respect to its mean and
+scales by its standard deviation, like so:
+
+\begin{equation}
+\tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{s_k}
+\end{equation}
+
+where $\widetilde{\mathbf{X}}$ is the scaled data matrix, $\bar{x}_k$ is the
+sample mean of the $k$-th variable over all $N$ observations, and $s_k$ is the
+corresponding sample standard deviation. Subtraction of the sample mean
+facilitates the identification of differences between observations, and
+scaling by the sample standard deviation equally weights every variable
+in $\mathbf{X}$. When data are UV-scaled, methods that normally analyze
+covariance eigenstructure will instead rely on {\it scale-invariant}
+correlations between variables. Although UV scaling achieves an equal weighting
+of all variables entering into PCA or PLS, it amplifies the weight of noise
+variables relative to that of signal variables, resulting in decreased model
+utility and reliability \cite{hoefsloot:jchemo2006}. Pareto scaling applies a
+less agressive scaling than UV by retaining partial covariance between
+variables in an attempt to reduce this noise amplification:
+
+\begin{equation}
+\tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{\sqrt{s_k}}
+\end{equation}
+
+A more advanced scaling method that avoids noise amplification uses a maximum
+likelihood scaling transformation (MALS, \cite{hoefsloot:jchemo2006}) that
+accounts for the estimated distribution of noise in $\mathbf{X}$. Other forms
+of scaling have been developed that emphasize various desirable features in
+a data structure. For example, {\it va}riable {\it st}ability (VAST) scaling
+multiplies each element by the coefficient of variation of its variable in
+order to focus on highly stable spectral features:
+
+\begin{equation}
+\tilde{x}_{nk}
+ = \frac{x_{nk} - \bar{x}_k}{s_k} \cdot
+   \frac{\bar{x}_k}{s_k}
+\end{equation}
+
+The alternative level scaling method scales data elements by their sample mean,
+effectively focusing later analyses on changes in relative magnitude:
+
+\begin{equation}
+\tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{\bar{x}_k}
+\end{equation}
+
+However, both VAST and level scaling have a more limited scope of
+application than the general UV, Pareto and MALS methods described above, as
+they yield optimal transformations only on data structures containing the
+features they aim to accentuate. For example, VAST scaling is not suited for
+data tensors that contain large variation between experimental groups, unless
+further steps are taken to VAST-scale on a (supervised) per-group basis.
+\\\\
+A special case for scaling occurs during multiblock modeling when two or more
+data blocks contain differing variable counts. In these situations, data blocks
+having more variables would acquire a larger effective weight during model
+training. For example, joint modeling of full-resolution \hnmr{} NMR data
+($K \approx 10^3$) and mass spectral data ($K \approx 10^5$) would result in
+a weighting of MS variables by a factor of ten relative to NMR variables. To
+achieve equal block weighting, the variables of each block must be scaled by
+the square root of the number of block variables:
+
+\begin{equation}
+\tilde{\tilde{x}}_{bnk} = \frac{\tilde{x}_{bnk}}{\sqrt{K_b}}
+\end{equation}
+
+where the second tilde indicates block scaling in addition to any standard
+scaling (e.g. UV, Pareto) that may have been applied. When all data blocks
+contain analyte concentrations instead of raw spectral variables, range
+scaling may be applied prior to block scaling to remove instrumental response
+factors and transform all concentrations into relative values
+\cite{smilde:anchem2005}:
+
+\begin{equation}
+\tilde{x}_{bnk}
+ = \frac{x_{bnk} - \bar{x}_{bk}}
+        {\max_n(x_{bnk}) - \min_n(x_{bnk})}
+\end{equation}
+
+Range scaling holds intuitive appeal for multiblock modeling of concentration
+data, but its application to other kinds of datasets is ill-advised, as it
+suffers from similar noise amplification problems as UV scaling.
 \end{doublespace}
 
 \subsection{Variable Selection}
 
 \begin{doublespace}
-FIXME. Domain knowledge. SVM, GA, RF.
+Due to the expense of sample preparation and data acquisition in metabolomics
+studies, a strong temptation exists to retain all observed variables during
+multivariate analyses \cite{kjeldahl:jchemo2010}. Because variables are scaled
+to equal (or nearly equal) weight prior to modeling, this practice produces
+multivariate models that suffer in both predictive ability and general
+reliability. In short, only variables that are truly relevant to the chemical
+system under study should be included during modeling. To that end,
+conservative manual removal of irrelevant variables based on spectroscopic
+and biochemical domain knowledge is often performed in metabolomics. \hnmr{}
+NMR datasets, for instance, nearly always contain highly varying signals from
+solvents, buffers, and chemical shift reference compounds, all of which may
+confound or overshadow relevant sources of variation. Variables containing
+such signals, as well as signal-free variables that only contain instrumental
+noise, are excellent candidates for manual variable selection. More
+computationally intensive methods of variable selection, including support
+vector machine recursive feature elimination (SVM-RFE), genetic algorithms
+(GA), random forests (RF) and bootstrapping have also been developed to more
+agressively select variables from multivariate data structures
+\cite{lin:metab2011,wongravee:anchem2009}. While it is important to retain
+only relevant variables for modeling, an over-agressive variable selection
+is equally detrimental, as it leads to over-fit models that may fail to
+tolerate subsequent outlying observations.
 \end{doublespace}
 
 \section{Modeling}
