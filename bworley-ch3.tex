@@ -363,6 +363,22 @@ a fast Fourier transform (FFT, \cite{cooley:mcomp1965}) in lieu of the slower
 discrete Fourier transform (DFT) to move the data into the frequency domain.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/mva/04.png}
+\caption
+      [Commonly Applied Window Functions.]{
+  {\bf Commonly Applied Window Functions.}
+  \\
+  Window functions ({\bf A}) produced from a 3.0 Hz exponential (red), a
+  3.0 Hz Gaussian (green), and a squared-cosine (blue). Discrete Fourier
+  transforms of the window functions in ({\bf A}), zoomed around the first
+  few (low frequency) data points, are shown in ({\bf B}). Multiplication of
+  a time-domain signal by a given window function in ({\bf A}) results in a
+  convolution of its frequency-domain counterpart with the impulse response
+  in ({\bf B}). Frequency values in ({\bf B}) are normalized.
+}
+\end{figure}
+
 \subsection{Frequency-domain Processing}
 
 \begin{doublespace}
@@ -456,6 +472,20 @@ fall into one of the general structures outlined in
 \hyperlink{section.3.2}{Section 3.2}.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/mva/05.png}
+\caption
+      [Example Bin Region Selection Results.]{
+  {\bf Example Bin Region Selection Results.}
+  \\
+  Simulated \hnmr{} NMR spectra of citrate in 20 samples having pH values
+  normally distributed around $6.0 \pm 0.05$ pH units, binned using uniform
+  ({\bf A}, {\bf B}), optimized ({\bf C}, {\bf D}) and adaptive-intelligent
+  ({\bf E}, {\bf F}) algorithms. Results of bin region integration are shown
+  in the bottom panels.
+}
+\end{figure}
+
 \subsection{Binning}
 
 \begin{doublespace}
@@ -490,6 +520,20 @@ peak detection \cite{davis:cils2007} or recursive subdivision
 \cite{demeyer:anchem2008} in order to define a more optimal bin set without
 relying on uniform bin boundaries.
 \end{doublespace}
+
+\begin{figure}[hb!]
+\includegraphics[width=6.5in]{figs/mva/06.png}
+\caption
+      [Example \emph{i}COshift Alignment Results.]{
+  {\bf Example \emph{i}COshift Alignment Results.}
+  \\
+  Full-resolution ({\bf A}) and interval correlation-optimized shifting
+  ({\it i}COshift) aligned ({\bf B}) 1D \hnmr{} NMR spectra from a chemometric
+  study of brewed coffee roasts. Spectral alignment was performed such that
+  each observation was shifted to maximize correlation with its respective
+  group mean. Spectral color indicates the observation index.
+}
+\end{figure}
 
 \subsection{Alignment}
 
@@ -550,6 +594,30 @@ cousin, multiplicative scatter correction (MSC) are also candidate methods
 for normalizing data tensors produced by NMR and other spectroscopic
 platforms \cite{fearn:cils2009}.
 \end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/07.png}
+\caption
+      [Effects of Scaling Noisy Synthetic Spectra.]{
+  {\bf Effects of Scaling Noisy Synthetic Spectra.}
+  \\
+  ({\bf A}) Set of 40 synthetic spectra containing two Lorentzian signals. The
+  first set of signals at 7.0 ppm have normally distributed intensities of
+  $20 \pm 0.5$ absolute units, and the second set at 3.0 ppm are divided into
+  two sets of intensities, the first normally distributed around $25 \pm 0.5$
+  units and the second around $30 \pm 0.5$ units.
+  \\
+  ({\bf B}) The same set of synthetic spectra after subtraction of the sample
+  mean of the data matrix. The two sets of intensities at 3.0 ppm now appear
+  markedly different after centering.
+  \\
+  ({\bf C}) The set of synthetic spectra after unit variance (UV) scaling,
+  illustrating the strong noise amplification effect of the UV method.
+  \\
+  ({\bf D}) The set of synthetic spectra after Pareto scaling, in which noise
+  amplification is reduced relative to UV scaling.
+}
+\end{SCfigure}
 
 \subsection{Scaling}
 
