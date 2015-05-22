@@ -45,7 +45,7 @@ study plants \cite{hall:pcell2002}, bacteria
 The rich information promised by metabolomics does not come without a price,
 and metabolomics experiments are plagued with difficulty. The number of
 small-molecule metabolites in a biofluid, cell lysate, tissue or organ differs
-wildly depending on the organism studied, ranging from several hundered to
+wildly depending on the organism studied, ranging from several hundred to
 hundreds of thousands \cite{dunn:trac2005}. While databases of commonly
 encountered metabolites have been compiled
 \cite{wishart:nar2007,cui:nbiot2008,kind:anchem2009}, they are by no
@@ -343,7 +343,7 @@ data is manipulated, transformed into the frequency domain, and further
 processed using frequency-domain functions \cite{hoch1996}.
 The most routinely used time-domain NMR processing function -- and the first
 to be applied during processing -- is referred to as apodization, where the
-free induction decay tensor is multiplied pointwise by a window function
+free induction decay tensor is multiplied point-wise by a window function
 $w(\mathbf{t})$ that varies over $\mathbf{t}$. Multiplication by this window
 function serves several purposes, including noise reduction, resolution
 enhancement, shaping of individual resonances and removal of $\sin(x)/x$
@@ -395,7 +395,7 @@ content, and other non-Fourier methods of transformation are required
 \\\\
 Once transformed into the frequency domain, NMR spectra require a phase
 correction processing step, in which a phase factor $\Theta(\omega)$ is
-multiplied pointwise with the data to correct for phase errors
+multiplied point-wise with the data to correct for phase errors
 (i.e. $\theta_{m,d}$ terms in $f(\mathbf{t})$) in the data. For example, a
 1D phase-factor along dimension $d$ would have the following form:
 
@@ -462,7 +462,7 @@ fall into one of the general structures outlined in
 Because the chemical shifts of \hnmr{} nuclei depend strongly on temperature,
 pH, ionic strength, and several other factors that affect their electronic
 environment, spectral datasets acquired for NMR metabolic fingerprinting
-suffer from imprecisions in \hnmr{} chemical shifts between observations.
+suffer from imprecision in \hnmr{} chemical shifts between observations.
 This chemical shift imprecision, known as a problem of imperfect correspondence
 among variables in $\mathbf{X}$ \cite{aberg:abc2009}, decreases the reliability
 and interpretability of multivariate bilinear models (e.g. PCA, PLS) trained
@@ -547,8 +547,8 @@ were reported to outperform CS normalization on real and simulated \hnmr{}
 NMR metabolomics data matrices. Finally, while more commonly applied to
 IR spectroscopic data, standard normal variate (SNV) and its mathematical
 cousin, multiplicative scatter correction (MSC) are also candidate methods
-for normalizing data tensors produced by NMR and other spectroscopies
-\cite{fearn:cils2009}.
+for normalizing data tensors produced by NMR and other spectroscopic
+platforms \cite{fearn:cils2009}.
 \end{doublespace}
 
 \subsection{Scaling}
@@ -581,7 +581,7 @@ correlations between variables. Although UV scaling achieves an equal weighting
 of all variables entering into PCA or PLS, it amplifies the weight of noise
 variables relative to that of signal variables, resulting in decreased model
 utility and reliability \cite{hoefsloot:jchemo2006}. Pareto scaling applies a
-less agressive scaling than UV by retaining partial covariance between
+less aggressive scaling than UV by retaining partial covariance between
 variables in an attempt to reduce this noise amplification:
 
 \begin{equation}
@@ -669,7 +669,7 @@ vector machine recursive feature elimination (SVM-RFE), genetic algorithms
 (GA), random forests (RF) and bootstrapping have also been developed to more
 aggressively select variables from multivariate data structures
 \cite{lin:metab2011,wongravee:anchem2009}. While it is important to retain
-only relevant variables for modeling, an over-agressive variable selection
+only relevant variables for modeling, an over-aggressive variable selection
 is equally detrimental, as it leads to over-fit models that may fail to
 tolerate subsequent outlying observations.
 \end{doublespace}
