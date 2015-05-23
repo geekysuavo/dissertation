@@ -33,7 +33,18 @@ the model `error', or variation in the measured data that is not
 captured or described by the model. The ultimate goal of the analyst is to
 generate a set of measured data $\mathbf{D}$ and construct a model
 $f(\mathbf{D})$ that best describes that data (i.e. such that
-$||f(\mathbf{D})|| \gg ||\mathbf{E}||$). Chemometrics is intimately connected
+$||f(\mathbf{D})|| \gg ||\mathbf{E}||$). The above general equation describes
+a case of ``unsupervised'' chemometric modeling of the dataset $\mathbf{D}$,
+but analysts may also choose to construct a supervised model, where the data
+are used to predict a set of known responses $\mathbf{R}$:
+
+\begin{equation*}
+\mathbf{R} = g(\mathbf{D}) + \mathbf{E}'
+\end{equation*}
+
+where the model $g(\mathbf{D})$ extracts information from the dataset that best
+describes $\mathbf{R}$, and the model error $\mathbf{E}'$ holds the differences
+between the known and modeled responses. Chemometrics is intimately connected
 with the chemical systems it aims to describe, and thus the exact choice
 of mathematical model and statistical framework depends heavily on the
 particular problem, the data at hand, and the specific chemical information

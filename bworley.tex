@@ -20,12 +20,20 @@
 \usepackage{adjustbox}
 \usepackage[labelfont=bf]{caption}
 \usepackage{sidecap}
+\usepackage[chapter]{algorithm}
+\usepackage{algorithmic}
 
 % reference sections are typically un-numbered chapter headings, which don't
 % work with what we need to do in the thesis. this changes the bibliography
 % into a numbered section heading with the title `References'.
 \patchcmd{\thebibliography}{\chapter*}{\section}{}{}
 \renewcommand{\bibname}{References}
+
+% the algorithmic package doesn't quite have what we want, so these commands
+% change the \REQUIRE and \ENSURE commands into 'Inputs' and 'Outputs',
+% respectively.
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 % define the margins and turn off indentation.
 \setlength{\textwidth}{6.5in}

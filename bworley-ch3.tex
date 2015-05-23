@@ -774,9 +774,24 @@ approximated by a set of $A$ rank-1 matrices that are constructed by the
 outer products of each pair of scores and loadings. Because $A$ is commonly
 much less than either $N$ or $K$, these bilinear factorizations are also
 referred to as low-rank approximations of their data matrices.
-\\\\
-It is important to note that nearly every data matrix modeled by equation (3.x)
-in metabolomics contains far fewer observations than variables
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/mva/08.png}
+\caption
+      [Example Three-component Bilinear Low-rank Approximation.]{
+  {\bf Example Three-component Bilinear Low-rank Approximation.}
+  \\
+  Depiction of a three-component bilinear low-rank approximation
+  $\mathbf{T} \mathbf{P}^T$ of a data matrix $\mathbf{X}$ having
+  residuals $\mathbf{E}$, with each outer product of the approximation
+  broken out.
+}
+\end{figure}
+
+\begin{doublespace}
+It is important to note that nearly every data matrix modeled by equation
+(3.20) in metabolomics contains far fewer observations than variables
 (i.e. $N \ll K$) \cite{worley:cmb2013}. In this situation, there are infinitely
 many solutions to the equation that yield the same error $\mathbf{E}$. This is
 easily demonstrated by multiplying the scores and loadings by an orthonormal
@@ -795,9 +810,9 @@ where $\hat{\mathbf{T}} = \mathbf{T} \mathbf{R}$ and
 $\hat{\mathbf{P}} = \mathbf{P} \mathbf{R}$. A similar expansion of the solution
 set may be accomplished by multiplying the scores by a diagonal $A \times A$
 matrix, and multiplying the loadings by the inverse of the same diagonal
-matrix. This equivalence of an infinite number of solutions to equation (3.x),
-known as the problems of rotational and scale ambiguity, is solved by placing
-constraints on the values that scores and loadings may take
+matrix. This equivalence of an infinite number of solutions to equation
+(3.20), known as the problems of rotational and scale ambiguity, is solved by
+placing constraints on the values that scores and loadings may take
 \cite{dejuan:aca1997,jolliffe2002}. The choice of constraints defines a
 particular bilinear factorization method as unique, and determines what
 kind of information is sought from a data matrix using that method.
@@ -806,10 +821,120 @@ kind of information is sought from a data matrix using that method.
 \subsection{Principal Component Analysis}
 
 \begin{doublespace}
+In principal component analysis (PCA), which exactly follows equation (3.20),
+the loading vectors in $\mathbf{P}$ are constrained to be an orthonormal basis
+set. More precisely, the loadings produced by PCA are not just any orthonormal
+basis, but are in fact the first $A$ eigenvectors of the sample covariance
+matrix $\mathbf{X}^T \mathbf{X}$. In chemometrics, the most commonly used
+algorithm for constructing PCA models is nonlinear iterative partial least
+squares (NIPALS, \cite{geladi:aca1986}):
+\end{doublespace}
+
+\begin{algorithm}
+\caption{NIPALS Algorithm for PCA}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$, $\mathbf{p} \in \mathbb{R}^K$
+\STATE $\mathbf{t}^{(0)} \sim U_{N \times 1}$
+\STATE $k \gets 1$
+\REPEAT
+  \STATE $\mathbf{p}^{(k)} \propto \mathbf{X}^T \mathbf{t}^{(k-1)}$
+  \STATE $\mathbf{t}^{(k)} \gets \mathbf{X} \mathbf{p}^{(k)}$
+  \STATE $k \gets k + 1$
+\UNTIL{
+  $\frac{\| \mathbf{t}^{(k)} - \mathbf{t}^{(k-1)} \|_2}
+        {\| \mathbf{t}^{(k-1)} \|_2} < \varepsilon$
+}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/09.png}
+\caption
+      [Principal Components of Synthetic Bivariate Data.]{
+  {\bf Principal Components of Synthetic Bivariate Data.}
+  \\
+  ({\bf A}) Set of 50 points drawn from a bivariate normal distribution,
+  and the corresponding principal components computed by eigendecomposition
+  of the points' sample covariance matrix. Bold and thin arrows indicate the
+  normalized and un-normalized loadings, respectively.
+  \\
+  ({\bf B}) Set of 100 points drawn from two bivariate normal distributions
+  having different means, where the major source of variation in the data is
+  orthogonal to the direction that separates the two groups.
+  \\
+  ({\bf C}) Set of 100 points drawn from two bivariate normal distributions
+  having different means, where the major source of variation is parallel to
+  the direction that separates the groups.
+}
+\end{SCfigure}
+
+\begin{doublespace}
+where $\gets$ indicates assignment, and $\propto$ indicates normalized
+assignment. In others words, the following two statements:
+
+\begin{equation*}
+a \propto b \quad \Leftrightarrow \quad a \gets \frac{b}{\|b\|_2}
+\end{equation*}
+
+are in fact equivalent. In summary, NIPALS PCA initializes a score vector from
+a uniform random distribution, and repeatedly projects the rows and columns of
+$\mathbf{X}$ into the score and loading vectors until the scores converge to
+a predefined limit $\varepsilon$. By substituting the scores assignment into
+the loadings assignment, we arrive at the following iteration equation:
+
+\begin{equation}
+\mathbf{p}^{(k)} \gets
+ \frac
+  {\mathbf{X}^T \mathbf{X} \mathbf{p}^{(k-1)}}
+  {\| \mathbf{X}^T \mathbf{X} \mathbf{p}^{(k-1)} \|_2}
+\end{equation}
+
+which is the equation for power iteration on $\mathbf{X}^T \mathbf{X}$
+\cite{golub2012}. Indeed, the NIPALS algorithm implicitly computes the
+dominant eigenvector $\mathbf{p}$ of the $K \times K$ sample covariance
+matrix, with a corresponding eigenvalue $\mathbf{t}^T \mathbf{t}$. The above
+algorithm computes a single principal component of $\mathbf{X}$ in the form
+of $\mathbf{t}$ and $\mathbf{p}$. In order to compute a second component,
+the first component's contributions must be subtracted from $\mathbf{X}$,
+a step referred to as ``deflation'':
+
+\begin{equation}
+\mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T
+\end{equation}
+
+Re-application of the NIPALS algorithm to the deflated matrix $\mathbf{X}'$
+will then produce the second principal component of the original data matrix
+$\mathbf{X}$. This process of power iteration and deflation is repeated until
+an optimal number of components $A^\ast$ is reached.
+\end{doublespace}
+
+\subsubsection{PCA for Unsupervised Modeling}
+
+\begin{doublespace}
+From the algebraic properties of PCA, an intuitive geometric picture may be
+constructed (Figure 3.9). In essence, PCA determines the directions within
+a data matrix -- the principal components -- that contain the greatest sources
+of variation in that matrix (3.9A), where each direction is constrained
+to be orthogonal to all previous directions. When observations in $\mathbf{X}$
+fall into two or more experimental groups, they produce different clustering
+patterns in the PCA scores $\mathbf{T}$. When the within-group variation in
+one or more groups is the major source of variation in $\mathbf{X}$, PCA will
+fail to effectively separate the groups in scores space (3.9B). However, when
+the between-group variation significantly contributes to the total variation
+in $\mathbf{X}$, the groups will be well-separated (3.9C). Thus, PCA is a
+powerful method of identifying major trends among variables in a data matrix,
+as well as general relationships between observations, and does not bias its
+results based on class identity.
+\end{doublespace}
+
+\subsubsection{PCA for Outlier Detection}
+
+\begin{doublespace}
 FIXME.
 \end{doublespace}
 
-\subsection{Principal Component Regression}
+\subsubsection{PCA for Multiple Linear Regression}
 
 \begin{doublespace}
 FIXME.
