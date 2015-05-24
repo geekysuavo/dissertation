@@ -4,6 +4,7 @@
 % include a metric crap-tonne of latex packages. the most important bit here
 % is the metadata specified during loading the hyperref package. you'll want
 % to change the pdfauthor and pdftitle fields to suit your purposes.
+\usepackage{float}
 \usepackage{array}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -170,6 +171,10 @@ Copyright \copyright{} 2015 Bradley Worley
 % write a list of tables and add a link to it in the table of contents.
 \listoftables
 \addcontentsline{toc}{chapter}{List of Tables}
+
+% write a list of algorithms and add a link to it in the table of contents.
+\listofalgorithms
+\addcontentsline{toc}{chapter}{List of Algorithms}
 
 % big crunch.
 \end{document}

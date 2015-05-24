@@ -23,7 +23,7 @@ bworley.pdf:
 clean:
 	rm -f bworley.pdf
 	rm -f bworley.aux bworley.log bworley.out
-	rm -f bworley.toc bworley.lof bworley.lot
+	rm -f bworley.toc bworley.loa bworley.lof bworley.lot
 	rm -f bworley-ch01.aux bworley-ch01.bbl bworley-ch01.blg
 	rm -f bworley-ch02.aux bworley-ch02.bbl bworley-ch02.blg
 	rm -f bworley-ch03.aux bworley-ch03.bbl bworley-ch03.blg
