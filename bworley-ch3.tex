@@ -918,21 +918,108 @@ a data matrix -- the principal components -- that contain the greatest sources
 of variation in that matrix (3.9A), where each direction is constrained
 to be orthogonal to all previous directions. When observations in $\mathbf{X}$
 fall into two or more experimental groups, they produce different clustering
-patterns in the PCA scores $\mathbf{T}$. When the within-group variation in
-one or more groups is the major source of variation in $\mathbf{X}$, PCA will
-fail to effectively separate the groups in scores space (3.9B). However, when
-the between-group variation significantly contributes to the total variation
-in $\mathbf{X}$, the groups will be well-separated (3.9C). Thus, PCA is a
-powerful method of identifying major trends among variables in a data matrix,
-as well as general relationships between observations, and does not bias its
-results based on class identity.
+patterns in the PCA scores $\mathbf{T}$. In cases where the within-group
+variation in one or more groups is the major source of variation in
+$\mathbf{X}$, PCA will fail to effectively separate the groups in scores space
+(3.9B). However, when the between-group variation significantly contributes to
+the total variation in $\mathbf{X}$, the groups will be well-separated (3.9C).
+Thus, PCA is a powerful method of identifying major trends among variables in
+a data matrix, as well as general relationships between observations, and does
+not bias its results based on class identity. For a description of methods to
+quantify separations between experimental groups in PCA scores space, see
+\hyperlink{chapter.7}{Chapter 7}.
 \end{doublespace}
 
 \subsubsection{PCA for Outlier Detection}
 
 \begin{doublespace}
-FIXME.
+During data handling, it is common practice to exclude outlying observations,
+when warranted by the analysis, in order to ensure relevant information
+extraction. In the univariate case, the sample mean $\bar{x}$ and sample
+standard deviation $s$ may be estimated from a data vector $\mathbf{x}$,
+which may then be standardized into a set of Mahalanobis distances
+$\mathbf{d}$:
+
+\begin{equation}
+d_n = \frac{x_n - \bar{x}}{s}
+ \quad \forall n \in \{1, 2, \dots N\}
+\end{equation}
+
+These distances in $\mathbf{d}$ may be transformed into $t$ statistics and
+compared to critical values of a $t$-distribution using a run plot in order
+to visually detect outliers \cite{chambers1983}. In the multivariate case,
+the sample mean vector $\bar{\mathbf{x}} \in \mathbb{R}^K$ and the sample
+variance-covariance matrix $\mathbf{S} \in \mathbb{R}^{K \times K}$ of the
+data matrix $\mathbf{X} \in \mathbb{R}^{N \times K}$ must first be computed:
+\begin{align}
+\bar{\mathbf{x}} =& \: N^{-1} \sum_{n=1}^N \mathbf{x}_n \\
+\mathbf{S} =& \: (N - 1)^{-1} \mathbf{X}^T \mathbf{X}
+\end{align}
+
+where $\mathbf{x}_n$ is the $n$-th observation row vector in $\mathbf{X}$.
+The set of squared Mahalanobis distances may then be computed as follows
+\cite{demaesschalck:cils2000}:
+
+\begin{equation}
+d_n^2 =
+ (\mathbf{x}_n - \bar{\mathbf{x}}) \mathbf{S}^{-1}
+ (\mathbf{x}_n - \bar{\mathbf{x}})^T
+ \quad \forall n \in \{1, 2, \dots N\}
+\end{equation}
+
+Once again, each squared distance may be compared to a critical value from a
+$T^2$-distribution to assess the probability that its corresponding observation
+is an outlier. The above procedure fails in practice, because the covariance
+matrix is severely rank-deficient, and thus non-invertible (i.e. $N \ll K$).
+To ensure a stable inversion of the covariance matrix, the data matrix may be
+approximated using PCA (i.e. $\mathbf{X} \approx \mathbf{T} \mathbf{P}^T$),
+where the number of principal components is less than the rank of the data
+matrix. Using the orthonormality property of PCA loadings, squared Mahalanobis
+distances may again be obtained from the PCA scores:
+
+\begin{equation}
+d_n^2 =
+ \mathbf{t}_n
+ \left( \frac{\mathbf{T}^T \mathbf{T}}{N - 1} \right)^{-1}
+ \mathbf{t}_n^T
+ \quad \forall n \in \{1, 2, \dots N\}
+\end{equation}
+
+where $\mathbf{t}_n$ is the $n$-th row of the scores matrix $\mathbf{T}$.
+Because the matrix $\mathbf{T}^T \mathbf{T}$ is diagonal, it is trivially
+inverted and calculation of each $d_n^2$ is greatly simplified. Mahalanobis
+distances computed using PCA scores are close approximations of their true
+values in the original high-dimensional space \cite{demaesschalck:cils2000},
+and provide a means of outlier detection in high-dimensional data
+(Figure 3.10). Outliers may be visually identified from scatter plots of PCA
+scores (3.10B) or from run plots of their corresponding squared Mahalanobis
+distances (3.10C). In both cases, the squared Mahalanobis distance is compared
+to the $\chi^2$ distribution at a preselected significance $\alpha$ and $A$
+degrees of freedom.
 \end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/10.png}
+\caption
+      [PCA for Outlier Testing.]{
+  {\bf PCA for Outlier Testing.}
+  \\
+  ({\bf A}) Set of 40 spectra, generated identically to those in Figure 3.7,
+  with the exception of observation 20, which contains an extra Lorentzian
+  signal at 6.8 ppm.
+  \\
+  ({\bf B}) Principal Component Analysis scores plot of the spectral data,
+  showing the 68.3\% ($1\sigma$), 95.5\% ($2\sigma$) and 99.7\% ($3\sigma$)
+  confidence regions as dashed, thin and bold ellipses, respectively. Point
+  colorings indicate relative squared Mahalanobis distances, ranging from blue
+  to red as $d^2$ increases.
+  \\
+  ({\bf C}) Run plot of squared Mahalanobis distances computed from PCA scores
+  of the spectral data, again illustrating the one-, two- and three-$\sigma$
+  thresholds for outlier detection. Point colorings indicate relative squared
+  Mahalanobis distances.
+}
+\end{SCfigure}
 
 \subsubsection{PCA for Multiple Linear Regression}
 
