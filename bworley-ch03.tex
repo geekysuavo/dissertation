@@ -1025,19 +1025,316 @@ degrees of freedom \cite{hotelling:ams1931,worley:abio2013}.
 \subsubsection{PCA for Multiple Linear Regression}
 
 \begin{doublespace}
-FIXME.
+Often, a data matrix $\mathbf{X} \in \mathbb{R}^{N \times K}$ is used within
+the context of a multiple linear regression to determine a set of regression
+coefficients $\mathbf{B} \in \mathbb{R}^{K \times M}$ that best recapitulate
+a set of responses $\mathbf{Y} \in \mathbb{R}^{N \times M}$ using the data in
+$\mathbf{X}$:
+
+\begin{equation}
+\mathbf{Y} = \mathbf{X} \mathbf{B} + \mathbf{E}
+\end{equation}
+
+In which case the ordinary least squares (OLS) estimator of the regression
+coefficients is obtained from inversion of the normal equations
+\cite{draper1998}:
+
+\begin{equation}
+\hat{\mathbf{B}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
+\end{equation}
+
+The OLS regression coefficients $\hat{\mathbf{B}}$ minimize the sum of squares
+of the residual matrix, $\|\mathbf{E}\|_F^2$, and are maximum likelihood
+estimates of $\mathbf{B}$ when the errors are independent and identically
+normally distributed \cite{draper1998}. However, the fact that $N \ll K$ yet
+again makes the matrix $\mathbf{X}^T \mathbf{X}$ non-invertible, forcing the
+analyst down a different path. By replacing the data matrix with its PCA
+approximation in the regression equation:
+
+\begin{equation}
+\mathbf{Y} = \mathbf{T} \mathbf{P}^T \mathbf{B} + \mathbf{E}'
+\end{equation}
+
+it is possible to obtain OLS estimates of the regression coefficients:
+\begin{align}
+\hat{\mathbf{B}}'
+ =& \: (\mathbf{P} \mathbf{T}^T \mathbf{T} \mathbf{P}^T)^{-1}
+       \mathbf{P} \mathbf{T}^T \mathbf{Y}
+ \nonumber \\
+ =& \: \mathbf{P} (\mathbf{T}^T \mathbf{T})^{-1} \mathbf{T}^T \mathbf{Y}
+ \\
+ =& \: \mathbf{P} \hat{\mathbf{G}}
+\end{align}
+
+where the matrix $\hat{\mathbf{G}} \in \mathbb{R}^{A \times M}$ is the set of
+OLS regression coefficient estimates in PCA scores space:
+
+\begin{equation}
+\mathbf{Y} = \mathbf{T} \mathbf{G} + \mathbf{E}'
+\end{equation}
+
+By computing the least-squares estimates of the regression coefficients in the
+low-dimensional PCA scores space and projecting those estimates into the
+original high-dimensional space, this technique of principal component
+regression (PCR, \cite{jolliffe2002}) sidesteps the curse of dimensionality
+during estimation. Furthermore, the variances of PCR-estimated coefficients
+$\hat{\mathbf{B}}'$ are lower than those of the original OLS estimates
+$\hat{\mathbf{B}}$. The PCR method will fail to obtain useful estimates,
+however, when response-correlated information in the data matrix is not
+a major source of variation (cf. Figure 3.9B). In such cases, methods such
+as PLS must be used instead.
 \end{doublespace}
 
 \subsection{Partial Least Squares}
 
 \begin{doublespace}
-FIXME.
+Partial least squares (PLS) approaches the high-dimensional multiple linear
+regression problem introduced in equation (3.30) by approximating both
+$\mathbf{X}$ \emph{and} $\mathbf{Y}$ using bilinear factorizations
+\cite{wold:cils2001}:
+\begin{align}
+\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
+\mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
+           =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
+\end{align}
+
+where the last equality indicates that the $\mathbf{X}$-scores are highly
+correlated with the $\mathbf{Y}$-scores, and are therefore good predictors
+of $\mathbf{Y}$. The most commonly applied algorithm for PLS is once again
+NIPALS-based, and is shown below:
+\end{doublespace}
+
+\begin{algorithm}
+\caption{NIPALS Algorithm for PLS}
+\label{algorithm.3.2}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$,%
+       $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
+      $\:\mathbf{p} \in \mathbb{R}^K$,%
+      $\:\mathbf{w} \in \mathbb{R}^K$,%
+      $\:\mathbf{u} \in \mathbb{R}^N$,%
+      $\:\mathbf{c} \in \mathbb{R}^M$
+\STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
+}
+\REPEAT
+  \STATE $\mathbf{w} \propto \mathbf{X}^T \mathbf{u}$
+  \STATE $\mathbf{t} \gets \mathbf{X} \mathbf{w}$
+  \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
+                                 {\mathbf{c}^T \mathbf{c}}$
+\UNTIL{$\tau < \varepsilon$}
+\STATE $\mathbf{p} \gets \tfrac{\mathbf{X}^T \mathbf{t}}
+                               {\mathbf{t}^T \mathbf{t}}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
+where $\tau$ equals the score convergence value:
+
+\begin{equation}
+\tau = \frac{\| \mathbf{t}^{(k)} - \mathbf{t}^{(k-1)} \|_2}
+            {\| \mathbf{t}^{(k-1)} \|_2}
+\end{equation}
+
+and iteration superscripts have been dropped for readability. Backtracking the
+iteration assignments now produces a different iteration equation:
+
+\begin{equation}
+\mathbf{w}^{(k)} \gets \frac{
+    \mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X} \mathbf{w}^{(k-1)}
+}{
+ \| \mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X} \mathbf{w}^{(k-1)} \|_2
+}
+\end{equation}
+
+which is the equation for power iteration on the cross-covariance matrix
+$\mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X}$. The NIPALS PLS algorithm
+computes the dominant eigenvector $\mathbf{w}$ of the cross-covariances between
+the data and responses. As in PCA, computation of subsequent PLS components is
+achieved by deflating the data and response matrices:
+\begin{align}
+\mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T \\
+\mathbf{Y}' \gets \mathbf{Y} - \mathbf{t} \mathbf{c}^T
+\end{align}
+
+and re-applying NIPALS on $\mathbf{X}'$ and $\mathbf{Y}'$. Unlike PCA, the PLS
+loadings $\mathbf{P}$ are not orthogonal, and the $\mathbf{X}$-scores are
+instead obtained through a linear transformation by a set of non-orthogonal
+`weights' $\mathbf{W}^\ast \in \mathbb{R}^{K \times A}$, like so:
+
+\begin{equation}
+\mathbf{T} = \mathbf{X} \mathbf{W}^\ast
+\end{equation}
+
+This allows PLS to be rewritten into the form of a multiple linear regression
+model:
+\begin{align}
+\mathbf{Y} =& \: \mathbf{X} \mathbf{W}^\ast \mathbf{C}^T + \mathbf{F} \\
+           =& \: \mathbf{X} \hat{\mathbf{B}}_{PLS} + \mathbf{F} \nonumber
+\end{align}
+
+These weights $\mathbf{W}^\ast$, which directly relate to $\mathbf{X}$, may be
+computed from the orthonormal weights $\mathbf{W}$ returned from NIPALS through
+the following transformation \cite{manne:cils1987}:
+
+\begin{equation}
+\mathbf{W}^\ast = \mathbf{W} (\mathbf{P}^T \mathbf{W})^{-1}
+\end{equation}
 \end{doublespace}
 
 \subsection{Orthogonal Projections to Latent Structures}
 
 \begin{doublespace}
-FIXME.
+The PLS modeling framework expresses the data and response matrices as a pair
+of low-rank bilinear factorizations, where the data scores $\mathbf{T}$ hold
+variation in the data that is $\mathbf{Y}$-predictive, as well as variation
+that compensates for the $\mathbf{Y}$-uncorrelated portion of the data. As a
+result, PLS models typically require more components than response matrix
+columns. In other words, $A^\ast \ge M$ for any PLS model, where the two are
+equal if and only if no $\mathbf{Y}$-uncorrelated variation is present in
+$\mathbf{X}$. This presence of `compensatory correlations' in PLS scores
+confounds interpretation of scores and loadings produced by such
+non-parsimonious PLS models.
+\\\\
+One potential solution proposed to deal with $\mathbf{Y}$-uncorrelated
+variation, known as orthogonal signal correction
+(OSC, \cite{boulet:cils2012,westerhuis:cils2001}), removes variation in the
+data matrix that is not correlated to the responses using an orthogonal
+projection that reveals $\mathbf{Y}$-predictive variation:
+\begin{align}
+\mathbf{X_p}
+ =& \: \mathbf{X} - \mathbf{T_o} \mathbf{P_o}^T \\
+ =& \: \left(
+  \mathbf{I} - \mathbf{T_o}
+  (\mathbf{T_o}^T \mathbf{T_o})^{-1}
+  \mathbf{T_o}^T \right) \mathbf{X}
+\end{align}
+
+where the $\mathbf{Y}$-orthogonal scores
+$\mathbf{T_o} \in \mathbb{R}^{N \times A_o}$ and loadings
+$\mathbf{P_o} \in \mathbb{R}^{K \times A_o}$ may be estimated using a variety
+of algorithms \cite{boulet:cils2012}. However, OSC methods tend to suffer from
+problems of overfitting, and PLS models trained on data matrices that have been
+filtered by OSC are also at risk of being over-fit \cite{trygg:jchemo2002}. As
+an alternative to direct methods of orthogonal signal correction, a modified
+NIPALS PLS algorithm -- orthogonal projections to latent structures
+(OPLS) -- was proposed. Instead of removing \emph{all}
+$\mathbf{Y}$-uncorrelated variation in $\mathbf{X}$ prior to PLS modeling,
+OPLS only removes $\mathbf{Y}$-uncorrelated variation that interferes with
+predictive PLS components, effectively partitioning the variation in the data
+matrix into a set of $A_p$ predictive components and a set of $A_o$ orthogonal
+components:
+\begin{align}
+\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T +
+                 \mathbf{T_o} \mathbf{P_o}^T + \mathbf{E} \\
+\mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
+           =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
+\end{align}
+
+The addition of OSC to NIPALS PLS in the form of OPLS is described in the
+following algorithm:
+\end{doublespace}
+
+\begin{algorithm}[H]
+\caption{NIPALS Algorithm for OPLS}
+\label{algorithm.3.3}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$,%
+       $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
+      $\:\mathbf{p} \in \mathbb{R}^K$,%
+      $\:\mathbf{w} \in \mathbb{R}^K$,%
+      $\:\mathbf{T_o} \in \mathbb{R}^{N \times a}$,%
+      $\:\mathbf{P_o} \in \mathbb{R}^{K \times a}$,%
+      $\:\mathbf{W_o} \in \mathbb{R}^{K \times a}$,%
+      $\:\mathbf{u} \in \mathbb{R}^N$,%
+      $\:\mathbf{c} \in \mathbb{R}^M$
+\FORALL{$m \in \{1, 2, \dots M\}$}
+  \STATE $\mathbf{v}_m \gets \tfrac{\mathbf{X}^T \mathbf{y}_m}
+                                   {\mathbf{y}_m^T \mathbf{y}_m}$
+  \STATE $\mathbf{V} \gets [\mathbf{V}, \; \mathbf{v}_m]$
+\ENDFOR
+\STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
+}
+\STATE done $\gets$ \FALSE
+\STATE $\mathbf{X_p} \gets \mathbf{X}$
+\STATE $a \gets 0$
+\WHILE{\NOT done}
+  \REPEAT
+    \STATE $\mathbf{w} \propto \mathbf{X_p}^T \mathbf{u}$
+    \STATE $\mathbf{t} \gets \mathbf{X_p} \mathbf{w}$
+    \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}$
+    \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
+                                   {\mathbf{c}^T \mathbf{c}}$
+  \UNTIL{$\tau < \varepsilon$}
+  \STATE $\mathbf{p} \gets \tfrac{\mathbf{X_p}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{z} \gets \mathbf{p}$
+  \FORALL{$m \in \{1, 2, \dots M\}$}
+    \STATE $\mathbf{z} \gets \mathbf{z} -
+            \tfrac{\mathbf{v}_m^T \mathbf{z}}
+                  {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m$
+  \ENDFOR
+  \STATE $\mathbf{w_o} \propto \mathbf{z}$
+  \STATE $\mathbf{t_o} \gets \mathbf{X_p} \mathbf{w_o}$
+  \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{X_p}^T \mathbf{t_o}}
+                                   {\mathbf{t_o}^T \mathbf{t_o}}$
+  \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p_o} \|_2}$
+  \IF{$\lambda > \lambda_{th}$}
+    \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
+    \STATE $\mathbf{P_o} \gets [\mathbf{P_o}, \; \mathbf{p_o}]$
+    \STATE $\mathbf{W_o} \gets [\mathbf{W_o}, \; \mathbf{w_o}]$
+    \STATE $\mathbf{X_p} \gets \mathbf{X_p} - \mathbf{t_o} \mathbf{p_o}^T$
+    \STATE $a \gets a + 1$
+  \ELSE
+    \STATE done $\gets$ \TRUE
+  \ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
+where $\tau$ is again the convergence value for $\mathbf{t}$. The above OPLS
+algorithm computes one predictive (PLS) component in the vectors $\mathbf{t}$
+and $\mathbf{p}$, and $a$ orthogonal components in $\mathbf{T_o}$ and
+$\mathbf{P_o}$. While the above algorithm appears considerably more complicated
+than those for PCA or PLS, it is essentially a PLS algorithm (lines 10--16)
+that has been wrapped in an OSC filter (main `done' loop). At each execution
+of the main loop, a single PLS component is computed on the current predictive
+data matrix, $\mathbf{X_p}$. If a new orthogonal component may be obtained from
+this PLS component that contains significant variation
+(i.e. $\lambda > \lambda_{th}$), it is added to the set of orthogonal
+components and subtracted from $\mathbf{X_p}$, from which an updated PLS
+component is computed. As in PCA and PLS, computation of subsequent OPLS
+component sets is achieved by first deflating the data and response matrices:
+\begin{align}
+\mathbf{X}' \gets& \: \mathbf{X} -
+ \mathbf{t} \mathbf{p}^T -
+ \mathbf{T_o} \mathbf{P_o}^T \\
+\mathbf{Y}' \gets& \: \mathbf{Y} - \mathbf{t} \mathbf{c}^T
+\end{align}
+
+and then re-applying NIPALS on $\mathbf{X}'$ and $\mathbf{Y}'$. Like PLS, the
+OPLS equations may also be written in the form of a multiple linear regression:
+
+\begin{equation}
+\mathbf{Y} =
+ \left( \mathbf{X} - \mathbf{T_o} \mathbf{P_o}^T \right)
+ \mathbf{W}^\ast \mathbf{C}^T + \mathbf{F}
+\end{equation}
+
+It is important to note that OPLS does not outperform PLS in prediction
+\cite{tapp:trac2009}, but merely provides a more easily interpretable,
+parsimonious model for the analyst. In fact, predictions made by OPLS
+models having $A_p$ predictive components and $A_o$ orthogonal components
+are identical to those made by PLS models having $A_p + A_o$ components.
+Also, when the data matrix contains no $\mathbf{Y}$-uncorrelated variation,
+OPLS and PLS will produce identical models.
 \end{doublespace}
 
 \subsection{Multiblock PCA and PLS}
