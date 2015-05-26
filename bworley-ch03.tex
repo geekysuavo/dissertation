@@ -830,13 +830,15 @@ algorithm for constructing PCA models is nonlinear iterative partial least
 squares (NIPALS, \cite{geladi:aca1986}):
 \end{doublespace}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{NIPALS Algorithm for PCA}
 \label{algorithm.3.1}
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$, $\mathbf{p} \in \mathbb{R}^K$
-\STATE $\mathbf{t}^{(0)} \sim U_{N \times 1}$
+\STATE $\mathbf{t}^{(0)} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{t}$ may also be initialized to a column of $\mathbf{X}$
+}
 \STATE $k \gets 1$
 \REPEAT
   \STATE $\mathbf{p}^{(k)} \propto \mathbf{X}^T \mathbf{t}^{(k-1)}$
@@ -1104,7 +1106,7 @@ of $\mathbf{Y}$. The most commonly applied algorithm for PLS is once again
 NIPALS-based, and is shown below:
 \end{doublespace}
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{NIPALS Algorithm for PLS}
 \label{algorithm.3.2}
 \begin{algorithmic}[1]
@@ -1284,7 +1286,7 @@ following algorithm:
   \STATE $\mathbf{t_o} \gets \mathbf{X_p} \mathbf{w_o}$
   \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{X_p}^T \mathbf{t_o}}
                                    {\mathbf{t_o}^T \mathbf{t_o}}$
-  \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p_o} \|_2}$
+  \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p} \|_2}$
   \IF{$\lambda > \lambda_{th}$}
     \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
     \STATE $\mathbf{P_o} \gets [\mathbf{P_o}, \; \mathbf{p_o}]$
@@ -1337,7 +1339,174 @@ Also, when the data matrix contains no $\mathbf{Y}$-uncorrelated variation,
 OPLS and PLS will produce identical models.
 \end{doublespace}
 
-\subsection{Multiblock PCA and PLS}
+\subsection{Consensus PCA}
+
+\begin{doublespace}
+In analogy to PCA, which seeks directions of maximum variation (loadings) in a
+data matrix, the consensus PCA (CPCA-W,
+\cite{westerhuis:jchemo1998,smilde:jchemo2003}) seeks
+a set of `consensus' loadings $\mathbf{P_b}$ that contain a maximum amount
+of variation in each of the $B$ provided data blocks $\mathbf{X_b}$ while
+retaining variation relating each block to the others. In essence, CPCA-W
+returns a PCA `super-model' for the matrix of concatenated blocks $\mathbf{X}$
+and a PCA block model for each individual block $\mathbf{X_b}$:
+\begin{align}
+\mathbf{X} =& \: [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}] \\
+\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
+\mathbf{X_b} =& \: \mathbf{T_b} \mathbf{P_b}^T + \mathbf{E_b}
+ \quad \forall b \in \{1, 2, \dots B\}
+\end{align}
+
+The NIPALS algorithm for CPCA-W, shown below, returns a pair of super-scores
+$\mathbf{t}$ and super-loadings $\mathbf{p}$ that relate to the matrix of
+concatenated blocks, as well as a pair of block scores $\mathbf{t_b}$ and
+block loadings $\mathbf{p_b}$ for each of the $B$ provided blocks:
+\end{doublespace}
+
+\begin{algorithm}[H]
+\caption{NIPALS Algorithm for CPCA-W}
+\label{algorithm.3.4}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X_b} \in \mathbb{R}^{N \times K_b}
+          \quad \forall b \in \{1, 2, \dots B\}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
+      $\:\mathbf{p} \in \mathbb{R}^K$,%
+      $\:\mathbf{w} \in \mathbb{R}^B$,%
+      $\:\mathbf{t_b} \in \mathbb{R}^N$,%
+      $\:\mathbf{p_b} \in \mathbb{R}^K \quad \forall b \in \{1, 2, \dots B\}$
+\STATE $\mathbf{X} \gets
+        [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}]$
+\STATE $\mathbf{t} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{t}$ may also be initialized to a column of $\mathbf{X}$
+}
+\REPEAT
+  \FORALL{$b \in \{1, 2, \dots B\}$}
+    \STATE $\mathbf{p_b} \propto \mathbf{X_b}^T \mathbf{t}$
+    \STATE $\mathbf{t_b} \gets \mathbf{X_b} \mathbf{p_b}$
+  \ENDFOR
+  \STATE $\mathbf{R} \gets [\mathbf{t_1}, \; \dots \mathbf{t_B}]$
+  \STATE $\mathbf{w} \propto \tfrac{\mathbf{R}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
+\UNTIL{$\tau < \varepsilon$}
+\FORALL{$b \in \{1, 2, \dots B\}$}
+  \STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}$
+\ENDFOR
+\STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
+where $\tau$ relates to the convergence value of the super-scores
+$\mathbf{t}$ as in standard PCA. Computation of subsequent components requires
+the deflation of each data block, like so:
+
+\begin{equation}
+\mathbf{X_b}' \gets \mathbf{X_b} - \mathbf{t} \mathbf{p_b}^T
+ \quad \forall b \in \{1, 2, \dots B\}
+\end{equation}
+
+When block scaling is applied to each data block, the super-scores and
+super-loadings produced by CPCA-W of the blocks will be equivalent to scores
+and loadings from PCA of the concatenated matrix
+\cite{westerhuis:jchemo1998,smilde:jchemo2003}. Thus, the super-loadings
+from CPCA-W are again the set of eigenvectors of the sample covariance matrix
+of $\mathbf{X}$. The loadings of each individual block are the projections of
+the super-scores onto that block (cf. line 13 of the above equation). As a
+result, each block model describes block-specific variation that is correlated
+to the `consensus directions' of the combined set of blocks.
+\end{doublespace}
+
+\subsection{Multiblock PLS}
+
+\begin{doublespace}
+Several extensions of PLS \cite{westerhuis:jchemo1998} have been proposed for
+problems of high-dimensional multiple linear regression of multiple data
+blocks against a single matrix of responses. However, one particular extension,
+known as multiblock PLS (MB-PLS), was described \cite{westerhuis:jchemo1997}
+that has several attractive features. Like CPCA-W, MB-PLS constructs a
+`super-model' that relates the concatenated set of $B$ blocks to the response
+matrix $\mathbf{Y}$, but concomitantly breaks each block into its own model
+that describes that block's contribution to $\mathbf{Y}$-prediction:
+\begin{align}
+\mathbf{X} =& \: [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}] \\
+\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
+\mathbf{X_b} =& \: \mathbf{T_b} \mathbf{P_b}^T + \mathbf{E_b}
+ \quad \forall b \in \{1, 2, \dots B\} \\
+\mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
+           =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
+\end{align}
+
+While the practical calculation of MB-PLS models is usually performed by
+extracting block models from a PLS model trained on $\mathbf{X}$, the
+original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
+\end{doublespace}
+
+\begin{algorithm}[H]
+\caption{NIPALS Algorithm for MB-PLS}
+\label{algorithm.3.5}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X_b} \in \mathbb{R}^{N \times K_b}
+          \quad \forall b \in \{1, 2, \dots B\}$,%
+       $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
+      $\:\mathbf{p} \in \mathbb{R}^K$,%
+      $\:\mathbf{w} \in \mathbb{R}^B$,%
+      $\:\mathbf{u} \in \mathbb{R}^N$,%
+      $\:\mathbf{c} \in \mathbb{R}^M$,%
+      $\:\mathbf{t_b} \in \mathbb{R}^N$,%
+      $\:\mathbf{p_b} \in \mathbb{R}^K$,%
+      $\:\mathbf{w_b} \in \mathbb{R}^K
+       \quad \forall b \in \{1, 2, \dots B\}$
+\STATE $\mathbf{X} \gets
+        [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}]$
+\STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
+}
+\REPEAT
+  \FORALL{$b \in \{1, 2, \dots B\}$}
+    \STATE $\mathbf{w_b} \propto \mathbf{X_b}^T \mathbf{u}$
+    \STATE $\mathbf{t_b} \gets \mathbf{X_b} \mathbf{w_b}$
+  \ENDFOR
+  \STATE $\mathbf{R} \gets [\mathbf{t_1}, \; \dots \mathbf{t_B}]$
+  \STATE $\mathbf{w} \propto \mathbf{R}^T \mathbf{u}$
+  \STATE $\mathbf{t} \gets \tfrac{\mathbf{R} \mathbf{w}}
+                                 {\mathbf{w}^T \mathbf{w}}$
+  \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
+                                 {\mathbf{c}^T \mathbf{c}}$
+\UNTIL{$\tau < \varepsilon$}
+\FORALL{$b \in \{1, 2, \dots B\}$}
+  \STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}$
+\ENDFOR
+\STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
+where $\tau$ once again relates to the convergence value of the super-scores
+$\mathbf{t}$. Computation of subsequent components requires the deflation of
+each data block using super-scores \cite{westerhuis:jchemo1997}, like so:
+\begin{align}
+\mathbf{X_b}' \gets& \: \mathbf{X_b} - \mathbf{t} \mathbf{p_b}^T
+ \quad \forall b \in \{1, 2, \dots B\} \\
+\mathbf{Y}' \gets& \: \mathbf{Y} - \mathbf{t} \mathbf{c}^T
+\end{align}
+
+It can be shown \cite{westerhuis:jchemo1998} that MB-PLS using block scaling
+and super-score deflation produces an identical super-model to that obtained
+by PLS modeling of the concatenated matrix $\mathbf{X}$, which indicates that
+the super-loadings produced by MB-PLS are still eigenvectors of the matrix of
+cross-covariances between $\mathbf{X}$ and $\mathbf{Y}$. Thus, MB-PLS provides
+the analyst with a standard PLS model that descibes how the joint data in
+$\mathbf{X}$ predict $\mathbf{Y}$, as well as how each individual data block
+contributes to the joint prediction.
+\end{doublespace}
+
+\subsection{Multiblock OPLS}
 
 \begin{doublespace}
 FIXME.
