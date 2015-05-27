@@ -1263,35 +1263,34 @@ following algorithm:
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
 }
 \STATE done $\gets$ \FALSE
-\STATE $\mathbf{X_p} \gets \mathbf{X}$
+\STATE $\mathbf{E} \gets \mathbf{X}$
 \STATE $a \gets 0$
 \WHILE{\NOT done}
   \REPEAT
-    \STATE $\mathbf{w} \propto \mathbf{X_p}^T \mathbf{u}$
-    \STATE $\mathbf{t} \gets \mathbf{X_p} \mathbf{w}$
+    \STATE $\mathbf{w} \propto \mathbf{E}^T \mathbf{u}$
+    \STATE $\mathbf{t} \gets \mathbf{E} \mathbf{w}$
     \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
                                    {\mathbf{t}^T \mathbf{t}}$
     \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
                                    {\mathbf{c}^T \mathbf{c}}$
   \UNTIL{$\tau < \varepsilon$}
-  \STATE $\mathbf{p} \gets \tfrac{\mathbf{X_p}^T \mathbf{t}}
+  \STATE $\mathbf{p} \gets \tfrac{\mathbf{E}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}$
   \STATE $\mathbf{z} \gets \mathbf{p}$
-  \FORALL{$m \in \{1, 2, \dots M\}$}
-    \STATE $\mathbf{z} \gets \mathbf{z} -
-            \tfrac{\mathbf{v}_m^T \mathbf{z}}
-                  {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m$
-  \ENDFOR
+  \STATE $\mathbf{z} \gets \mathbf{z} -
+          \tfrac{\mathbf{v}_m^T \mathbf{z}}
+                {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m
+          \quad \forall m \in \{1, 2, \dots M\}$
   \STATE $\mathbf{w_o} \propto \mathbf{z}$
-  \STATE $\mathbf{t_o} \gets \mathbf{X_p} \mathbf{w_o}$
-  \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{X_p}^T \mathbf{t_o}}
+  \STATE $\mathbf{t_o} \gets \mathbf{E} \mathbf{w_o}$
+  \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{E}^T \mathbf{t_o}}
                                    {\mathbf{t_o}^T \mathbf{t_o}}$
   \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p} \|_2}$
   \IF{$\lambda > \lambda_{th}$}
     \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
     \STATE $\mathbf{P_o} \gets [\mathbf{P_o}, \; \mathbf{p_o}]$
     \STATE $\mathbf{W_o} \gets [\mathbf{W_o}, \; \mathbf{w_o}]$
-    \STATE $\mathbf{X_p} \gets \mathbf{X_p} - \mathbf{t_o} \mathbf{p_o}^T$
+    \STATE $\mathbf{E} \gets \mathbf{E} - \mathbf{t_o} \mathbf{p_o}^T$
     \STATE $a \gets a + 1$
   \ELSE
     \STATE done $\gets$ \TRUE
@@ -1308,7 +1307,7 @@ $\mathbf{P_o}$. While the above algorithm appears considerably more complicated
 than those for PCA or PLS, it is essentially a PLS algorithm (lines 10--16)
 that has been wrapped in an OSC filter (main `done' loop). At each execution
 of the main loop, a single PLS component is computed on the current predictive
-data matrix, $\mathbf{X_p}$. If a new orthogonal component may be obtained from
+data matrix, $\mathbf{E}$. If a new orthogonal component may be obtained from
 this PLS component that contains significant variation
 (i.e. $\lambda > \lambda_{th}$), it is added to the set of orthogonal
 components and subtracted from $\mathbf{X_p}$, from which an updated PLS
@@ -1339,6 +1338,21 @@ Also, when the data matrix contains no $\mathbf{Y}$-uncorrelated variation,
 OPLS and PLS will produce identical models.
 \end{doublespace}
 
+\subsubsection{O2PLS}
+
+\begin{doublespace}
+While the above NIPALS OPLS algorithm is designed to handle matrix-$\mathbf{Y}$
+multivariate regression problems, its creators have championed the O2PLS
+\cite{trygg:jchemo2003} method instead of OPLS in such situations. Whereas OPLS
+is a unidirectional (i.e. $\mathbf{X} \mapsto \mathbf{Y}$) regression method,
+the bidirectional O2PLS method considers neither matrix to be special, and
+decomposes each matrix into a `local' or `unique' component and a `joint'
+component (i.e. $\mathbf{X} \leftrightarrow \mathbf{Y}$). The O2PLS modeling
+framework provides an unsupervised means of analyzing relationships between
+two spectral data matrices, where variation exists in each matrix that is
+uncorrelated to the other.
+\end{doublespace}
+
 \subsection{Consensus PCA}
 
 \begin{doublespace}
@@ -1352,7 +1366,7 @@ returns a PCA `super-model' for the matrix of concatenated blocks $\mathbf{X}$
 and a PCA block model for each individual block $\mathbf{X_b}$:
 \begin{align}
 \mathbf{X} =& \: [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}] \\
-\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
+           =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X_b} =& \: \mathbf{T_b} \mathbf{P_b}^T + \mathbf{E_b}
  \quad \forall b \in \{1, 2, \dots B\}
 \end{align}
@@ -1389,11 +1403,10 @@ block loadings $\mathbf{p_b}$ for each of the $B$ provided blocks:
                                    {\mathbf{t}^T \mathbf{t}}$
   \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
 \UNTIL{$\tau < \varepsilon$}
-\FORALL{$b \in \{1, 2, \dots B\}$}
-  \STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
-                                   {\mathbf{t}^T \mathbf{t}}$
-\ENDFOR
 \STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
+\STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}
+        \quad \forall b \in \{1, 2, \dots B\}$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1431,7 +1444,7 @@ matrix $\mathbf{Y}$, but concomitantly breaks each block into its own model
 that describes that block's contribution to $\mathbf{Y}$-prediction:
 \begin{align}
 \mathbf{X} =& \: [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}] \\
-\mathbf{X} =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
+           =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X_b} =& \: \mathbf{T_b} \mathbf{P_b}^T + \mathbf{E_b}
  \quad \forall b \in \{1, 2, \dots B\} \\
 \mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
@@ -1452,15 +1465,14 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
        $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
       $\:\mathbf{p} \in \mathbb{R}^K$,%
-      $\:\mathbf{w} \in \mathbb{R}^B$,%
       $\:\mathbf{u} \in \mathbb{R}^N$,%
       $\:\mathbf{c} \in \mathbb{R}^M$,%
+      $\:\mathbf{w} \in \mathbb{R}^B$,%
       $\:\mathbf{t_b} \in \mathbb{R}^N$,%
       $\:\mathbf{p_b} \in \mathbb{R}^K$,%
       $\:\mathbf{w_b} \in \mathbb{R}^K
        \quad \forall b \in \{1, 2, \dots B\}$
-\STATE $\mathbf{X} \gets
-        [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}]$
+\STATE $\mathbf{X} \gets [\mathbf{X_1}, \; \dots \mathbf{X_B}]$
 \STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
 }
@@ -1471,18 +1483,16 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
   \ENDFOR
   \STATE $\mathbf{R} \gets [\mathbf{t_1}, \; \dots \mathbf{t_B}]$
   \STATE $\mathbf{w} \propto \mathbf{R}^T \mathbf{u}$
-  \STATE $\mathbf{t} \gets \tfrac{\mathbf{R} \mathbf{w}}
-                                 {\mathbf{w}^T \mathbf{w}}$
+  \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
   \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}$
   \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
                                  {\mathbf{c}^T \mathbf{c}}$
 \UNTIL{$\tau < \varepsilon$}
-\FORALL{$b \in \{1, 2, \dots B\}$}
-  \STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
-                                   {\mathbf{t}^T \mathbf{t}}$
-\ENDFOR
 \STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
+\STATE $\mathbf{p_b} \gets \tfrac{\mathbf{X_b}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}
+        \quad \forall b \in \{1, 2, \dots B\}$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1509,8 +1519,136 @@ contributes to the joint prediction.
 \subsection{Multiblock OPLS}
 
 \begin{doublespace}
+While MB-PLS provides a powerful framework for multiblock multivariate
+regression problems, it suffers from the same shortcomings of PLS when
+$\mathbf{Y}$-uncorrelated variation exists in one or more data blocks
+\cite{lofstedt:jchemo2011,lofstedt2012}. To address this flaw in MB-PLS,
+the generalized OnPLS multiblock modeling framework, which extends O2PLS to
+$n$ data blocks, was developed \cite{lofstedt2012}. Like in O2PLS, no matrix
+in OnPLS is special, and all matrices are regressed against all others in a
+complete association graph (Figure 3.11A). While such complete connectivity
+may be useful during unsupervised modeling, it is an overcomplication in
+the multiblock regression schemes normally handled in metabolomics. Because
+each data block need only predict a single block of responses (Figure 3.11B),
+the proposed multiblock OPLS (MB-OPLS) method is a more suitable candidate.
+\\\\
+Multiblock OPLS decomposes each block $\mathbf{X_b}$ into a set of
+$\mathbf{Y}$-predictive scores and loadings, as well as a set of
+$\mathbf{Y}$-uncorrelated scores and loadings that would normally
+interfere with MB-PLS predictions:
+\end{doublespace}
+\begin{align}
+\mathbf{X} =& \: [\mathbf{X_1}, \; \mathbf{X_2}, \; \dots \mathbf{X_B}] \\
+           =& \: \mathbf{T} \mathbf{P}^T +
+                 \mathbf{T_o} \mathbf{P_o}^T + \mathbf{E} \\
+\mathbf{X_b} =& \: \mathbf{T_b} \mathbf{P_b}^T +
+                   \mathbf{T_{b,o}} \mathbf{P_{b,o}}^T + \mathbf{E_b}
+ \quad \forall b \in \{1, 2, \dots B\} \\
+\mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
+           =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
+\end{align}
+
+\begin{doublespace}
+The proposed MB-OPLS algorithm is based on NIPALS MB-PLS, with an added
+OPLS-type OSC filter that removes $\mathbf{Y}$-uncorrelated variation from
+super-loadings. Deflation of predictive and orthogonal components from each
+block is achieved using super-scores, as in the above MB-PLS algorithm.
+\end{doublespace}
+
+\begin{algorithm}[H]
+\caption{NIPALS Algorithm for MB-OPLS}
+\label{algorithm.3.6}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X_b} \in \mathbb{R}^{N \times K_b}
+          \quad \forall b \in \{1, \dots B\}$,%
+       $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
+\ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
+      $\:\mathbf{p} \in \mathbb{R}^K$,%
+      $\:\mathbf{u} \in \mathbb{R}^N$,%
+      $\:\mathbf{c} \in \mathbb{R}^M$,%
+      $\:\mathbf{w} \in \mathbb{R}^B$, \\
+      $\:\mathbf{t_b} \in \mathbb{R}^N$,%
+      $\:\mathbf{p_b} \in \mathbb{R}^K$,%
+      $\:\mathbf{w_b} \in \mathbb{R}^K
+       \quad \forall b \in \{1, \dots B\}$ \\
+      $\:\mathbf{T_{b,o}} \in \mathbb{R}^{N \times a}$,%
+      $\:\mathbf{P_{b,o}} \in \mathbb{R}^{K \times a}$,%
+      $\:\mathbf{W_{b,o}} \in \mathbb{R}^{K \times a}
+       \quad \forall b \in \{1, \dots B\}$
+\STATE $\mathbf{X} \gets [\mathbf{X_1}, \dots \mathbf{X_B}]$
+\STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
+  $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
+}
+\STATE done $\gets$ \FALSE
+\STATE $a \gets 0$
+\STATE $\mathbf{E} \gets \mathbf{X}$
+\STATE $\mathbf{E_b} \gets \mathbf{X_b}
+        \quad \forall b \in \{1, \dots B\}$
+\WHILE{\NOT done}
+  \REPEAT
+    \FORALL{$b \in \{1, \dots B\}$}
+      \STATE $\mathbf{w_b} \propto \mathbf{E_b}^T \mathbf{u}$
+      \STATE $\mathbf{t_b} \gets \mathbf{E_b} \mathbf{w_b}$
+      \STATE $\mathbf{p_b} \gets \tfrac{\mathbf{E_b}^T \mathbf{t_b}}
+                                       {\mathbf{t_b}^T \mathbf{t_b}}$
+    \ENDFOR
+    \STATE $\mathbf{R} \gets [\mathbf{t_1}, \dots \mathbf{t_B}]$
+    \STATE $\mathbf{w} \propto \mathbf{R}^T \mathbf{u}$
+    \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
+    \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}$
+    \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
+                                   {\mathbf{c}^T \mathbf{c}}$
+  \UNTIL{$\tau < \varepsilon$}
+  \STATE $\mathbf{p} \gets \tfrac{\mathbf{E}^T \mathbf{t}}
+                                 {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{z} \gets \mathbf{p}$
+  \STATE $\mathbf{z} \gets \mathbf{z} -
+          \tfrac{\mathbf{v}_m^T \mathbf{z}}
+                {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m
+          \quad \forall m \in \{1, \dots M\}$
+  \STATE $\mathbf{w_o} \propto \mathbf{z}$
+  \STATE $\mathbf{t_o} \gets \mathbf{E} \mathbf{w_o}$
+  \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{E}^T \mathbf{t_o}}
+                                   {\mathbf{t_o}^T \mathbf{t_o}}$
+  \STATE $\mathbf{p_{b,o}} \gets \tfrac{\mathbf{E_b}^T \mathbf{t_o}}
+                                       {\mathbf{t_o}^T \mathbf{t_o}}
+          \quad \forall b \in \{1, \dots B\}$
+  \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p} \|_2}$
+  \IF{$\lambda < \lambda_{th}$}
+    \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
+    \STATE $\mathbf{P_o} \gets [\mathbf{P_o}, \; \mathbf{p_o}]$
+    \STATE $\mathbf{W_o} \gets [\mathbf{W_o}, \; \mathbf{w_o}]$
+    \STATE $\mathbf{E} \gets \mathbf{E} - \mathbf{t_o} \mathbf{p_o}^T$
+    \STATE $\mathbf{E_b} \gets \mathbf{E_b} - \mathbf{t_o} \mathbf{p_{b,o}}^T
+            \quad \forall b \in \{1, \dots B\}$
+    \STATE $a \gets a + 1$
+  \ELSE
+    \STATE done $\gets$ \TRUE
+  \ENDIF
+\ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
 FIXME.
 \end{doublespace}
+
+\begin{figure}[ht!]
+\begin{center}
+  \includegraphics[width=5.5in]{figs/mva/11.png}
+\end{center}
+\caption
+      [Association Graphs for OnPLS and MB-OPLS.]{
+  {\bf Association Graphs for OnPLS and MB-OPLS.}
+  \\
+  ({\bf A}) Completely connected graph of nPLS and OnPLS regression models,
+  illustrating how no single matrix is considered unique during training.
+  ({\bf B}) Sparsely connected acyclic graph of MB-PLS and MB-OPLS regression
+  models, where each data block $\mathbf{X_b}$ predicts a set of responses in
+  the unique matrix $\mathbf{Y}$.
+}
+\end{figure}
 
 \section{Validation}
 
