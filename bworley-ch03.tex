@@ -945,7 +945,7 @@ $\mathbf{d}$:
 
 \begin{equation}
 d_n = \frac{x_n - \bar{x}}{s}
- \quad \forall n \in \{1, 2, \dots N\}
+ \quad \forall n \in \{1, \dots N\}
 \end{equation}
 
 These distances in $\mathbf{d}$ may be transformed into $t$ statistics and
@@ -967,7 +967,7 @@ The set of squared Mahalanobis distances may then be computed as follows
 d_n^2 =
  (\mathbf{x}_n - \bar{\mathbf{x}}) \mathbf{S}^{-1}
  (\mathbf{x}_n - \bar{\mathbf{x}})^T
- \quad \forall n \in \{1, 2, \dots N\}
+ \quad \forall n \in \{1, \dots N\}
 \end{equation}
 
 Once again, each squared distance may be compared to a critical value from a
@@ -985,7 +985,7 @@ d_n^2 =
  \mathbf{t}_n
  \left( \frac{\mathbf{T}^T \mathbf{T}}{N - 1} \right)^{-1}
  \mathbf{t}_n^T
- \quad \forall n \in \{1, 2, \dots N\}
+ \quad \forall n \in \{1, \dots N\}
 \end{equation}
 
 where $\mathbf{t}_n$ is the $n$-th row of the scores matrix $\mathbf{T}$.
@@ -1572,8 +1572,7 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
       $\:\mathbf{w} \in \mathbb{R}^B$, \\
       $\:\mathbf{t}_b \in \mathbb{R}^N$,%
       $\:\mathbf{p}_b \in \mathbb{R}^K$,%
-      $\:\mathbf{w}_b \in \mathbb{R}^K
-       \quad \forall b \in \{1, \dots B\}$ \\
+      $\:\mathbf{w}_b \in \mathbb{R}^K$,%
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
        \quad \forall b \in \{1, \dots B\}$
@@ -1695,8 +1694,7 @@ to extract block-level models from super-model scores and loadings.
       $\:\mathbf{T_o} \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o} \in \mathbb{R}^{K \times a}$, \\
       $\:\mathbf{t}_b \in \mathbb{R}^N$,%
-      $\:\mathbf{p}_b \in \mathbb{R}^K
-       \quad \forall b \in \{1, \dots B\}$ \\
+      $\:\mathbf{p}_b \in \mathbb{R}^K$,%
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
        \quad \forall b \in \{1, \dots B\}$
