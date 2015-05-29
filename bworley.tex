@@ -145,6 +145,18 @@ Copyright \copyright{} 2015 Bradley Worley
 % write the table of contents.
 \tableofcontents
 
+% write the list of figures and add a link to it in the table of contents.
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+
+% write a list of tables and add a link to it in the table of contents.
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+
+% write a list of algorithms and add a link to it in the table of contents.
+\listofalgorithms
+\addcontentsline{toc}{chapter}{List of Algorithms}
+
 % include each chapter in turn. these are `include' commands instead of
 % `input' commands because we need to run bibtex on the auxiliary files
 % generated after the first run of pdflatex during `make all'. this is
@@ -160,21 +172,6 @@ Copyright \copyright{} 2015 Bradley Worley
 \include{bworley-ch08}
 \include{bworley-ch09}
 \include{bworley-ch10}
-
-% not even sure if this is necessary, but it makes sense. #logic #spock #llap
-\appendix
-
-% write the list of figures and add a link to it in the table of contents.
-\listoffigures
-\addcontentsline{toc}{chapter}{List of Figures}
-
-% write a list of tables and add a link to it in the table of contents.
-\listoftables
-\addcontentsline{toc}{chapter}{List of Tables}
-
-% write a list of algorithms and add a link to it in the table of contents.
-\listofalgorithms
-\addcontentsline{toc}{chapter}{List of Algorithms}
 
 % big crunch.
 \end{document}
