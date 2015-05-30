@@ -5,6 +5,7 @@ all: bworley.pdf
 # .pdf: actual compilation target.
 bworley.pdf:
 	pdflatex -draftmode bworley
+	bibtex bworley-pub
 	bibtex bworley-ch01
 	bibtex bworley-ch02
 	bibtex bworley-ch03
@@ -24,6 +25,7 @@ clean:
 	rm -f bworley.pdf
 	rm -f bworley.aux bworley.log bworley.out
 	rm -f bworley.toc bworley.loa bworley.lof bworley.lot
+	rm -f bworley-pub.aux  bworley-pub.bbl  bworley-pub.blg
 	rm -f bworley-ch01.aux bworley-ch01.bbl bworley-ch01.blg
 	rm -f bworley-ch02.aux bworley-ch02.bbl bworley-ch02.blg
 	rm -f bworley-ch03.aux bworley-ch03.bbl bworley-ch03.blg

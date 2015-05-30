@@ -232,11 +232,9 @@ signals \cite{states:jmr1982}. As a result, each data point in a
 $D$-dimensional NMR signal collected in complete quadrature exists in a
 hypercomplex space $\mathbb{H}_D$ \cite{schuyler:jmr2013}, which is defined by
 a real basis element and $D$ complex basis elements:
-
 \begin{equation}
 \Phi_D \equiv \{ 1 \cdot u_1 \cdots u_D \}
 \end{equation}
-
 where multiplication by any complex element $u_d$ results in a ninety degree
 phase shift in dimension $d$, and the basis elements combine commutatively
 under multiplication, as follows:
@@ -248,35 +246,28 @@ u_i^2 =& -1
 The basis elements in $\Phi_D$ are a generating set for the complete set of
 components of the hypercomplex space $\mathbb{H}_D$. For example, in three
 dimensions:
-
 \begin{equation}
 \Phi_3 = \{ 1, u_1, u_2, u_1 u_2, u_3, u_1 u_3, u_2 u_3, u_1 u_2 u_3 \}
 \end{equation}
 
 A scalar in $\mathbb{H}_D$ is then expressed as a linear combination of this
 component set. For the three-dimensional example:
-
 \begin{equation}
 x = a + b u_1 + c u_2 + d u_1 u_2
   + e u_3 + f u_1 u_3 + g u_2 u_3 + h u_1 u_2 u_3
 \end{equation}
-
 or, more generally and succinctly:
-
 \begin{equation}
 x = \sum_{\phi \in \Phi_D} x \{ \phi \} \cdot \phi
 \end{equation}
-
 where $x\{\phi\}$ denotes the real coefficient of $x$ that scales the basis
 component $\phi$ in $x$. For the above three-dimensional example, the
 expression $x\{u_1 u_3\}$ would evaluate to $f$. Finally, the expression of
 hypercomplex tensors is formally accomplished by defining each coefficient
 as a real tensor of appropriate size, like so:
-
 \begin{equation}
 x \{ \phi \} \in \mathbb{R}^{k_1 \cdots k_K} \quad \forall \phi \in \Phi_D
 \end{equation}
-
 where $K$ is the number of modes of the tensor. The above equation may be
 compactly written as $\mathbb{H}_D^{k_1 \cdots k_K}$. Any scalar
 in $\mathbb{H}_D$ -- and therefore any data point in a $D$-dimensional
@@ -292,19 +283,16 @@ and handling NMR data.
 \\\\
 Mathematically, 1D NMR free induction decays are described by the following
 commonly used parametric signal model:
-
 \begin{equation}
 f(t) = \sum_{m=1}^M \alpha_m \exp\left\{
   u_1 (\omega_m t + \theta_m) - \rho_m t
   \right\}
 \end{equation}
-
 where $\alpha_m$, $\omega_m$, $\theta_m$ and $\rho_m$ represent the amplitude,
 frequency, phase error and decay rate of the $m$-th damped complex exponential
 in the model $f(t)$. Using the above formalism for hypercomplex tensors, this
 signal model is trivially extended to any number of dimensions by multiplying
 in a modulation term for each dimension:
-
 \begin{equation}
 f(\mathbf{t}) = \sum_{m=1}^M \alpha_m \prod_{d=1}^D \exp\left\{
   u_d (\omega_{m,d} t_d + \theta_{m,d}) - \rho_{m,d} t_d
@@ -312,7 +300,6 @@ f(\mathbf{t}) = \sum_{m=1}^M \alpha_m \prod_{d=1}^D \exp\left\{
 \end{equation}
 
 For example, a 2D FID may be modeled as follows:
-
 \begin{equation}
 f(t_1, t_2) = \sum_{m=1}^M \alpha_m \exp\left\{
   u_1 (\omega_{m,1} t_1 + \theta_{m,1}) +
@@ -388,14 +375,12 @@ into the frequency domain is the discrete Fourier transform (DFT,
 \cite{bretthorst:cmr2008,schuyler:jmr2013}). Using the introduced formalism for
 hypercomplex NMR data, the DFT along dimension $d$ of a time-domain vector
 $\mathbf{f} \in \mathbb{H}_D^N$ is defined as:
-
 \begin{equation}
 \mathbf{s}_k = \frac{1}{\sqrt{N}} \sum_{n=0}^{N-1}
   \exp\left\{ -2 \pi u_d \frac{n k}{N} \right\}
   \mathbf{f}_n
   \quad \forall k \in \{ 0, 1, \dots N-1 \}
 \end{equation}
-
 which is a linear transformation
 $\mathcal{F}_d : \mathbb{H}_D^N \to \mathbb{H}_D^N$. Discrete Fourier
 transformation of multidimensional NMR data along one dimension requires the
@@ -414,7 +399,6 @@ correction processing step, in which a phase factor $\Theta(\omega)$ is
 multiplied point-wise with the data to correct for phase errors
 (i.e. $\theta_{m,d}$ terms in $f(\mathbf{t})$) in the data. For example, a
 1D phase-factor along dimension $d$ would have the following form:
-
 \begin{equation}
 \Theta(\omega) = e^{ -u_d \theta(\omega) }
 \end{equation}
@@ -431,7 +415,6 @@ dispersive lines between the real and imaginary components of each data point.
 Unmixing of these absorptive and dispersive contributions to the real spectral
 component involves the identification of the phase error $\theta(\omega)$, an
 expansion of phase error terms as powers of $\omega$:
-
 \begin{equation}
 \theta(\omega) = \theta_0 + \theta_1 \omega + \theta_2 \omega^2 + \dots
 \end{equation}
@@ -633,11 +616,9 @@ analysts commonly apply one or more scaling transformations to their data prior
 to modeling. The simplest and most pervasive method, referred to as Unit
 Variance (UV) scaling, centers each variable with respect to its mean and
 scales by its standard deviation, like so:
-
 \begin{equation}
 \tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{s_k}
 \end{equation}
-
 where $\widetilde{\mathbf{X}}$ is the scaled data matrix, $\bar{x}_k$ is the
 sample mean of the $k$-th variable over all $N$ observations, and $s_k$ is the
 corresponding sample standard deviation. Subtraction of the sample mean
@@ -651,7 +632,6 @@ variables relative to that of signal variables, resulting in decreased model
 utility and reliability \cite{hoefsloot:jchemo2006}. Pareto scaling applies a
 less aggressive scaling than UV by retaining partial covariance between
 variables in an attempt to reduce this noise amplification:
-
 \begin{equation}
 \tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{\sqrt{s_k}}
 \end{equation}
@@ -663,7 +643,6 @@ of scaling have been developed that emphasize various desirable features in
 a data structure. For example, {\it va}riable {\it st}ability (VAST) scaling
 multiplies each element by the coefficient of variation of its variable in
 order to focus on highly stable spectral features:
-
 \begin{equation}
 \tilde{x}_{nk}
  = \frac{x_{nk} - \bar{x}_k}{s_k} \cdot
@@ -672,7 +651,6 @@ order to focus on highly stable spectral features:
 
 The alternative level scaling method scales data elements by their sample mean,
 effectively focusing later analyses on changes in relative magnitude:
-
 \begin{equation}
 \tilde{x}_{nk} = \frac{x_{nk} - \bar{x}_k}{\bar{x}_k}
 \end{equation}
@@ -692,18 +670,15 @@ training. For example, joint modeling of full-resolution \hnmr{} NMR data
 a weighting of MS variables by a factor of ten relative to NMR variables. To
 achieve equal block weighting, the variables of each block must be scaled by
 the square root of the number of block variables:
-
 \begin{equation}
 \tilde{\tilde{x}}_{bnk} = \frac{\tilde{x}_{bnk}}{\sqrt{K_b}}
 \end{equation}
-
 where the second tilde indicates block scaling in addition to any standard
 scaling (e.g. UV, Pareto) that may have been applied. When all data blocks
 contain analyte concentrations instead of raw spectral variables, range
 scaling may be applied prior to block scaling to remove instrumental response
 factors and transform all concentrations into relative values
 \cite{smilde:anchem2005}:
-
 \begin{equation}
 \tilde{x}_{bnk}
  = \frac{x_{bnk} - \bar{x}_{bk}}
@@ -750,11 +725,9 @@ component analysis, partial least squares and orthogonal projections to latent
 structures (OPLS, \cite{trygg:jchemo2002}) -- fall within a class of methods
 known as bilinear matrix factorizations. The general form of a bilinear matrix
 factorization is:
-
 \begin{equation}
 \mathbf{X} = \mathbf{T} \mathbf{P}^T + \mathbf{E}
 \end{equation}
-
 where the data matrix $\mathbf{X} \in \mathbb{R}^{N \times K}$ is approximated
 by the product of two matrices, $\mathbf{T} \in \mathbb{R}^{N \times A}$ and
 $\mathbf{P} \in \mathbb{R}^{K \times A}$, which are referred to as ``scores''
@@ -763,11 +736,9 @@ $\mathbf{E} \in \mathbb{R}^{N \times K}$ holds any variation in $\mathbf{X}$
 that is not captured by the scores and loadings. To understand how such a
 factorization may be used to approximate a data matrix, it is instructive to
 consider the product of scores and loadings in vector form:
-
 \begin{equation}
 \mathbf{X} = \sum_{a=1}^A \mathbf{t_a} \mathbf{p_a}^T + \mathbf{E}
 \end{equation}
-
 where $\mathbf{t_a}$ and $\mathbf{p_a}$ are the $a$-th columns of the score
 and loading matrices, respectively. In other words, the data matrix is
 approximated by a set of $A$ rank-1 matrices that are constructed by the
@@ -796,7 +767,6 @@ It is important to note that nearly every data matrix modeled by equation
 many solutions to the equation that yield the same error $\mathbf{E}$. This is
 easily demonstrated by multiplying the scores and loadings by an orthonormal
 matrix $\mathbf{R} \in \mathbb{R}^{A \times A}$:
-
 \begin{align}
 \mathbf{X}
  =& \: \hat{\mathbf{T}} \hat{\mathbf{P}}^T + \mathbf{E}
@@ -805,7 +775,6 @@ matrix $\mathbf{R} \in \mathbb{R}^{A \times A}$:
 \nonumber \\
  =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E}
 \end{align}
-
 where $\hat{\mathbf{T}} = \mathbf{T} \mathbf{R}$ and
 $\hat{\mathbf{P}} = \mathbf{P} \mathbf{R}$. A similar expansion of the solution
 set may be accomplished by multiplying the scores by a diagonal $A \times A$
@@ -875,24 +844,20 @@ squares (NIPALS, \cite{geladi:aca1986}):
 \begin{doublespace}
 where $\gets$ indicates assignment, and $\propto$ indicates normalized
 assignment. In others words, the following two statements:
-
 \begin{equation*}
 a \propto b \quad \Leftrightarrow \quad a \gets \frac{b}{\|b\|_2}
 \end{equation*}
-
 are in fact equivalent. In summary, NIPALS PCA initializes a score vector from
 a uniform random distribution, and repeatedly projects the rows and columns of
 $\mathbf{X}$ into the score and loading vectors until the scores converge to
 a predefined limit $\varepsilon$. By substituting the scores assignment into
 the loadings assignment, we arrive at the following iteration equation:
-
 \begin{equation}
 \mathbf{p}^{(k)} \gets
  \frac
   {\mathbf{X}^T \mathbf{X} \mathbf{p}^{(k-1)}}
   {\| \mathbf{X}^T \mathbf{X} \mathbf{p}^{(k-1)} \|_2}
 \end{equation}
-
 which is the equation for power iteration on $\mathbf{X}^T \mathbf{X}$
 \cite{golub2012}. Indeed, the NIPALS algorithm implicitly computes the
 dominant eigenvector $\mathbf{p}$ of the $K \times K$ sample covariance
@@ -901,7 +866,6 @@ algorithm computes a single principal component of $\mathbf{X}$ in the form
 of $\mathbf{t}$ and $\mathbf{p}$. In order to compute a second component,
 the first component's contributions must be subtracted from $\mathbf{X}$,
 a step referred to as ``deflation'':
-
 \begin{equation}
 \mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T
 \end{equation}
@@ -942,7 +906,6 @@ extraction. In the univariate case, the sample mean $\bar{x}$ and sample
 standard deviation $s$ may be estimated from a data vector $\mathbf{x}$,
 which may then be standardized into a set of Mahalanobis distances
 $\mathbf{d}$:
-
 \begin{equation}
 d_n = \frac{x_n - \bar{x}}{s}
  \quad \forall n \in \{1, \dots N\}
@@ -958,11 +921,9 @@ data matrix $\mathbf{X} \in \mathbb{R}^{N \times K}$ must first be computed:
 \bar{\mathbf{x}} =& \: N^{-1} \sum_{n=1}^N \mathbf{x}_n \\
 \mathbf{S} =& \: (N - 1)^{-1} \mathbf{X}^T \mathbf{X}
 \end{align}
-
 where $\mathbf{x}_n$ is the $n$-th observation row vector in $\mathbf{X}$.
 The set of squared Mahalanobis distances may then be computed as follows
 \cite{demaesschalck:cils2000}:
-
 \begin{equation}
 d_n^2 =
  (\mathbf{x}_n - \bar{\mathbf{x}}) \mathbf{S}^{-1}
@@ -979,7 +940,6 @@ approximated using PCA (i.e. $\mathbf{X} \approx \mathbf{T} \mathbf{P}^T$),
 where the number of principal components is less than the rank of the data
 matrix. Using the orthonormality property of PCA loadings, squared Mahalanobis
 distances may again be obtained from the PCA scores:
-
 \begin{equation}
 d_n^2 =
  \mathbf{t}_n
@@ -987,7 +947,6 @@ d_n^2 =
  \mathbf{t}_n^T
  \quad \forall n \in \{1, \dots N\}
 \end{equation}
-
 where $\mathbf{t}_n$ is the $n$-th row of the scores matrix $\mathbf{T}$.
 Because the matrix $\mathbf{T}^T \mathbf{T}$ is diagonal, it is trivially
 inverted and calculation of each $d_n^2$ is greatly simplified. Mahalanobis
@@ -1032,7 +991,6 @@ the context of a multiple linear regression to determine a set of regression
 coefficients $\mathbf{B} \in \mathbb{R}^{K \times M}$ that best recapitulate
 a set of responses $\mathbf{Y} \in \mathbb{R}^{N \times M}$ using the data in
 $\mathbf{X}$:
-
 \begin{equation}
 \mathbf{Y} = \mathbf{X} \mathbf{B} + \mathbf{E}
 \end{equation}
@@ -1040,7 +998,6 @@ $\mathbf{X}$:
 In which case the ordinary least squares (OLS) estimator of the regression
 coefficients is obtained from inversion of the normal equations
 \cite{draper1998}:
-
 \begin{equation}
 \hat{\mathbf{B}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
 \end{equation}
@@ -1052,11 +1009,9 @@ normally distributed \cite{draper1998}. However, the fact that $N \ll K$ yet
 again makes the matrix $\mathbf{X}^T \mathbf{X}$ non-invertible, forcing the
 analyst down a different path. By replacing the data matrix with its PCA
 approximation in the regression equation:
-
 \begin{equation}
 \mathbf{Y} = \mathbf{T} \mathbf{P}^T \mathbf{B} + \mathbf{E}'
 \end{equation}
-
 it is possible to obtain OLS estimates of the regression coefficients:
 \begin{align}
 \hat{\mathbf{B}}'
@@ -1067,10 +1022,8 @@ it is possible to obtain OLS estimates of the regression coefficients:
  \\
  =& \: \mathbf{P} \hat{\mathbf{G}}
 \end{align}
-
 where the matrix $\hat{\mathbf{G}} \in \mathbb{R}^{A \times M}$ is the set of
 OLS regression coefficient estimates in PCA scores space:
-
 \begin{equation}
 \mathbf{Y} = \mathbf{T} \mathbf{G} + \mathbf{E}'
 \end{equation}
@@ -1099,7 +1052,6 @@ $\mathbf{X}$ \emph{and} $\mathbf{Y}$ using bilinear factorizations
 \mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
-
 where the last equality indicates that the $\mathbf{X}$-scores are highly
 correlated with the $\mathbf{Y}$-scores, and are therefore good predictors
 of $\mathbf{Y}$. The most commonly applied algorithm for PLS is once again
@@ -1135,15 +1087,12 @@ NIPALS-based, and is shown below:
 
 \begin{doublespace}
 where $\tau$ equals the score convergence value:
-
 \begin{equation}
 \tau = \frac{\| \mathbf{t}^{(k)} - \mathbf{t}^{(k-1)} \|_2}
             {\| \mathbf{t}^{(k-1)} \|_2}
 \end{equation}
-
 and iteration superscripts have been dropped for readability. Backtracking the
 iteration assignments now produces a different iteration equation:
-
 \begin{equation}
 \mathbf{w}^{(k)} \gets \frac{
     \mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X} \mathbf{w}^{(k-1)}
@@ -1151,7 +1100,6 @@ iteration assignments now produces a different iteration equation:
  \| \mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X} \mathbf{w}^{(k-1)} \|_2
 }
 \end{equation}
-
 which is the equation for power iteration on the cross-covariance matrix
 $\mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X}$. The NIPALS PLS algorithm
 computes the dominant eigenvector $\mathbf{w}$ of the cross-covariances between
@@ -1161,12 +1109,10 @@ achieved by deflating the data and response matrices:
 \mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T \\
 \mathbf{Y}' \gets \mathbf{Y} - \mathbf{t} \mathbf{c}^T
 \end{align}
-
 and re-applying NIPALS on $\mathbf{X}'$ and $\mathbf{Y}'$. Unlike PCA, the PLS
 loadings $\mathbf{P}$ are not orthogonal, and the $\mathbf{X}$-scores are
 instead obtained through a linear transformation by a set of non-orthogonal
 `weights' $\mathbf{W}^\ast \in \mathbb{R}^{K \times A}$, like so:
-
 \begin{equation}
 \mathbf{T} = \mathbf{X} \mathbf{W}^\ast
 \end{equation}
@@ -1181,7 +1127,6 @@ model:
 These weights $\mathbf{W}^\ast$, which directly relate to $\mathbf{X}$, may be
 computed from the orthonormal weights $\mathbf{W}$ returned from NIPALS through
 the following transformation \cite{manne:cils1987}:
-
 \begin{equation}
 \mathbf{W}^\ast = \mathbf{W} (\mathbf{P}^T \mathbf{W})^{-1}
 \end{equation}
@@ -1214,7 +1159,6 @@ projection that reveals $\mathbf{Y}$-predictive variation:
   (\mathbf{T_o}^T \mathbf{T_o})^{-1}
   \mathbf{T_o}^T \right) \mathbf{X}
 \end{align}
-
 where the $\mathbf{Y}$-orthogonal scores
 $\mathbf{T_o} \in \mathbb{R}^{N \times A_o}$ and loadings
 $\mathbf{P_o} \in \mathbb{R}^{K \times A_o}$ may be estimated using a variety
@@ -1319,10 +1263,8 @@ component sets is achieved by first deflating the data and response matrices:
  \mathbf{T_o} \mathbf{P_o}^T \\
 \mathbf{Y}' \gets& \: \mathbf{Y} - \mathbf{t} \mathbf{c}^T
 \end{align}
-
 and then re-applying NIPALS on $\mathbf{X}'$ and $\mathbf{Y}'$. Like PLS, the
 OPLS equations may also be written in the form of a multiple linear regression:
-
 \begin{equation}
 \mathbf{Y} =
  \left( \mathbf{X} - \mathbf{T_o} \mathbf{P_o}^T \right)
@@ -1363,7 +1305,7 @@ a set of `consensus' loadings $\mathbf{P}_b$ that contain a maximum amount
 of variation in each of the $B$ provided data blocks $\mathbf{X}_b$ while
 retaining variation relating each block to the others. In essence, CPCA-W
 returns a PCA `super-model' for the matrix of concatenated blocks $\mathbf{X}$
-and a PCA block model for each individual block $\mathbf{X_b}$:
+and a PCA block model for each individual block $\mathbf{X}_b$:
 \begin{align}
 \mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
@@ -1398,7 +1340,7 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
     \STATE $\mathbf{p}_b \propto {\mathbf{X}_b}^T \mathbf{t}$
     \STATE $\mathbf{t}_b \gets \mathbf{X}_b \mathbf{p}_b$
   \ENDFOR
-  \STATE $\mathbf{R} \gets [\mathbf{t}_1, \; \dots \mathbf{t}_B]$
+  \STATE $\mathbf{R} \gets [\mathbf{t}_1, \dots \mathbf{t}_B]$
   \STATE $\mathbf{w} \propto \tfrac{\mathbf{R}^T \mathbf{t}}
                                    {\mathbf{t}^T \mathbf{t}}$
   \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
@@ -1414,7 +1356,6 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
 where $\tau$ relates to the convergence value of the super-scores
 $\mathbf{t}$ as in standard PCA. Computation of subsequent components requires
 the deflation of each data block, like so:
-
 \begin{equation}
 \mathbf{X}_b' \gets \mathbf{X}_b - \mathbf{t} {\mathbf{p}_b}^T
  \quad \forall b \in \{1, \dots B\}
@@ -1481,7 +1422,7 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
     \STATE $\mathbf{w}_b \propto {\mathbf{X}_b}^T \mathbf{u}$
     \STATE $\mathbf{t}_b \gets \mathbf{X}_b \mathbf{w}_b$
   \ENDFOR
-  \STATE $\mathbf{R} \gets [\mathbf{t}_1, \; \dots \mathbf{t}_B]$
+  \STATE $\mathbf{R} \gets [\mathbf{t}_1, \dots \mathbf{t}_B]$
   \STATE $\mathbf{w} \propto \mathbf{R}^T \mathbf{u}$
   \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
   \STATE $\mathbf{c} \gets \tfrac{\mathbf{Y}^T \mathbf{t}}
@@ -1536,7 +1477,6 @@ Multiblock OPLS decomposes each block $\mathbf{X}_b$ into a set of
 $\mathbf{Y}$-predictive scores and loadings, as well as a set of
 $\mathbf{Y}$-uncorrelated scores and loadings that would normally
 interfere with MB-PLS predictions:
-\end{doublespace}
 \begin{align}
 \mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T +
@@ -1548,7 +1488,6 @@ interfere with MB-PLS predictions:
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
 
-\begin{doublespace}
 The recently developed MB-OPLS algorithm is based on NIPALS MB-PLS, with an
 added OPLS-type OSC filter that removes $\mathbf{Y}$-uncorrelated variation
 from super-loadings. Deflation of predictive and orthogonal components from

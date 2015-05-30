@@ -10,6 +10,8 @@
 \usepackage{amsfonts}
 \usepackage{setspace}
 \usepackage{chapterbib}
+\usepackage{natbib}
+\usepackage{bibentry}
 \usepackage[
   pdftex,
   pdfauthor={Bradley Worley},
@@ -27,8 +29,10 @@
 % reference sections are typically un-numbered chapter headings, which don't
 % work with what we need to do in the thesis. this changes the bibliography
 % into a numbered section heading with the title `References'.
-\patchcmd{\thebibliography}{\chapter*}{\section}{}{}
-\renewcommand{\bibname}{References}
+\renewcommand\bibsection{%
+ \section{References}%
+ \markboth{\MakeUppercase{\refname}}{\MakeUppercase{\refname}}%
+}%
 
 % the algorithmic package doesn't quite have what we want, so these commands
 % change the \REQUIRE and \ENSURE commands into 'Inputs' and 'Outputs',
@@ -138,9 +142,12 @@ Copyright \copyright{} 2015 Bradley Worley
 \end{center}
 \end{titlepage}
 
-% source in the abstract and acknowledgements as if they were written here.
+% source in the abstract and acknowledgements as if they were just written
+% here, in this file... but use some special wizardry to include the
+% list of publications. shh.... don't ask why.
 \input{bworley-abs.tex}
 \input{bworley-ack.tex}
+\include{bworley-pub}
 
 % write the table of contents.
 \tableofcontents

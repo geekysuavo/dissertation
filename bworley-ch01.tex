@@ -21,7 +21,6 @@ Naturally, this process of information extraction relies on the construction of
 mathematical models that describe a set of experimentally observed data, as
 well as statistical frameworks that assign degrees of belief (probabilities)
 to models, data, and their combinations:
-
 \begin{equation*}
 \mathbf{D} = f(\mathbf{D}) + \mathbf{E}
 \end{equation*}
@@ -37,11 +36,9 @@ $||f(\mathbf{D})|| \gg ||\mathbf{E}||$). The above general equation describes
 a case of ``unsupervised'' chemometric modeling of the dataset $\mathbf{D}$,
 but analysts may also choose to construct a supervised model, where the data
 are used to predict a set of known responses $\mathbf{R}$:
-
 \begin{equation*}
 \mathbf{R} = g(\mathbf{D}) + \mathbf{E}'
 \end{equation*}
-
 where the model $g(\mathbf{D})$ extracts information from the dataset that best
 describes $\mathbf{R}$, and the model error $\mathbf{E}'$ holds the differences
 between the known and modeled responses. Chemometrics is intimately connected
