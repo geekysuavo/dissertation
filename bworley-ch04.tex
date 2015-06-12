@@ -4,7 +4,13 @@
 \section{Introduction}
 
 \begin{doublespace}
-FIXME.
+This chapter details several varied applications of multivariate analysis
+within the field of metabolomics, from the simplest examples of constructing
+multivariate calibration models of \hnmr{} NMR spectral data for determination
+of caffeine concentration in coffee, to more complex examples of multiblock
+statistical modeling of joint \hnmr{} NMR and electrospray MS data. A final
+note on the relationship between PCA scores-space class separations and OPLS-DA
+model reliability is also presented to conclude the chapter.
 \end{doublespace}
 
 \section{\hnmr{} NMR Fingerprinting of Brewed Coffees}
@@ -109,19 +115,20 @@ sequence, no spectral regions were removed around the water resonance.
 \\\\
 For principal component analysis (PCA), the dataset was normalized by the
 method of probabilistic quotients (PQ, \cite{dieterle:anchem2006}) and
-subjected to optimized bucketing (OBA, \cite{sousa:cils2013}). Low-variation
-`noise' bins were automatically removed from the dataset \cite{zhang:opin2008},
-resulting in a final data matrix having 64 observations and 371 variables. The
-data matrix was scaled to unit variance \cite{vandenberg:bmcg2006} prior to
-NIPALS PCA modeling \cite{jolliffe2002}, which produced six significant
-components having cumulative \rsqx{} and \qsq{} statistics of 0.9643 and
-0.9561, respectively \cite{eshghi:cils2014}.
+subjected to adaptive intelligent binning \cite{demeyer:anchem2008}.
+Low-variation `noise' bins were automatically removed from the dataset
+\cite{zhang:opin2008}, resulting in a final data matrix having 64 observations
+and 284 variables. The data matrix was scaled to unit variance
+\cite{vandenberg:bmcg2006} prior to NIPALS PCA modeling \cite{jolliffe2002},
+which produced six significant components having cumulative \rsqx{} and
+\qsq{} statistics of 0.9689 and $0.9046 \pm 0.0075$, respectively
+\cite{eshghi:cils2014}.
 \\\\
-Linear discriminant analysis (LDA) was performed on the resulting
-six-dimensional PCA scores to yield a three-component model that best
-captured the between-class variation present in the six orthonormal PCA
+Linear discriminant analysis (LDA) was performed on the first three dimensions
+of resulting PCA scores to yield a two-component model that best
+captured the between-class variation present in the three orthonormal PCA
 score vectors. LDA modeling yielded a model having a cumulative \rsqx{}
-statistic of 0.9959 and cumulative \rsqy{} and \qsq{} statistics of 1.0.
+statistic of 0.9950 and cumulative \rsqy{} and \qsq{} statistics of 1.0.
 \\\\
 For orthogonal projections to latent structures regression
 (OPLS-R, \cite{trygg:jchemo2002}), the full-resolution dataset was aligned
@@ -131,13 +138,13 @@ in a final data matrix having 64 observations and 11,888 variables. The
 Pareto-scaled data matrix was regressed by OPLS against a response vector
 containing caffeine concentrations estimated by UV/Vis analysis of the four
 coffee roasts, yielding a model with one predictive component and one
-orthogonal component (\rsqxp{} = 0.5270, \rsqxo{} = 0.1306, \rsqy{} = 0.9852,
-\qsq{} = 0.9177). CV-ANOVA significance testing returned a $p$ value equal to
-zero ($F$ = 166.42) to within double-precision floating point error,
-indicating a reliable model. The OPLS-R and LDA models were further validated
-using response permutation tests having 1,000 iterations each. The permutation
-tests of both models resulted in $p$ values less than 0.001 for both \rsqy{}
-and \qsq{}, a further indication of high model reliability.
+orthogonal component (\rsqxp{} = 0.5294, \rsqxo{} = 0.1288, \rsqy{} = 0.9822,
+\qsq{} = $0.9370 \pm 0.0223$). CV-ANOVA significance testing returned a $p$
+value equal to zero ($F$ = 291.24) to within double-precision floating point
+error, indicating a reliable model. The OPLS-R and LDA models were further
+validated using response permutation tests having 1,000 iterations each. The
+permutation tests of both models resulted in $p$ values less than 0.001 for
+both \rsqy{} and \qsq{}, a further indication of high model reliability.
 \end{doublespace}
 
 \subsubsection{Validation against SIMCA-P+}
@@ -159,7 +166,7 @@ places.
 FIXME.
 \end{doublespace}
 
-\section{Profiling of Joint \hnmr{} NMR and DI-ESI-MS Data}
+\section{Fingerprinting of Joint \hnmr{} NMR and DI-ESI-MS Data}
 
 \begin{doublespace}
 FIXME \cite{marshall:metab2015}.

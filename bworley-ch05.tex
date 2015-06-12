@@ -111,7 +111,7 @@ determined by interactive manipulation of any given dataset, it may be
 immortalized in an Octave script, thus providing documentation of procedures
 and allowing for rapid recalculation of all associated results.
 \\\\
-Figure 4.1 illustrates a simple MVAPACK script capable of taking 1D \hnmr{} NMR
+Figure 5.1 illustrates a simple MVAPACK script capable of taking 1D \hnmr{} NMR
 data from raw free induction decays to validated PCA and OPLS-DA models. In
 section 1, a binary class matrix $\mathbf{Y}$ and an accompanying set of class
 labels are built, and the time-domain raw data is loaded into the complex data
@@ -129,7 +129,7 @@ a model quality plot and a scores plot are produced. In section 7, similar
 functions are used to train an OPLS-DA model and produce summary plots.
 Finally, section 8 performs CV-ANOVA \cite{eriksson:jchemo2008} and response
 permutation \cite{westerhuis:metab2008a} significance tests to fully validate
-the supervised OPLS-DA model. While Figure 4.1 is completely functional, it is
+the supervised OPLS-DA model. While Figure 5.1 is completely functional, it is
 still an extremely bare-bones approach to metabolic fingerprinting. MVAPACK
 provides countless other functions and schemes for handling data.
 \end{doublespace}
@@ -138,8 +138,8 @@ provides countless other functions and schemes for handling data.
 
 \begin{doublespace}
 The functions available in MVAPACK span the following general categories:
-data loading and processing (Figure 4.1), treatment (Figure 4.2),
-modeling (Figure 4.3), and validation (Figure 4.4) \cite{goodacre:metab2007}.
+data loading and processing (Table 5.1), treatment (Table 5.2),
+modeling (Table 5.3), and validation (Table 5.4) \cite{goodacre:metab2007}.
 Specific features in each category are discussed in the following sections.
 \end{doublespace}
 
@@ -345,7 +345,9 @@ of real matrices in Octave.
   & MB-PCA
   &   &   &   &   &   &   &   &   &   &   &   &   &   & * &   & * \\
   & MB-PLS
-  &   &   &   &   &   &   &   &   &   &   &   &   &   & * &   & *
+  &   &   &   &   &   &   &   &   &   &   &   &   &   & * &   & * \\
+  & MB-OPLS
+  &   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & *
 \end{tabular}
 \end{center}
 \end{table}
@@ -416,7 +418,7 @@ are supported within MVAPACK.
 
 \begin{doublespace}
 All PCA and MB-PCA models are validated as they are built based on the results
-of a leave-one-out internal cross-validation
+of a Monte Carlo leave-$n$-out (Modified $K+E$) internal cross-validation
 \cite{eastment:tech1982,eshghi:cils2014}, and all PLS, OPLS and MB-PLS models
 are validated during training based on results of a Monte Carlo leave-$n$-out
 internal cross-validation \cite{xu:cils2001,xu:jchemo2004}. In all cases, a
@@ -425,10 +427,12 @@ how well each data and response matrix is approximated by the models, and
 \qsq{} statistics are generated to describe self-consistency and predictive
 ability of each data matrix in PCA and PLS models, respectively. Per-component
 \rsq{} and \qsq{} statistics are utilized by MVAPACK to estimate the optimal
-number of model components. Further validation of supervised models is
-available in the form of CV-ANOVA \cite{eriksson:jchemo2008} and response
-permutation \cite{westerhuis:metab2008a} significance testing, both of which
-report $p$ values that indicate model validity.
+number of model components. Because cross-validation is performed using a
+Monte Carlo scheme in MVAPACK, all \qsq{} statistcs are reported with
+confidence regions, regardless of model type. Further validation of supervised
+models is available in the form of CV-ANOVA \cite{eriksson:jchemo2008} and
+response permutation \cite{westerhuis:metab2008a} significance testing, both
+of which report $p$ values that indicate model validity.
 \end{doublespace}
 
 \section{Discussion and Conclusions}
@@ -452,7 +456,7 @@ required by the analyst. MVAPACK addresses this need by providing a complete
 pipeline that is tuned for metabolic fingerprinting. Use of MVAPACK reduces
 data analysis time in metabolic fingerprinting from days to minutes, simply
 by collecting all the required functions into a single scriptable environment.
-In fact, the example script in Figure 4.1 would execute in under five minutes
+In fact, the example script in Figure 5.1 would execute in under five minutes
 on a modern GNU/Linux or Mac OS X computer system.
 \\\\
 The routine processing of {\it any} 1D and 2D NMR spectral data may be readily

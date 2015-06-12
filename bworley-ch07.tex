@@ -87,7 +87,7 @@ exist to {\it intelligently} bin multidimensional data for use in multivariate
 analyses. This motivated the development of a generalization of Adaptive
 Intelligent (AI) binning \cite{demeyer:anchem2008} to spectral data
 of any dimensionality, called Generalized Adaptive Intelligent (GAI) binning
-(Figure 6.1).
+(Figure 7.1).
 \end{doublespace}
 
 \section{Theory}
@@ -96,7 +96,7 @@ of any dimensionality, called Generalized Adaptive Intelligent (GAI) binning
 
 \begin{doublespace}
 Generalized AI-binning (GAI-binning) is a logical extension of AI-binning to
-two or more dimensions. In the AI algorithm (Figure 6.1A), bins are recursively
+two or more dimensions. In the AI algorithm (Figure 7.1A), bins are recursively
 subdivided until a stopping criterion or minimum bin width is reached
 \cite{demeyer:anchem2008}. For a 1D dataset containing $N$ spectra,
 the following objective function is used to assess the quality of each bin:
@@ -158,7 +158,7 @@ proceeds to recursively subdivide each bin until a minimum bin size is reached
 or no bin may be divided to yield an increase in the objective value. Because
 the number of ways to subdivide each bin increases with dimensionality, all
 possible dimensions are tested, and the new bin boundary that maximizes the
-objective over all possible subdivision dimensions is selected (Figure 6.1B).
+objective over all possible subdivision dimensions is selected (Figure 7.1B).
 Therefore, the GAI algorithm may be considered a form of binary space
 partitioning (BSP) which limits its partition hyperplanes to lying orthogonally
 to the basis vectors of the coordinate system \cite{deberg2000}.
@@ -288,7 +288,7 @@ ppm, respectively, and a GAI resolution parameter of 0.1. Binned regions
 identified to be less intense than three times the standard deviation of the
 spectral noise ($k = 3$) were removed after binning. The mean spectra of the
 entire processed liver and MEF datasets, superimposed with bins identified by
-both uniform and GAI-binning, are shown in Figure 6.2 and Figure 6.3.
+both uniform and GAI-binning, are shown in Figure 7.2 and Figure 7.3.
 \\\\
 The applicability of GAI-binning to bilinear factorizations was demonstrated
 by modeling the data tensors using both PCA and OPLS-DA. For PCA modeling of
@@ -334,10 +334,10 @@ Processing of the liver extract spectra yielded a real data tensor of 24
 fibroblast spectra yielded a tensor of 17 spectra having 1,071$\times$172
 real data points each. The observation counts ($N$), variable counts ($K$)
 and PCA/OPLS cross-validation statistics (\rsq{}, \qsq{}) for each dataset and
-variable reduction method are summarized in Table 6.1. Further validation
+variable reduction method are summarized in Table 7.1. Further validation
 results from the OPLS models, all of which indicate varying degrees of high
-model reliability, are also summarized in Table 6.2. Through examination of the
-variable counts within Table 6.1, it is readily apparent that GAI-binning is
+model reliability, are also summarized in Table 7.2. Through examination of the
+variable counts within Table 7.1, it is readily apparent that GAI-binning is
 dramatically more effective than uniform binning at discriminating between
 signal and noise regions within spectral data. On average, GAI-binning
 segmented each data tensor into less than half the number of bins produced by
@@ -348,7 +348,7 @@ between the two methods are statistically indistinguishable. In fact, the
 variable counts resulting from GAI-binning these third-order tensors are
 substantially lower than the few hundred variables typically produced by
 binning {\it one}-dimensional spectra. Resulting scores from PCA modeling
-of the GAI-binned liver data tensor are shown in Figure 6.4.
+of the GAI-binned liver data tensor are shown in Figure 7.4.
 \end{doublespace}
 
 \begin{table}[h!]
@@ -426,7 +426,7 @@ of the GAI-binned liver data tensor are shown in Figure 6.4.
 
 \begin{doublespace}
 Backscaled predictive OPLS-DA loadings of the vectorized \hcnmr{} HSQC spectral
-data tensors (Figure 6.5) lend further support for the use of multidimensional
+data tensors (Figure 7.5) lend further support for the use of multidimensional
 binning in metabolic fingerprinting studies. Even when vectorization is
 performed in place of integration to produce a data matrix, binning offers an
 effective means of variable selection: only 10,474 of 65,858 variables (16\%)
@@ -443,7 +443,7 @@ recognize that the uniformly binned regions contain more noise data points than
 their GAI-binned counterparts, and thus offer a less efficient dimensionality
 reduction.
 \\\\
-Spectral regions produced by GAI-binning (Figure 6.2) demonstrate several
+Spectral regions produced by GAI-binning (Figure 7.2) demonstrate several
 important properties of the combined binning and noise removal processes.
 Because $t_1$ noise and truncation artifacts yield phase-incoherent negative
 spectral excursions after Fourier transformation, `unrelaxed' GAI-binning
@@ -532,7 +532,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   \\
   Response permutation test results for OPLS-DA models from the GAI-binned
   (integrated) liver ({\bf A}, {\bf B}) and fibroblast
-  ({\bf C}, {\bf D}) data tensors. See the caption of Figure 6.6 for a
+  ({\bf C}, {\bf D}) data tensors. See the caption of Figure 7.6 for a
   complete description of the figure contents.
 }
 \end{figure}
@@ -558,7 +558,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   \\
   Response permutation test results for OPLS-DA models from the GAI-binned
   (vectorized) liver ({\bf A}, {\bf B}) and fibroblast
-  ({\bf C}, {\bf D}) data tensors. See the caption of Figure 6.6 for a
+  ({\bf C}, {\bf D}) data tensors. See the caption of Figure 7.6 for a
   complete description of the figure contents.
 }
 \end{figure}

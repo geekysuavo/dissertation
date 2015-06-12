@@ -826,7 +826,7 @@ squares (NIPALS, \cite{geladi:aca1986}):
       [Principal Components of Synthetic Bivariate Data.]{
   {\bf Principal Components of Synthetic Bivariate Data.}
   \\
-  ({\bf A}) Set of 50 points drawn from a bivariate normal distribution,
+  ({\bf A}) Set of 100 points drawn from a bivariate normal distribution,
   and the corresponding principal components computed by eigendecomposition
   of the points' sample covariance matrix. Bold and thin arrows indicate the
   normalized and un-normalized loadings, respectively.
@@ -1085,6 +1085,28 @@ NIPALS-based, and is shown below:
 \end{algorithmic}
 \end{algorithm}
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/11.png}
+\caption
+      [PLS Components of Synthetic Bivariate Data.]{
+  {\bf PLS Components of Synthetic Bivariate Data.}
+  \\
+  ({\bf A}) Set of 100 points drawn from a bivariate normal distribution,
+  and the corresponding partial least squares weights computed by
+  eigendecomposition of the points' cross-covariances with the response
+  vector.
+  \\
+  ({\bf B}) Set of 100 points drawn from two bivariate normal distributions
+  having different means, where the major source of variation in the data is
+  orthogonal to the direction that separates the two groups. Note the mixing
+  of predictive information between both PLS components.
+  \\
+  ({\bf C}) Set of 100 points drawn from two bivariate normal distributions
+  having different means, where the major source of variation is parallel to
+  the direction that separates the groups.
+}
+\end{SCfigure}
+
 \begin{doublespace}
 where $\tau$ equals the score convergence value:
 \begin{equation}
@@ -1103,8 +1125,8 @@ iteration assignments now produces a different iteration equation:
 which is the equation for power iteration on the cross-covariance matrix
 $\mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X}$. The NIPALS PLS algorithm
 computes the dominant eigenvector $\mathbf{w}$ of the cross-covariances between
-the data and responses. As in PCA, computation of subsequent PLS components is
-achieved by deflating the data and response matrices:
+the data and responses (cf. Figure 3.11). As in PCA, computation of subsequent
+PLS components is achieved by deflating the data and response matrices:
 \begin{align}
 \mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T \\
 \mathbf{Y}' \gets \mathbf{Y} - \mathbf{t} \mathbf{c}^T
@@ -1131,6 +1153,22 @@ the following transformation \cite{manne:cils1987}:
 \mathbf{W}^\ast = \mathbf{W} (\mathbf{P}^T \mathbf{W})^{-1}
 \end{equation}
 \end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/12.png}
+\caption
+      [Orthogonal Projections of Synthetic Bivariate Data.]{
+  {\bf Orthogonal Projections of Synthetic Bivariate Data.}
+  \\
+  ({\bf A}) Projection of the set of points in ({\bf B}) onto their
+  response-predictive (PLS) component.
+  \\
+  ({\bf B}) Set of 100 points and their PLS components from Figure 3.11B.
+  \\
+  ({\bf C}) Projection of the set of points in ({\bf B}) onto their
+  response-orthogonal (OPLS) component.
+}
+\end{SCfigure}
 
 \subsection{Orthogonal Projections to Latent Structures}
 
@@ -1467,7 +1505,7 @@ $\mathbf{Y}$-uncorrelated variation exists in one or more data blocks
 the generalized OnPLS multiblock modeling framework, which extends O2PLS to
 $B$ data blocks, was developed \cite{lofstedt2012}. Like in O2PLS, no matrix
 in OnPLS is special, and all matrices are regressed against all others in a
-complete association graph (Figure 3.11A). While such complete connectivity
+complete association graph (Figure 3.13A). While such complete connectivity
 may be useful during unsupervised modeling, it is an overcomplication in
 the multiblock regression schemes normally handled in metabolomics. Because
 each data block need only predict a single block of responses (Figure 3.11B),
@@ -1605,7 +1643,7 @@ to extract block-level models from super-model scores and loadings.
 
 \begin{figure}[ht!]
 \begin{center}
-  \includegraphics[width=5.5in]{figs/mva/11.png}
+  \includegraphics[width=5.5in]{figs/mva/13.png}
 \end{center}
 \caption
       [Association Graphs for OnPLS and MB-OPLS.]{
@@ -1669,6 +1707,25 @@ to extract block-level models from super-model scores and loadings.
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/mva/14.png}
+\caption
+      [Comparison of MB-PLS and MB-OPLS Loadings.]{
+  {\bf Comparison of MB-PLS and MB-OPLS Loadings.}
+  \\
+  ({\bf A}) Original predictive (solid lines) and orthogonal (dashed lines)
+  block loadings used to construct a toy three-block data structure having
+  100 observations and 200 variables per block.
+  ({\bf B}) Resulting MB-PLS block loadings from a two-component model,
+  illustrating how the PLS algorithm mixes predictive information between
+  multiple components in the presence of orthogonal variation.
+  ({\bf C}) Resulting MB-OPLS predictive (solid) and orthogonal (dashed)
+  block loadings from a one-component ($1+1$) model, effectively illustrating
+  how MB-OPLS achieves the same segregation of predictive and orthogonal
+  variation as OPLS and OnPLS on a per-block basis.
+}
+\end{figure}
 
 \begin{doublespace}
 For each of the $B$ data blocks, the extraction procedure computes predictive
