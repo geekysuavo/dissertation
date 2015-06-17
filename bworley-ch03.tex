@@ -1961,19 +1961,52 @@ left-out variables and observations (Figure 3.16).
 \subsection{Response Permutation Testing}
 
 \begin{doublespace}
-FIXME.
+While internal cross-validation metrics such as \qsq{}, number of
+misclassifications, and AUROC \cite{westerhuis:metab2008a} are a good first
+insight into model reliability, they do not provide a robust mechanism for
+discriminating between low- and high-quality models. Methods that report a
+degree of statistical significance in the form of a $p$ value are preferred,
+as they may be compared to a threshold (e.g. $\alpha = 0.05$). One such method,
+known as response permutation testing, establishes a distribution of models
+representing the null hypothesis ($H_0$) that no relationship exists between
+the data and responses \cite{westerhuis:metab2008a}. For a number of
+iterations, the rows of the response matrix $\mathbf{Y}$ are randomly permuted
+to yield a null response matrix $\tilde{\mathbf{Y}}$, upon which a supervised
+PLS or OPLS model is trained. The set of models generated after response
+permutation -- more specifically their \rsq{} and \qsq{} parameters -- may be
+compared against those of the original model to obtain a $p$ value. Provided
+the resulting $p$ value is less than the defined threshold $\alpha$, the
+analyst may reject the null hypothesis that the original model is based on
+random correlations between $\mathbf{X}$ and $\mathbf{Y}$.
 \end{doublespace}
 
 \subsection{CV-ANOVA Testing}
 
 \begin{doublespace}
-FIXME.
+Response permutation testing capably reports $p$ values via hypothesis testing
+of model reliability, but it requires significant computation time to train
+the 100 -- 1000 models required for an accurate result. The alternative
+CV-ANOVA testing method effectively requires no additional computation time
+after internal cross-validation, as it compares the fitted $\mathbf{Y}$
+residuals obtained from cross-validation procedures \cite{eriksson:jchemo2008}.
+In effect, CV-ANOVA tests whether the mean square error of fitted residuals
+from PLS and OPLS models is significantly smaller than the total mean square
+variation in $\mathbf{Y}$. By comparing the ratio of these mean square values
+to an $F$ distribution, CV-ANOVA reports its own $p$ value which may again be
+compared to a threshold.
 \end{doublespace}
 
 \section{Conclusions}
 
 \begin{doublespace}
-FIXME.
+Multivariate bilinear factorizations such as PCA, PLS and OPLS provide an
+essential platform for rapid information extraction of rich spectral datasets.
+Through proper application of processing and treatment, optimal choice of
+modeling algorithms, and judicious administration of validation metrics,
+multivariate analysis can lend a powerful hand in biochemical examination of
+complex, multiparametric metabolic systems. Specific applications of
+multivariate analysis in metabolomics are discussed in further detail in the
+following chapter.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
