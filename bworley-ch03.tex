@@ -1003,7 +1003,7 @@ coefficients is obtained from inversion of the normal equations
 \end{equation}
 
 The OLS regression coefficients $\hat{\mathbf{B}}$ minimize the sum of squares
-of the residual matrix, $\|\mathbf{E}\|_F^2$, and are maximum likelihood
+of the residual matrix, $\frosq{\mathbf{E}}$, and are maximum likelihood
 estimates of $\mathbf{B}$ when the errors are independent and identically
 normally distributed \cite{draper1998}. However, the fact that $N \ll K$ yet
 again makes the matrix $\mathbf{X}^T \mathbf{X}$ non-invertible, forcing the
@@ -1741,20 +1741,221 @@ identical to those produced by algorithm 3.6.
 
 \section{Validation}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/mva/15.png}
+\caption
+      [Demonstration of PLS Overfit Based on Variable Count.]{
+  {\bf Demonstration of PLS Overfit Based on Variable Count.}
+  \\
+  ({\bf A}) Scores from a two-component PLS model of unit-variance scaled
+  Gaussian white noise ($N = 10$, $K = 5$). Inset: \rsqy{} (blue) and \qsq{}
+  (green) statistics for each component in the model, computed from 100
+  iterations of seven-fold Monte Carlo cross-validation.
+  ({\bf B}) Same scenario as ({\bf A}) with $K = 10$.
+  ({\bf C}) Same scenario as ({\bf A}) with $K = 20$.
+  ({\bf D}) Same scenario as ({\bf A}) with $K = 100$.
+}
+\end{figure}
+
 \begin{doublespace}
-FIXME.
+Application of the above bilinear factorization methods to one or more
+spectral data matrices yields valuable insights into both general chemical
+trends and relationships (e.g. from PCA) and response-predictive spectral
+features (e.g. from OPLS) in those matrices. However, wanton use of these
+multivariate methods without validation or knowledge of algorithmic intent
+can quickly lead to statistically insignificant conclusions about the
+underlying chemistry. The NIPALS-based algorithms described above are
+highly numerically stable, even in the presence of multicollinearity,
+noise, and missing data \cite{wold:cils2001,andersson:jchemo2009}. This
+numerical stability almost guarantees that PCA, PLS and OPLS will return
+a set of scores and loadings, even when those scores and loadings are only
+based on a small fraction of the total variation in the data. PLS and OPLS
+return biased regression coefficient estimates ($\hat{\mathbf{B}}_{PLS}$)
+and force separation based on responses in scores space. OPLS is especially
+adept at forcing scores-space separation, because its integrated OSC filter
+removes systematic data matrix variation that does not ``agree'' with the
+responses. These powerful modeling features make PLS and OPLS fully capable
+of producing results based on noise alone, if so requested
+\cite{westerhuis:metab2008a}. As the number of variables in the data increases
+over the number of observations, the danger of overfitting also increases
+(Figure 3.15). In effect, the probability of observing correlations to the
+responses increases with variable count, just as the probability of observing
+long runs of heads or tails increases with the number of fair coin tosses.
+\\\\
+In chemometric studies of spectroscopic datasets, where $N \ll K$, the tendency
+of bilinear models to over-fit must be balanced by rigorous application of
+several validation methods. When sufficient validation is lacking, any
+conclusions drawn from these models should automatically be treated as
+suspect from a statistical viewpoint. Therefore, all efforts must be taken
+during experimental design, data collection and handling in order to obtain
+data and models that acceptably withstand cross-validation.
+\end{doublespace}
+
+\subsection{Explained Variation}
+
+\begin{doublespace}
+In general, the amount of variation explained by a bilinear factorization of
+a matrix is quantified by its sum of squares:
+\begin{equation*}
+SS \left\{ \mathbf{t} \mathbf{p}^T \right\} = \frosq{\mathbf{t} \mathbf{p}^T}
+\end{equation*}
+where $\frosq{\cdot}$ denotes the squared Frobenius norm, which will be used
+as a shorthand for the sum of squares. Because the raw sum of squares is not
+scale-invariant, it is normally reported as a ratio relative to the total sum
+of squares. In the context of a PCA (equation 3.20), this ratio is referred
+to as \rsqx{} (or simply \rsq{}):
+\begin{align}
+R^2_X
+ =& \: \frac{\ssfit{}}{\sstot{}}
+     = \frac{\frosq{\mathbf{T} \mathbf{P}^T}}{\frosq{\mathbf{X}}} \\
+ =& \: 1 - \frac{\sserr{}}{\sstot{}}
+     = 1 - \frac{\frosq{\mathbf{E}}}{\frosq{\mathbf{X}}}
+\end{align}
+where the second set of equalities arises from the fact that PCA loadings are
+eigenvectors of $\mathbf{X}^T \mathbf{X}$ and right singular vectors of
+$\mathbf{X}$ \cite{jolliffe2002}. The cumulative \rsqx{} statistic may be
+broken into sums of per-component \rsqx{} statistics, due to the orthonormality
+properties of principal components:
+\begin{equation}
+R^2_X =
+ \sum_{a=1}^A
+ \frac{\frosq{\mathbf{t}_a {\mathbf{p}_a}^T}}
+      {\frosq{\mathbf{X}}}
+\end{equation}
+
+In the case of PLS modeling (equation 3.37), a similar ratio exists (\rsqy{})
+that quantifies the amount of variation explained in the responses:
+\begin{align}
+R^2_Y
+ =& \: \frac{\frosq{\mathbf{T} \mathbf{C}^T}}{\frosq{\mathbf{Y}}} \\
+ =& \: 1 - \frac{\frosq{\mathbf{F}}}{\frosq{\mathbf{Y}}}
+\end{align}
+
+Similar expressions exist for the predictive and orthogonal factorizations of
+$\mathbf{X}$ in OPLS models, which are referred to as \rsqxp{} and \rsqxo{},
+respectively. While these \rsq{} statistics provide valuable first insights
+into the amount of variation that may be explained by a given model framework,
+they are gross over-estimations of model reliability and should not be used
+during model selection as a means of determining the optimal component count,
+$A^\ast$. Cross-validatory methods discussed in later sections provide more
+effective means of identifying $A^\ast$ during model training.
 \end{doublespace}
 
 \subsection{External Cross-validation}
 
 \begin{doublespace}
-FIXME.
+In its most traditional form, cross-validation involves the division of $N$
+observations in a dataset (i.e. $\mathbf{X}$ and $\mathbf{Y}$) into a training
+set having $N_t$ observations and a validation set having $N_v$ observations.
+The training and validation datasets are then processed and treated separately
+using identical methods, and models are constructed on the training dataset.
+In the case of PLS modeling, the analyst will have the following equation:
+\begin{equation}
+\mathbf{Y}_t = \mathbf{X}_t \mathbf{W}^\ast \mathbf{C}^T + \mathbf{F}
+\end{equation}
+
+Assessment of model reliability is then performed by estimating the responses
+of the validation dataset using the trained model, like so:
+\begin{equation}
+\hat{\mathbf{Y}}_v = \mathbf{X}_v \mathbf{W}^\ast \mathbf{C}^T
+\end{equation}
+where the predicted residual sum of squares (PRESS) statistic is now readily
+computable from the sum of squares of the difference between true and estimated
+validation-set responses:
+\begin{equation}
+\mathrm{PRESS} = \frosq{\mathbf{Y}_v - \hat{\mathbf{Y}}_v}
+\end{equation}
+
+A scale-invariant reporter of reliability (\qsq{}) is obtained from the PRESS
+statistic as follows:
+\begin{equation}
+Q^2
+ = 1 - \frac{\mathrm{PRESS}}{\sstot{}}
+ = 1 - \frac{\frosq{\mathbf{Y}_v - \hat{\mathbf{Y}}_v}}{\frosq{\mathbf{Y}_v}}
+\end{equation}
+
+This model reliability statistic is often referred to as a ``cross-validated''
+\rsq{} statistic, and provides a relative measure of how well a given model
+will generalize to the estimation of future observations. Like \rsq{}
+statistics, \qsq{} is also computable on a per-component basis.
 \end{doublespace}
 
 \subsection{Internal Cross-validation}
 
+\subsubsection{Supervised Models}
+
 \begin{doublespace}
-FIXME.
+Due to the severely limited number of observations in most chemometric studies,
+the practice of external cross-validation is rare, and all observations are
+usually retained for model training. Nevertheless, model reliability statistics
+may be obtained from the similar practice of \emph{internal} cross-validation.
+In any internal cross-validation scheme, the $N$ observations of a given
+dataset are divided into $n_g$ groups, referred to as $n_g$-fold or
+leave-$n$-out cross-validation (where $n = \lfloor N / n_g \rfloor$). Each
+group is then left out in turn, and its responses are estimated from a model
+trained on the remainder of the data. In the simplest case where $n_g = N$,
+known as leave-one-out cross-validation (LOOCV), only one observation is left
+out at a time. It has been shown, however, that leave-one-out methods do not
+identify optimal models as effectively as leave-$n$-out methods as $N$
+increases \cite{shao:jasa1993}, so $n_g$ should be less than the number of
+observations whenever possible.
+\\\\
+Within a leave-$n$-out cross-validation of $N$ observations, there are
+$\binom{N}{n}$ different ways to partition the dataset into the desired
+number of groups. A complete cross-validation would require the evaluation
+of all possible partitions, which is computationally intractable even for
+small (e.g. $N \ge 20$) datasets. While it is possible to arbitrarily select
+a single partitioning, such as a regular pattern of group assignment, it is
+much more attractive to randomly resample a number of partitionings ($n_p$)
+from the set of $\binom{N}{n}$ possibilities in a Monte Carlo leave-$n$-out
+cross-validation approach \cite{xu:cils2001}. Monte Carlo cross-validation
+offers the possibility of assigning confidence regions to reported \qsq{}
+values for a given dataset, which provides the analyst with further information
+on model reliability estimates.
+\\\\
+In practice, per-component \qsq{} statistics provide a means of determining
+$A^\ast$, the optimal component count. When new components are added to the
+model that fail to reliably estimate the responses under cross-validation,
+their \qsq{} values will become negative. Thus, a practical rule during model
+training is to only retain components having positive \qsq{} statistics.
+\end{doublespace}
+
+\begin{figure}[h!]
+\begin{center}
+  \includegraphics[width=4.5in]{figs/mva/16.png}
+\end{center}
+\caption
+      [Partitioning in Leave-$n$-out PCA Cross-validation.]{
+  {\bf Partitioning in Leave-$n$-out PCA Cross-validation.}
+  \\
+  Graphical illustration of two different partitionings (red and blue) of a
+  data matrix. Each partitioning (group) requires the computation of a set of
+  scores ($\hat{\mathbf{t}}$) and loadings ($\hat{\mathbf{p}}$) in order to
+  estimate it's left-out values, indicated by filled circles. Estimation of
+  $\hat{x}_{ik}$ requires computation of $\hat{\mathbf{t}}$ with variable $k$
+  left out and $\hat{\mathbf{p}}$ with observation $i$ left out. The value of
+  $\hat{x}_{ik}$ is then obtained from the $(i,k)$-th index of
+  $\hat{\mathbf{t}} \hat{\mathbf{p}}^T$
+}
+\end{figure}
+
+\subsubsection{Unsupervised Models}
+
+\begin{doublespace}
+Internal cross-validation of unsupervised PCA models poses a unique challenge
+in comparison to PLS and OPLS, as it does not involve prediction of a set of
+responses \cite{eastment:tech1982,krzanowski:biom1987,eshghi:cils2014}. Eshghi
+\cite{eshghi:cils2014} provides a more comprehensive review of internal
+cross-validation practices for PCA models. In short, leave-$n$-out
+cross-validation of PCA models requires that both observations \emph{and}
+variables be partitioned into $n_g$ groups. The resulting pair of partitionings
+allows groups of data matrix elements to be left out and recomputed during
+cross-validation. For each group, a score vector $\hat{\mathbf{t}}$ is
+computed after leaving out variables in the group, and a loading vector
+$\hat{\mathbf{p}}$ is computed after leaving out observations in the group.
+The outer product of $\hat{\mathbf{t}}$ and $\hat{\mathbf{p}}$ is then used
+in estimating the data matrix elements located at the intersections of the
+left-out variables and observations (Figure 3.16).
 \end{doublespace}
 
 \subsection{Response Permutation Testing}
