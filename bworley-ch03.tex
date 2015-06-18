@@ -1846,10 +1846,11 @@ effective means of identifying $A^\ast$ during model training.
 \begin{doublespace}
 In its most traditional form, cross-validation involves the division of $N$
 observations in a dataset (i.e. $\mathbf{X}$ and $\mathbf{Y}$) into a training
-set having $N_t$ observations and a validation set having $N_v$ observations.
+set ($\mathbf{X}_t$ and $\mathbf{Y}_t$) having $N_t$ observations and a
+validation set ($\mathbf{X}_v$ and $\mathbf{Y}_v$) having $N_v$ observations.
 The training and validation datasets are then processed and treated separately
 using identical methods, and models are constructed on the training dataset.
-In the case of PLS modeling, the analyst will have the following equation:
+In the case of PLS modeling, the analyst will arrive at the following equation:
 \begin{equation}
 \mathbf{Y}_t = \mathbf{X}_t \mathbf{W}^\ast \mathbf{C}^T + \mathbf{F}
 \end{equation}
@@ -1893,13 +1894,56 @@ In any internal cross-validation scheme, the $N$ observations of a given
 dataset are divided into $n_g$ groups, referred to as $n_g$-fold or
 leave-$n$-out cross-validation (where $n = \lfloor N / n_g \rfloor$). Each
 group is then left out in turn, and its responses are estimated from a model
-trained on the remainder of the data. In the simplest case where $n_g = N$,
-known as leave-one-out cross-validation (LOOCV), only one observation is left
-out at a time. It has been shown, however, that leave-one-out methods do not
-identify optimal models as effectively as leave-$n$-out methods as $N$
-increases \cite{shao:jasa1993}, so $n_g$ should be less than the number of
-observations whenever possible.
-\\\\
+trained on the remainder of the data. To more succinctly introduce internal
+cross-validation procedures, the set of all partitionings of $N$ elements into
+$G$ groups, denoted $\mathbb{P}(N, G)$, shall be introduced:
+\begin{equation}
+\mathbb{P}(N, G) \equiv \big\{
+ \mathbf{p} \mid \mathbf{p} \in \mathbb{Z}^N
+ \wedge
+ 1 \le p_n \le G
+ \quad \forall n \in \{1, \dots N\}
+\big\}
+\end{equation}
+
+Given a partitioning $\boldsymbol{\sigma} \in \mathbb{P}(N,n_g)$, the following
+algorithm demonstrates the computation of \qsq{} for a single PLS component:
+\end{doublespace}
+
+\begin{algorithm}[H]
+\caption{Internal PLS Component Cross-validation}
+\label{algorithm.3.8}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$,%
+       $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$,%
+       $\:n_g$, $\:\boldsymbol{\sigma} \in \mathbb{P}(N, n_g)$
+\ENSURE $Q^2 \in \mathbb{R}$
+\FORALL{$g \in \{1, \dots n_g\}$}
+  \STATE $\{\mathbf{t}, \mathbf{p}, \mathbf{u}, \mathbf{c}, \mathbf{w}\}
+          \gets \mathrm{PLS}(\mathbf{X}^{(-g)}, \mathbf{Y}^{(-g)})$ \COMMENT{
+ $\mathbf{X}^{(-g)}$, $\mathbf{Y}^{(-g)}$ contain no rows from group $g$
+}
+  \STATE $\mathbf{B}^{(g)} \gets \tfrac{\mathbf{w} \mathbf{c}^T}
+                                       {\mathbf{p}^T \mathbf{w}}$
+\ENDFOR
+\FORALL{$n \in \{1, \dots N\}$}
+  \STATE $\hat{\mathbf{y}}_n \gets
+          \mathbf{x}_n \mathbf{B}^{(\sigma_n)}$ \COMMENT{
+ $\hat{\mathbf{y}}_n$, $\mathbf{x}_n$ are the $n$-th rows of
+ $\hat{\mathbf{Y}}$, $\mathbf{X}$
+}
+\ENDFOR
+\STATE $Q^2 \gets 1 - \frac{\frosq{\mathbf{Y} - \hat{\mathbf{Y}}}}
+                           {\frosq{\mathbf{Y}}}$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{doublespace}
+In the simplest case where $n_g = N$, known as leave-one-out cross-validation
+(LOOCV), only one observation is left out at a time. It has been shown,
+however, that leave-one-out methods do not identify optimal models as
+effectively as leave-$n$-out methods as $N$ increases \cite{shao:jasa1993},
+so $n_g$ should be less than the number of observations whenever possible.
 Within a leave-$n$-out cross-validation of $N$ observations, there are
 $\binom{N}{n}$ different ways to partition the dataset into the desired
 number of groups. A complete cross-validation would require the evaluation
@@ -1907,11 +1951,12 @@ of all possible partitions, which is computationally intractable even for
 small (e.g. $N \ge 20$) datasets. While it is possible to arbitrarily select
 a single partitioning, such as a regular pattern of group assignment, it is
 much more attractive to randomly resample a number of partitionings ($n_p$)
-from the set of $\binom{N}{n}$ possibilities in a Monte Carlo leave-$n$-out
-cross-validation approach \cite{xu:cils2001}. Monte Carlo cross-validation
-offers the possibility of assigning confidence regions to reported \qsq{}
-values for a given dataset, which provides the analyst with further information
-on model reliability estimates.
+from the set of $\binom{N}{n}$ possibilities
+($\boldsymbol{\sigma} \sim \mathbb{P}(N,n_g)$) in a
+Monte Carlo leave-$n$-out cross-validation approach \cite{xu:cils2001}. Monte
+Carlo cross-validation offers the possibility of assigning confidence regions
+to reported \qsq{} values for a given dataset, which provides the analyst with
+further information on model reliability estimates.
 \\\\
 In practice, per-component \qsq{} statistics provide a means of determining
 $A^\ast$, the optimal component count. When new components are added to the
@@ -1985,7 +2030,7 @@ random correlations between $\mathbf{X}$ and $\mathbf{Y}$.
 \begin{doublespace}
 Response permutation testing capably reports $p$ values via hypothesis testing
 of model reliability, but it requires significant computation time to train
-the 100 -- 1000 models required for an accurate result. The alternative
+the 100 -- 1,000 models required for an accurate result. The alternative
 CV-ANOVA testing method effectively requires no additional computation time
 after internal cross-validation, as it compares the fitted $\mathbf{Y}$
 residuals obtained from cross-validation procedures \cite{eriksson:jchemo2008}.
