@@ -374,12 +374,18 @@ spaced time-domain points, the most convenient method of transforming them
 into the frequency domain is the discrete Fourier transform (DFT,
 \cite{bretthorst:cmr2008,schuyler:jmr2013}). Using the introduced formalism for
 hypercomplex NMR data, the DFT along dimension $d$ of a time-domain vector
-$\mathbf{f} \in \mathbb{H}_D^N$ is defined as:
+$\mathbf{f} \in \mathbb{H}_D^N$ is defined\footnote{
+  For succinctness, the set of integers from $\alpha$ to $\beta$
+  shall be denoted as $\mathbb{Z}_\alpha^\beta$, i.e.
+  $\mathbb{Z}_\alpha^\beta \equiv \{
+   i \mid i \in \mathbb{Z} \wedge \alpha \le i \le \beta
+   \}$
+} as:
 \begin{equation}
 \mathbf{s}_k = \frac{1}{\sqrt{N}} \sum_{n=0}^{N-1}
   \exp\left\{ -2 \pi u_d \frac{n k}{N} \right\}
   \mathbf{f}_n
-  \quad \forall k \in \{ 0, 1, \dots N-1 \}
+  \quad \forall k \in \ints{0}{N-1}
 \end{equation}
 which is a linear transformation
 $\mathcal{F}_d : \mathbb{H}_D^N \to \mathbb{H}_D^N$. Discrete Fourier
@@ -908,7 +914,7 @@ which may then be standardized into a set of Mahalanobis distances
 $\mathbf{d}$:
 \begin{equation}
 d_n = \frac{x_n - \bar{x}}{s}
- \quad \forall n \in \{1, \dots N\}
+ \quad \forall n \in \ints{1}{N}
 \end{equation}
 
 These distances in $\mathbf{d}$ may be transformed into $t$ statistics and
@@ -928,7 +934,7 @@ The set of squared Mahalanobis distances may then be computed as follows
 d_n^2 =
  (\mathbf{x}_n - \bar{\mathbf{x}}) \mathbf{S}^{-1}
  (\mathbf{x}_n - \bar{\mathbf{x}})^T
- \quad \forall n \in \{1, \dots N\}
+ \quad \forall n \in \ints{1}{N}
 \end{equation}
 
 Once again, each squared distance may be compared to a critical value from a
@@ -945,7 +951,7 @@ d_n^2 =
  \mathbf{t}_n
  \left( \frac{\mathbf{T}^T \mathbf{T}}{N - 1} \right)^{-1}
  \mathbf{t}_n^T
- \quad \forall n \in \{1, \dots N\}
+ \quad \forall n \in \ints{1}{N}
 \end{equation}
 where $\mathbf{t}_n$ is the $n$-th row of the scores matrix $\mathbf{T}$.
 Because the matrix $\mathbf{T}^T \mathbf{T}$ is diagonal, it is trivially
@@ -1236,7 +1242,7 @@ following algorithm:
       $\:\mathbf{W_o} \in \mathbb{R}^{K \times a}$,%
       $\:\mathbf{u} \in \mathbb{R}^N$,%
       $\:\mathbf{c} \in \mathbb{R}^M$
-\FORALL{$m \in \{1, 2, \dots M\}$}
+\FORALL{$m \in \ints{1}{M}$}
   \STATE $\mathbf{v}_m \gets \tfrac{\mathbf{X}^T \mathbf{y}_m}
                                    {\mathbf{y}_m^T \mathbf{y}_m}$
   \STATE $\mathbf{V} \gets [\mathbf{V}, \; \mathbf{v}_m]$
@@ -1348,7 +1354,7 @@ and a PCA block model for each individual block $\mathbf{X}_b$:
 \mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X}_b =& \: \mathbf{T}_b {\mathbf{P}_b}^T + \mathbf{E}_b
- \quad \forall b \in \{1, \dots B\}
+ \quad \forall b \in \ints{1}{B}
 \end{align}
 
 The NIPALS algorithm for CPCA-W, shown below, returns a pair of super-scores
@@ -1362,19 +1368,19 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
 \label{algorithm.3.4}
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X}_b \in \mathbb{R}^{N \times K_b}
-          \quad \forall b \in \{1, \dots B\}$
+          \quad \forall b \in \ints{1}{B}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
       $\:\mathbf{p} \in \mathbb{R}^K$,%
       $\:\mathbf{w} \in \mathbb{R}^B$,%
       $\:\mathbf{t}_b \in \mathbb{R}^N$,%
-      $\:\mathbf{p}_b \in \mathbb{R}^K \quad \forall b \in \{1, \dots B\}$
+      $\:\mathbf{p}_b \in \mathbb{R}^K \quad \forall b \in \ints{1}{B}$
 \STATE $\mathbf{X} \gets
         [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{t} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{t}$ may also be initialized to a column of $\mathbf{X}$
 }
 \REPEAT
-  \FORALL{$b \in \{1, \dots B\}$}
+  \FORALL{$b \in \ints{1}{B}$}
     \STATE $\mathbf{p}_b \propto {\mathbf{X}_b}^T \mathbf{t}$
     \STATE $\mathbf{t}_b \gets \mathbf{X}_b \mathbf{p}_b$
   \ENDFOR
@@ -1386,7 +1392,7 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
 \STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
 \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{X}_b}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}
-        \quad \forall b \in \{1, \dots B\}$
+        \quad \forall b \in \ints{1}{B}$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1396,7 +1402,7 @@ $\mathbf{t}$ as in standard PCA. Computation of subsequent components requires
 the deflation of each data block, like so:
 \begin{equation}
 \mathbf{X}_b' \gets \mathbf{X}_b - \mathbf{t} {\mathbf{p}_b}^T
- \quad \forall b \in \{1, \dots B\}
+ \quad \forall b \in \ints{1}{B}
 \end{equation}
 
 When block scaling is applied to each data block, the super-scores and
@@ -1425,7 +1431,7 @@ that describes that block's contribution to $\mathbf{Y}$-prediction:
 \mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X}_b =& \: \mathbf{T}_b {\mathbf{P}_b}^T + \mathbf{E}_b
- \quad \forall b \in \{1, \dots B\} \\
+ \quad \forall b \in \ints{1}{B} \\
 \mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
@@ -1440,7 +1446,7 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
 \label{algorithm.3.5}
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X}_b \in \mathbb{R}^{N \times K_b}
-          \quad \forall b \in \{1, \dots B\}$,%
+          \quad \forall b \in \ints{1}{B}$,%
        $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
       $\:\mathbf{p} \in \mathbb{R}^K$,%
@@ -1450,13 +1456,13 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
       $\:\mathbf{t}_b \in \mathbb{R}^N$,%
       $\:\mathbf{p}_b \in \mathbb{R}^K$,%
       $\:\mathbf{w}_b \in \mathbb{R}^K
-       \quad \forall b \in \{1, \dots B\}$
+       \quad \forall b \in \ints{1}{B}$
 \STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
 }
 \REPEAT
-  \FORALL{$b \in \{1, \dots B\}$}
+  \FORALL{$b \in \ints{1}{B}$}
     \STATE $\mathbf{w}_b \propto {\mathbf{X}_b}^T \mathbf{u}$
     \STATE $\mathbf{t}_b \gets \mathbf{X}_b \mathbf{w}_b$
   \ENDFOR
@@ -1471,7 +1477,7 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
 \STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
 \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{X}_b}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}
-        \quad \forall b \in \{1, \dots B\}$
+        \quad \forall b \in \ints{1}{B}$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1481,7 +1487,7 @@ $\mathbf{t}$. Computation of subsequent components requires the deflation of
 each data block using super-scores \cite{westerhuis:jchemo1997}, like so:
 \begin{align}
 \mathbf{X}_b' \gets& \: \mathbf{X}_b - \mathbf{t} {\mathbf{p}_b}^T
- \quad \forall b \in \{1, \dots B\} \\
+ \quad \forall b \in \ints{1}{B} \\
 \mathbf{Y}' \gets& \: \mathbf{Y} - \mathbf{t} \mathbf{c}^T
 \end{align}
 
@@ -1521,7 +1527,7 @@ interfere with MB-PLS predictions:
                  \mathbf{T_o} \mathbf{P_o}^T + \mathbf{E} \\
 \mathbf{X}_b =& \: \mathbf{T}_b {\mathbf{P}_b}^T +
                    \mathbf{T_o}_b {\mathbf{P_o}_b}^T + \mathbf{E}_b
- \quad \forall b \in \{1, \dots B\} \\
+ \quad \forall b \in \ints{1}{B} \\
 \mathbf{Y} =& \: \mathbf{U} \mathbf{C}^T + \mathbf{G} \\
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
@@ -1538,7 +1544,7 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
 \label{algorithm.3.6}
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X}_b \in \mathbb{R}^{N \times K_b}
-          \quad \forall b \in \{1, \dots B\}$,%
+          \quad \forall b \in \ints{1}{B}$,%
        $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
       $\:\mathbf{p} \in \mathbb{R}^K$,%
@@ -1552,7 +1558,7 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
       $\:\mathbf{w}_b \in \mathbb{R}^K$,%
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
-       \quad \forall b \in \{1, \dots B\}$
+       \quad \forall b \in \ints{1}{B}$
 \STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
@@ -1561,10 +1567,10 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
 \STATE $a \gets 0$
 \STATE $\mathbf{E} \gets \mathbf{X}$
 \STATE $\mathbf{E}_b \gets \mathbf{X}_b
-        \quad \forall b \in \{1, \dots B\}$
+        \quad \forall b \in \ints{1}{B}$
 \WHILE{\NOT done}
   \REPEAT
-    \FORALL{$b \in \{1, \dots B\}$}
+    \FORALL{$b \in \ints{1}{B}$}
       \STATE $\mathbf{w}_b \propto {\mathbf{E}_b}^T \mathbf{u}$
       \STATE $\mathbf{t}_b \gets \mathbf{E}_b \mathbf{w}_b$
       \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{E}_b}^T \mathbf{t}_b}
@@ -1584,7 +1590,7 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
   \STATE $\mathbf{z} \gets \mathbf{z} -
           \tfrac{\mathbf{v}_m^T \mathbf{z}}
                 {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m
-          \quad \forall m \in \{1, \dots M\}$
+          \quad \forall m \in \ints{1}{M}$
   \STATE $\mathbf{w_o} \propto \mathbf{z}$
   \STATE $\mathbf{t_o} \gets \mathbf{E} \mathbf{w_o}$
   \STATE $\mathcal{P}_o \gets \tfrac{\mathbf{t_o} \mathbf{t_o}^T}
@@ -1594,23 +1600,23 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
   \STATE $\mathbf{p_o}_b \gets
           \tfrac{(\mathcal{P}_o \mathbf{E}_b)^T \mathbf{t_o}}
                 {\mathbf{t_o}^T \mathbf{t_o}}
-          \quad \forall b \in \{1, \dots B\}$
+          \quad \forall b \in \ints{1}{B}$
   \STATE $\mathbf{t_o}_b \gets
           \tfrac{\mathcal{P}_o \mathbf{E}_b \mathbf{p_o}_b}
                 {{\mathbf{p_o}_b}^T \mathbf{p_o}_b}
-          \quad \forall b \in \{1, \dots B\}$
+          \quad \forall b \in \ints{1}{B}$
   \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p} \|_2}$
   \IF{$\lambda < \lambda_{th}$}
     \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
     \STATE $\mathbf{P_o} \gets [\mathbf{P_o}, \; \mathbf{p_o}]$
     \STATE $\mathbf{W_o} \gets [\mathbf{W_o}, \; \mathbf{w_o}]$
     \STATE $\mathbf{T_o}_b \gets [\mathbf{T_o}_b, \; \mathbf{t_o}_b]
-            \quad \forall b \in \{1, \dots B\}$
+            \quad \forall b \in \ints{1}{B}$
     \STATE $\mathbf{P_o}_b \gets [\mathbf{P_o}_b, \; \mathbf{p_o}_b]
-            \quad \forall b \in \{1, \dots B\}$
+            \quad \forall b \in \ints{1}{B}$
     \STATE $\mathbf{E} \gets \mathbf{E} - \mathbf{t_o} \mathbf{p_o}^T$
     \STATE $\mathbf{E}_b \gets \mathbf{E}_b - \mathbf{t_o} {\mathbf{p_o}_b}^T
-            \quad \forall b \in \{1, \dots B\}$
+            \quad \forall b \in \ints{1}{B}$
     \STATE $a \gets a + 1$
   \ELSE
     \STATE done $\gets$ \TRUE
@@ -1629,7 +1635,7 @@ method in MB-PLS \cite{westerhuis:jchemo1997}:
 \mathbf{X}_b' \gets& \: \mathbf{X}_b -
  \mathbf{t} {\mathbf{p}_b}^T -
  \mathbf{T_o} {\mathbf{P_o}_b}^T
- \quad \forall b \in \{1, \dots B\} \\
+ \quad \forall b \in \ints{1}{B} \\
 \mathbf{Y} \gets& \: \mathbf{Y} - \mathbf{t} \mathbf{c}^T
 \end{align}
 
@@ -1662,7 +1668,7 @@ to extract block-level models from super-model scores and loadings.
 \label{algorithm.3.7}
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X}_b \in \mathbb{R}^{N \times K_b}
-          \quad \forall b \in \{1, \dots B\}$,%
+          \quad \forall b \in \ints{1}{B}$,%
        $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$
 \ENSURE $\mathbf{t} \in \mathbb{R}^N$,%
       $\:\mathbf{p} \in \mathbb{R}^K$,%
@@ -1674,7 +1680,7 @@ to extract block-level models from super-model scores and loadings.
       $\:\mathbf{p}_b \in \mathbb{R}^K$,%
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
-       \quad \forall b \in \{1, \dots B\}$
+       \quad \forall b \in \ints{1}{B}$
 \STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\{\mathbf{t}, \: \mathbf{p}, \: \mathbf{u}, \: \mathbf{c}, \:
         \mathbf{T_o}, \: \mathbf{P_o}\} \gets
@@ -1683,14 +1689,14 @@ to extract block-level models from super-model scores and loadings.
         \mathbf{I} - \mathbf{T_o} \left(
          \mathbf{T_o}^T \mathbf{T_o}
         \right)^{-1} \mathbf{T_o}^T$
-\FORALL{$b \in \{1, \dots B\}$}
+\FORALL{$b \in \ints{1}{B}$}
   \STATE $\mathbf{w}_{PLS} \propto {\mathbf{X}_b}^T \mathbf{u}$
   \STATE $\mathbf{t}_b \gets
           \mathcal{P}_p \mathbf{X}_b \mathbf{w}_{PLS}$
   \STATE $\mathbf{p}_b \gets
           \tfrac{(\mathcal{P}_p \mathbf{X}_b)^T \mathbf{t}_b}
                 {{\mathbf{t}_b}^T \mathbf{t}_b}$
-  \FORALL{$a_o \in \{1, \dots a\}$}
+  \FORALL{$a_o \in \ints{1}{a}$}
     \STATE $\mathbf{t_o} \gets \mathbf{T_o}_{a_o}$ \COMMENT{
       Extract the $a_o$-th column of $\mathbf{T_o}$ }
     \STATE $\mathcal{P}_o \gets \tfrac{\mathbf{t_o} \mathbf{t_o}^T}
@@ -1891,8 +1897,8 @@ the practice of external cross-validation is rare, and all observations are
 usually retained for model training. Nevertheless, model reliability statistics
 may be obtained from the similar practice of \emph{internal} cross-validation.
 In any internal cross-validation scheme, the $N$ observations of a given
-dataset are divided into $n_g$ groups, referred to as $n_g$-fold or
-leave-$n$-out cross-validation (where $n = \lfloor N / n_g \rfloor$). Each
+dataset are divided into $G$ groups, referred to as $G$-fold or
+leave-$n$-out cross-validation (where $n = \lfloor N / G \rfloor$). Each
 group is then left out in turn, and its responses are estimated from a model
 trained on the remainder of the data. To more succinctly introduce internal
 cross-validation procedures, the set of all partitionings of $N$ elements into
@@ -1902,11 +1908,12 @@ $G$ groups, denoted $\mathbb{P}(N, G)$, shall be introduced:
  \mathbf{p} \mid \mathbf{p} \in \mathbb{Z}^N
  \wedge
  1 \le p_n \le G
- \quad \forall n \in \{1, \dots N\}
+ \quad \forall n \in \ints{1}{N}
 \big\}
 \end{equation}
 
-Given a partitioning $\boldsymbol{\sigma} \in \mathbb{P}(N,n_g)$, the following
+As an example, one member of the set $\mathbb{P}(7, 3)$ is $(1,2,3,1,2,3,1)$.
+Given a partitioning $\boldsymbol{\sigma} \in \mathbb{P}(N, G)$, the following
 algorithm demonstrates the computation of \qsq{} for a single PLS component:
 \end{doublespace}
 
@@ -1916,17 +1923,19 @@ algorithm demonstrates the computation of \qsq{} for a single PLS component:
 \begin{algorithmic}[1]
 \REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$,%
        $\:\mathbf{Y} \in \mathbb{R}^{N \times M}$,%
-       $\:n_g$, $\:\boldsymbol{\sigma} \in \mathbb{P}(N, n_g)$
+       $\:G$, $\:\boldsymbol{\sigma} \in \mathbb{P}(N, G)$
 \ENSURE $Q^2 \in \mathbb{R}$
-\FORALL{$g \in \{1, \dots n_g\}$}
+\FORALL{$g \in \ints{1}{G}$}
+  \STATE $n_g \gets \{ n \mid n \in \ints{1}{N} \wedge \sigma_n = g \}$
   \STATE $\{\mathbf{t}, \mathbf{p}, \mathbf{u}, \mathbf{c}, \mathbf{w}\}
-          \gets \mathrm{PLS}(\mathbf{X}^{(-g)}, \mathbf{Y}^{(-g)})$ \COMMENT{
- $\mathbf{X}^{(-g)}$, $\mathbf{Y}^{(-g)}$ contain no rows from group $g$
+          \gets \mathrm{PLS}(\mathbf{X}^{(-n_g)},
+                             \mathbf{Y}^{(-n_g)})$ \COMMENT{
+ $\mathbf{X}^{(-n_g)}$, $\mathbf{Y}^{(-n_g)}$ contain no rows from group $g$
 }
   \STATE $\mathbf{B}^{(g)} \gets \tfrac{\mathbf{w} \mathbf{c}^T}
                                        {\mathbf{p}^T \mathbf{w}}$
 \ENDFOR
-\FORALL{$n \in \{1, \dots N\}$}
+\FORALL{$n \in \ints{1}{N}$}
   \STATE $\hat{\mathbf{y}}_n \gets
           \mathbf{x}_n \mathbf{B}^{(\sigma_n)}$ \COMMENT{
  $\hat{\mathbf{y}}_n$, $\mathbf{x}_n$ are the $n$-th rows of
@@ -1939,11 +1948,11 @@ algorithm demonstrates the computation of \qsq{} for a single PLS component:
 \end{algorithm}
 
 \begin{doublespace}
-In the simplest case where $n_g = N$, known as leave-one-out cross-validation
+In the simplest case where $G = N$, known as leave-one-out cross-validation
 (LOOCV), only one observation is left out at a time. It has been shown,
 however, that leave-one-out methods do not identify optimal models as
 effectively as leave-$n$-out methods as $N$ increases \cite{shao:jasa1993},
-so $n_g$ should be less than the number of observations whenever possible.
+so $G$ should be less than the number of observations whenever possible.
 Within a leave-$n$-out cross-validation of $N$ observations, there are
 $\binom{N}{n}$ different ways to partition the dataset into the desired
 number of groups. A complete cross-validation would require the evaluation
@@ -1952,7 +1961,7 @@ small (e.g. $N \ge 20$) datasets. While it is possible to arbitrarily select
 a single partitioning, such as a regular pattern of group assignment, it is
 much more attractive to randomly resample a number of partitionings ($n_p$)
 from the set of $\binom{N}{n}$ possibilities
-($\boldsymbol{\sigma} \sim \mathbb{P}(N,n_g)$) in a
+($\boldsymbol{\sigma} \sim \mathbb{P}(N,G)$) in a
 Monte Carlo leave-$n$-out cross-validation approach \cite{xu:cils2001}. Monte
 Carlo cross-validation offers the possibility of assigning confidence regions
 to reported \qsq{} values for a given dataset, which provides the analyst with
@@ -1993,15 +2002,50 @@ responses \cite{eastment:tech1982,krzanowski:biom1987,eshghi:cils2014}. Eshghi
 \cite{eshghi:cils2014} provides a more comprehensive review of internal
 cross-validation practices for PCA models. In short, leave-$n$-out
 cross-validation of PCA models requires that both observations \emph{and}
-variables be partitioned into $n_g$ groups. The resulting pair of partitionings
+variables be partitioned into $G$ groups. The resulting pair of partitionings
 allows groups of data matrix elements to be left out and recomputed during
 cross-validation. For each group, a score vector $\hat{\mathbf{t}}$ is
 computed after leaving out variables in the group, and a loading vector
 $\hat{\mathbf{p}}$ is computed after leaving out observations in the group.
 The outer product of $\hat{\mathbf{t}}$ and $\hat{\mathbf{p}}$ is then used
 in estimating the data matrix elements located at the intersections of the
-left-out variables and observations (Figure 3.16).
+left-out variables and observations (Figure 3.16). The following algorithm
+demonstrates the computation of \qsq{} for a single principal component, given
+a row partitioning $\boldsymbol{\sigma}$ and a column partitioning
+$\boldsymbol{\rho}$:
 \end{doublespace}
+
+\begin{algorithm}[H]
+\caption{Internal PCA Component Cross-validation}
+\label{algorithm.3.9}
+\begin{algorithmic}[1]
+\REQUIRE $\mathbf{X} \in \mathbb{R}^{N \times K}$, $\:G$,
+       $\:\boldsymbol{\sigma} \in \mathbb{P}(N, G)$,%
+       $\:\boldsymbol{\rho} \in \mathbb{P}(K, G)$
+\ENSURE $Q^2 \in \mathbb{R}$
+\FORALL{$g_1 \in \ints{1}{G}$}
+  \STATE $n_g \gets \{ n \mid n \in \ints{1}{N} \wedge \sigma_n = g_1 \}$
+    \STATE $\hat{\mathbf{p}} \gets \mathrm{PCA}(\mathbf{X}^{(-n_g)})$ \COMMENT{
+    $\mathbf{X}^{(-n_g)}$ contains no rows from group $g$}
+
+  \FORALL{$g_2 \in \ints{1}{G}$}
+    \STATE $k_g \gets \{ k \mid k \in \ints{1}{K} \wedge \rho_k = g_2 \}$
+    \STATE $\hat{\mathbf{t}} \gets \mathrm{PCA}(\mathbf{X}^{(-k_g)})$ \COMMENT{
+    $\mathbf{X}^{(-k_g)}$ contains no columns from group $g$}
+    \STATE $\hat{\mathbf{t}} \gets \hat{\mathbf{t}}
+            \sqrt{\tfrac{K}{K - |k_g|}}$
+    \FORALL{$n \in n_g$}
+      \FORALL{$k \in k_g$}
+        \STATE $\hat{\mathbf{X}}_{n,k} \gets
+                \hat{\mathbf{t}}_n \hat{\mathbf{p}}_k$
+      \ENDFOR
+    \ENDFOR
+  \ENDFOR
+\ENDFOR
+\STATE $Q^2 \gets 1 - \frac{\frosq{\mathbf{X} - \hat{\mathbf{X}}}}
+                           {\frosq{\mathbf{X}}}$
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Response Permutation Testing}
 
