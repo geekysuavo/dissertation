@@ -11,7 +11,7 @@ frustrate the estimation of normalization factors
 normalization of poorly phased spectral data can accentuate experimentally
 irrelevant spectral features in a data tensor during multivariate modeling,
 leading the analyst to erroneous conclusions. These difficulties motivated
-the development of phase-scatter correction (PSC, \cite{worley:abio2013}) as
+the development of phase-scatter correction (PSC, \cite{worley:cils2014}) as
 a means of simultaneously correcting the coupled phase errors and dilution
 errors that are present in hypercomplex NMR data tensors.
 \end{doublespace}
@@ -19,13 +19,57 @@ errors that are present in hypercomplex NMR data tensors.
 \subsection{Metabolomics}
 
 \begin{doublespace}
-FIXME.
+As previously introduced in \hyperlink{chapter.3}{Chapter 3}, normalization
+of data tensors is a commonly performed procedure aimed at minimizing the
+within-class variation of two or more groups of observations, relative to
+the total or between-class variation in the dataset. Irrespective of whether
+separations between classes are obtained using an unsupervised PCA model or a
+supervised (O)PLS-DA model, greater statistical significance and increased
+biological relevance may be ascribed to separations between classes having
+greater variation between groups than within them \cite{worley:abio2013}.
+When hypercomplex NMR data must be normalized prior to multivariate analyses
+within the confines of a metabolomics study, the interrelation of phase and
+dilution errors is best handled using phase-scatter correction.
 \end{doublespace}
 
 \subsection{High-throughput Screening}
 
 \begin{doublespace}
-FIXME.
+A second application of phase-scatter correction exists in the form of NMR
+protein-ligand affinity screening. NMR spectroscopy reports a multitude of
+time-averaged physical observables that carry information relating to the
+nature of interactions between small molecule ligands and protein targets
+\cite{lepre:chemrev2004}. A number of 1D \hnmr{} NMR pulse sequences have
+been developed to probe these distinct features of binding, including
+differences in free and bound ligand diffusion and relaxation properties
+\cite{hajduk:jacs1997}, and saturation transfers from water
+\cite{dalvit:jbnmr2000} and protein \cite{mayer:jacs2001} resonances. As part
+of an NMR high-throughput screen, these 1D \hnmr{} NMR pulse sequences present
+a number of unique challenges that include high false positive rates, long
+acquisition times, and high demand for protein samples
+\cite{lepre:menz2011,harner:jbnmr2013}. However, at suitably chosen
+concentrations of ligand and protein, a standard, unedited 1D \hnmr{} NMR
+experiment may be used to detect binding interactions through enhanced
+relaxation rates of ligand spins
+\cite{mercier:jacs2006,powers:ddt2008,mercier:cchts2009}.
+\\\\
+While it is possible to detect ligand binding using standard 1D \hnmr{} NMR,
+the resulting spectra are a combination of free and bound ligand and protein
+signals, a fact which makes them difficult to interpret. Broad, rolling
+baselines arising from slowly tumbling protein spins are particularly
+problematic during interpretation, as they often mask changes in ligand signal
+broadness and intensity. This masking effect due to protein baselines is
+exacerbated at protein-ligand concentration ratios nearing or exceeding unity,
+forcing the use of excess ligand and increasing the false negative rate during
+screening. To mitigate these issues, a statistical method called Uncomplicated
+Statistical Spectral Remodeling (USSR), was developed that removes protein
+baselines from high-throughput ligand-based screening datasets by leveraging
+inter-sample reproducibility of protein signals. In addition, it will be
+demonstrated that the use of phase-scatter correction greatly improves
+inter-sample protein baseline reproducibility and reduces the false-positive
+rate incurred by subsequent USSR-based analyses. The combination of PSC and
+USSR enables a rapid analysis of standard 1D \hnmr{} NMR screening data,
+especially in difficult cases having a high protein-ligand concentration ratio.
 \end{doublespace}
 
 \section{Theory}
@@ -161,6 +205,136 @@ respectively.
 \end{doublespace}
 
 \section{Materials and Methods}
+
+\subsection{Metabolomics}
+
+\subsubsection{NMR Data Processing}
+
+\begin{doublespace}
+Previously collected \hnmr{} NMR spectral data from published work
+\cite{halouska:acscb2012} was leveraged as a typical metabolomics dataset
+for performance analysis of PSC versus other normalization methods. Free
+induction decays were loaded into GNU Octave 3.6 \cite{eaton2008} for
+processing using MVAPACK routines \cite{worley:acscb2014}. Time-domain signals
+were zero-filled to 32$k$ points and Fourier transformed, resulting in
+a complex data matrix of 177 spectra divided amongst 16 classes
+($N = 177, K = 32768, M = 16$). Spectra were both automatically phase corrected
+by simplex entropy minimization \cite{chen:jmr2002} and manuall phase corrected
+by applying a constant phase shift to all spectra. Both automatically and
+manually phase corrected datasets were then normalized using the CS, PQ, HM,
+SNV, MSC and PSC methods (cf. \hyperlink{subsection.3.4.3}{Normalization}).
+Each normalized data matrix was binned using a uniform 0.04 ppm bin width,
+scaled per-variable to unit variance, and subjected to PCA. The $J_2$ statistic
+\cite{koutroumbas2006} was calculated for each class to provide a measure of
+cluster quality for the PCA scores from each normalization method, as follows:
+\begin{equation}
+J_{2,m} = \frac{|\mathbf{C}|}{|\mathbf{C}_m|}
+\end{equation}
+where $\mathbf{C}_m$ is the covariance matrix of the scores in class $m$,
+$\mathbf{C}$ is the covariance matrix of all scores, and the vertical bars
+represent the matrix determinant. Thus, as a cluster shrinks relative to the
+entirety of the scores-space data, its $J_2$ statistic will increase. While
+$J_2$ provides a measure of individual cluster tightness, it does not capture
+the degree of cluster overlap within a dataset. Figure 6.1 shows the results
+of the $J_2$ calculation for normalization methods applied to real \hnmr{}
+NMR metabolomics data.
+\\\\
+To quantify differences between extracted principal components of automatically
+and manually phase corrected datasets, the angle between the first principal
+component loading vector of each pair of models ($\varphi$) was calculated as
+follows:
+\begin{equation}
+\varphi = \cos^{-1}\left( {\mathbf{p}_{auto}}^T \mathbf{p}_{man} \right)
+\end{equation}
+where $\mathbf{p}_{auto}$ and $\mathbf{p}_{man}$ are the first-component
+loadings computed from a given normalization method's data after automatic
+and manual phase correction, respectively. The loading angle $\varphi$ for a
+given normalization method is a reflection on that method's ability to properly
+normalize data and produce consistent PCA models from different initial phase
+error conditions.
+\end{doublespace}
+
+\subsubsection{Simulated NMR Datasets}
+
+\begin{doublespace}
+The \hnmr{} NMR spectra of 100 mM samples of 32 metabolites (Table 6.1) at
+pH 7.4 were downloaded from the Biological Magnetic Resonance Bank
+(BMRB, \cite{ulrich:nar2008}) and fit to mixtures of complex Lorentzian
+functions using ACD/1D NMR Processing (Advanced Chemistry Development).
+Peak amplitudes ($A$), chemical shifts ($\omega_0$), and widths ($\lambda$)
+returned from fitting were loaded into GNU Octave to generate simulated spectra
+having 64$k$ data points and a spectral width of 11 ppm, centered at
+4.7 ppm, based on the following model function:
+\begin{equation}
+s(\omega_k) =
+ \sum_{p=1}^P
+ \frac{A_p \lambda_p}
+      {\lambda_p + u_1 (\omega_k - \omega_{0,p})}
+\end{equation}
+where $s(\omega_k)$ is the $k$-th data point of the spectrum, $P$ equals the
+number of peaks, and $u_1$ equals the imaginary unit. Spectra were referenced
+and normalized to the DSS peak, and peaks corresponding to HOD and DSS were
+subsequently removed, resulting in a basis set of 32 perfectly-phased,
+noise-free metabolite spectra. Finally, the basis metabolite spectra were
+stored row-wise in a matrix $\mathbf{S}$ for later use in Monte Carlo
+calculations.
+\end{doublespace}
+
+\subsubsection{Monte Carlo Experiments}
+
+\begin{doublespace}
+Using the basis metabolite spectra, a dataset of 48 simulated metabolomics
+spectra ($\mathbf{X} \in \mathbb{H}_1^{N \times K}$) was generated according
+to the following equation:
+\begin{equation}
+\mathbf{X}
+ = \mathbf{A} \left( \mathbf{C} \mathbf{S} + \mathbf{1} \mathbf{r}^T \right)
+ + \mathbf{E}
+\end{equation}
+where $\mathbf{A} \in \mathbb{R}^{N \times N}$ is a diagonal matrix of dilution
+factors $\alpha_n$, $\mathbf{C} \in \mathbb{R}^{N \times P}$ is a matrix of
+metabolite concentrations, $\mathbf{S} \in \mathbb{H}_1^{P \times K}$ is the
+previously created metabolite basis set, $\mathbf{r} \in \mathbb{H}_1^K$ is a
+spectrum of the DSS reference peak, $\mathbf{1} \in \mathbb{R}^N$ is a vector
+of ones, and $\mathbf{E} \in \mathbb{H}_1^{N \times K}$ is a matrix of complex
+Gaussian white noise. Dilution factors were drawn from a log-normal
+distribution having zero mean and $\sigma = 0.25$. Concentrations in
+$\mathbf{C}$ were drawn from normal distributions with parameters chosen to
+mimic those in Torgrip et al. (Table 6.2) \cite{torgrip:metab2008}. The
+resultant data in $\mathbf{X}$ is a simulated set of $N = 48$ metabolite
+extracts, spiked with 100 $\mu$M DSS, where six distinct classes arise from
+differences in the concentrations of alanine, asparagine, glutamate, malate,
+proline, sucrose and valine. All other metabolites were assigned concentrations
+from a normal distribution having $\mu = 5$ $\mu$M and $\sigma = 0.5$ $\mu$M.
+\\\\
+Monte Carlo simulations were run to assess the performance of all discussed
+normalization methods over various amounts of phase error added to
+$\mathbf{X}$. Forty-six phase error points were calculated, in which the
+standard deviation of $\theta_0$ was linearly increased from $0^\circ$ to
+$5^\circ$. The standard deviation of $\theta_1$ at each point was equal to
+one tenth that of $\theta_0$. Both $\theta_0$ and $\theta_1$ were assigned
+zero mean. For each phase error point, 100 Monte Carlo iterations were
+performed with different sets of random dilution factors. Spectra in the
+de-phased $\mathbf{X}$ matrix were automatically phase corrected using simplex
+entropy minimization and normalized each time using CS, PQ, HM, SNV, MSC and
+PSC methods. Normalization to unit DSS integral was also performed for
+reference. An identical set of normalization calculations was performed on the
+unphased data. Estimated dilution factors were compared to the true values
+to produce a root-mean-square dilution error, $RMSE(\alpha)$, for each method.
+Figure 6.2 shows the $RMSE(\alpha)$ result of Monte Carlo simulation at
+$0.2^\circ$ phase error. To assess normalization effects on multivariate model
+quality, spectra from each method were uniformly binned with 0.04 ppm bin
+widths, each bin scaled to unit variance, and subjected to PCA. Values of
+$J_2$ for each of the six classes were then calculated, and the median of the
+values was reported for each Monte Carlo iteration. The $\varphi$ values
+between automatically phased and unphased principal component loadings were
+also calculated at each iteration to asses each normalization method's ability
+to produce consistent models in the presence of phase errors. Figure 6.3
+summarizes the results of Monte Carlo simulation over all phase errors based
+on $RMSE(\alpha)$, $J_2$ and $\varphi$.
+\end{doublespace}
+
+\subsection{High-throughput Screening}
 
 \begin{doublespace}
 FIXME.
