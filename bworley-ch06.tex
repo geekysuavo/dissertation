@@ -394,19 +394,109 @@ on $RMSE(\alpha)$, $J_2$ and $\varphi$.
 \section{Results}
 
 \begin{doublespace}
-FIXME.
+On the real metabolomics spectral data, PSC normalization resulted in the
+highest quality clusters (Figure 6.5) according to the $J_2$ statistic shown
+in Figure 6.1. Given the fact that the spectra were each automatically phase
+corrected before any normalization was applied, this observed increase in
+$J_2$ must be due to the correction of subtle phase differences \emph{between}
+spectra not detectable by correcting each spectrum individually. It is
+important to note that, while PQ and HM produce higher median $J_2$ values
+(Figure 6.2), this is an artifact of large distortions of their respective
+PCA loadings, and not always reflective of higher-quality clusters. Because
+$J_2$ is a per-cluster statistic, it is only an ideal measure of overall
+scores-space model quality when all clusters are nearly identically
+distributed. Models containing highly distorted components may contain several
+high-quality clusters and a few extremely low-quality clusters, resulting in a
+high mean or median $J_2$ value. For that reason, the lower bound of $J_2$ for
+each method -- effectively the worst cluster quality -- was chosen as a better
+indicator of overall model quality than the median. In fact, PSC produced the
+most consistent model loadings between automatically and manually phase
+corrected data, with a $\varphi$ value of 14.5$^\circ$. This can be compared to
+$\varphi$ values of 89.6$^\circ$ and 20.2$^\circ$ for PQ and HM, respectively.
+\\\\
+Moreover, Monte Carlo analysis of PSC versus contemporary normalization methods
+show that PSC offers a unique advantage during multivariate analysis. Results
+of Monte Carlo normalization after automatic phase correction and summarized
+in Figure 6.4, and scatter plots of recovered dilution factors are shown in
+Figure 6.3. While PSC fails to recover true dilution factors as accurately as
+DSS, CS or HM normalization, it does remain competitive with MSC at all phase
+errors (Figure 6.4A). PSC normalization yields tighter clusters than all other
+methods, as is apparent from Figure 6.4B. Furthermore, PSC results in
+dramatically lower values of $\varphi$ than all other methods, indicating that
+residual phase errors left uncorrected by automatic phase correction are
+significant enough to distort principal component loadings when normalized by
+any method other than PSC (Figure 6.4C).
 \end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/pscorr/05-scores.png}
+\caption
+      [Distortion of Principal Components by PQ Normalization.]{
+  {\bf Distortion of Principal Components by PQ Normalization.}
+  \\
+  PCA scores of a typical metabolomics dataset after automatic phasing
+  followed by either PQ or PSC normalization. In both plots, ellipses denote
+  different classes of antibiotic treatment of \emph{Mycobacterium smegmatis}
+  and differing symbols within each ellipse represent different antibiotic
+  subclasses.
+  ({\bf A}) PQ normalization amplifies residual phase differences left behind
+  after automatic phasing, but ({\bf B}) PSC normalization produces a more
+  interpretable PCA model by correcting residual phase differences.
+}
+\end{figure}
 
 \section{Discussion}
 
 \begin{doublespace}
-FIXME.
+As is evident from visual inspection of both the real metabolomics dataset and
+the Monte Carlo simulated datasets, correction of minute phase differences
+between spectra yields a substantial improvement in cluster quality in
+multivariate analyses. In general, phase differences contribute significantly
+to spectral lineshape difference in \hnmr{} NMR data. This effect is especially
+pronounced in the case of PSC normalization of spectra containing significant
+and consistent broad background signals, where normalization alone cannot
+comparably standardize baselines (cf. \hyperlink{chapter.7}{Chapter 7}).
+\\\\
+One particularly striking result of the Monte Carlo simulations is the
+difference between automatically phase corrected and unphased dilution factor
+estimates (Figure 6.3). In fact, examination of dilution factors estimated by
+DSS integration clearly shows that automatic phase correction introduces
+variation into the dataset through minute differences in $\theta_0$ and
+$\theta_1$ between spectra. This artificial variation is then amplified through
+normalization, as is especially apparent in the case of PQ normalization.
+\\\\
+In their report on HM normalization, Torgrip et al. noticed the potential
+unsuitability of the explained sum of squares (\rsqx{}) for assessing model
+quality differences due to normalization methods \cite{torgrip:metab2008}.
+As a ratio measure, explained sum of squares is not suitable for comparing
+the qualities of PCA models trained on different data, or any preprocessing
+done prior to building the models \cite{kjeldahl:jchemo2010}. Therefore, the
+$J_2$ statistic was chosen as an alternative means of comparing cluster quality
+during Monte Carlo simulation. Effectively, $J_2$ measures the ratio of the
+area of a cluster in scores space relative to the total scores-space area,
+regardless of how much variation the model captures. Even still, because $J_2$
+is a per-cluster statistic, it is not an ideal measure of overall scores-space
+model quality, especially for models containing highly distorted components.
+Mean or median $J_2$ values of a model may be high in this case, despite the
+fact that the model scores are useless from the perspective of class
+discrimination. Thus, the minimum $J_2$ was chosen as a more effective
+indicator of overall cluster quality.
 \end{doublespace}
 
 \section{Conclusions}
 
 \begin{doublespace}
-FIXME.
+Phase-scatter correction is a novel algorithm for simultaneously correcting
+zero- and first-order phase errors and random dilution factors in \hnmr{}
+NMR chemometric data. While PSC only performs comparably to MSC in dilution
+factor estimation, it more consistently yields high-quality clusters and
+interpretable models when used prior to PCA decomposition. PSC can be fully
+automated through prior automatic phase correction of the dataset, has no
+tunable parameters, and makes no assumptions regarding line shape, baseline
+flatness, or intensity distributions in the data. These qualities lend PSC to
+use in chemometrics as a new method of normalizing NMR data entering into
+multivariate analyses such as PCA or PLS. The latest implementation of PSC
+is available in the MVAPACK toolbox \cite{worley:acscb2014}.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
