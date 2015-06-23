@@ -16,6 +16,7 @@ bworley.pdf:
 	bibtex bworley-ch08
 	bibtex bworley-ch09
 	bibtex bworley-ch10
+	bibtex bworley-ch11
 	pdflatex -draftmode bworley
 	pdflatex -draftmode bworley
 	pdflatex bworley
@@ -36,6 +37,7 @@ clean:
 	rm -f bworley-ch08.aux bworley-ch08.bbl bworley-ch08.blg
 	rm -f bworley-ch09.aux bworley-ch09.bbl bworley-ch09.blg
 	rm -f bworley-ch10.aux bworley-ch10.bbl bworley-ch10.blg
+	rm -f bworley-ch11.aux bworley-ch11.bbl bworley-ch11.blg
 
 # again: target to clean and recompile the default target.
 again: clean all
