@@ -4,20 +4,44 @@
 \section{Introduction}
 
 \begin{doublespace}
-{\bf FIXME}
+Structure-activity relationships (SAR) by NMR \cite{shuker:sci1996} spurred
+a revolution for the role of NMR in drug discovery. Like X-ray crystallography,
+NMR had been primarily used as a means to determine protein and protein-ligand
+structures as part of a structure-based drug discovery effort
+\cite{ferentz:qrb2000}. NMR is now an important alternative to traditional
+high-throughput screening (HTS) assays for identifying drug-like chemical
+leads \cite{pellecchia:nrdd2002,powers:eodd2009}. By combining NMR
+ligand-affinity screens with fragment-based libraries, a dramatic increase in
+chemical diversity is achieved (from $10^6$ to $10^{63}$), while also
+minimizing resources, increasing hit-rates and improving the drug-like
+qualities of the resulting chemical leads \cite{hajduk:nrdd2007}. Consequently,
+NMR fragment-based screens have significantly benefited the pharmaceutical
+industry by leading to a number of clinical-stage compounds.
 \\\\
-A second application of phase-scatter correction exists in the form of NMR
-protein-ligand affinity screening. NMR spectroscopy reports a multitude of
-time-averaged physical observables that carry information relating to the
-nature of interactions between small molecule ligands and protein targets
-\cite{lepre:chemrev2004}. A number of 1D \hnmr{} NMR pulse sequences have
-been developed to probe these distinct features of binding, including
-differences in free and bound ligand diffusion and relaxation properties
-\cite{hajduk:jacs1997}, and saturation transfers from water
-\cite{dalvit:jbnmr2000} and protein \cite{mayer:jacs2001} resonances. As part
-of an NMR high-throughput screen, these 1D \hnmr{} NMR pulse sequences present
-a number of unique challenges that include high false positive rates, long
-acquisition times, and high demand for protein samples
+NMR ligand-affinity screening is also a powerful platform for protein
+functional annotation during the search for novel drug targets
+\cite{mercier:cchts2009,powers:ddt2008}. Significant percentages of the human
+proteome and the proteomes of other infectious organisms are comprised of
+functionally uncharacterized proteins \cite{muller:genres2002}. Undoubtedly
+hidden among this multitude of unannotated proteins are novel drug targets
+that may lead to new treatments or new means of overcoming mechanisms of drug
+resistance. Besides verifying that a functionally unannotated protein is
+druggable, NMR ligand affinity screening also identifies the functional
+epitope and the classes of ligands that bind the uncharacterized protein.
+This information may then be leveraged to infer a function through structural
+similarities with functionally annotated proteins
+\cite{powers:prot2006,powers:bmcrn2011}.
+\\\\
+NMR spectroscopy reports a multitude of time-averaged physical observables
+that carry information relating to the nature of interactions between small
+molecule ligands and protein targets \cite{lepre:chemrev2004}. A number of
+1D \hnmr{} NMR pulse sequences have been developed to probe these distinct
+features of binding, including differences in free and bound ligand diffusion
+and relaxation properties \cite{hajduk:jacs1997}, and saturation transfers
+from water \cite{dalvit:jbnmr2000} and protein \cite{mayer:jacs2001}
+resonances. As part of an NMR high-throughput screen, these 1D \hnmr{} NMR
+pulse sequences present a number of unique challenges that include high false
+positive rates, long acquisition times, and high demand for protein samples
 \cite{lepre:menz2011,harner:jbnmr2013}. However, at suitably chosen
 concentrations of ligand and protein, a standard, unedited 1D \hnmr{} NMR
 experiment may be used to detect binding interactions through enhanced
@@ -232,19 +256,98 @@ are reported in Figure 7.4.
 \section{Results}
 
 \begin{doublespace}
-FIXME.
+From the USSR analysis of ligand binding to BSA, 43 compounds were classified
+as hits from the library of 456 compounds. All classified hits were determined
+to bind BSA with at least 1.0 mM affinity ($K_D \le 0.001$ $\mu$M) at a
+statistical confidence level of 99\%. A summary of the hits, along with their
+estimated $K_D$ and $p$ valunes, is provided in Table 7.3. Comparison of
+results from both PSC-corrected and uncorrected USSR datasets reveals that the
+use of PSC normalization prior to USSR modeling greatly reduces the effective
+positive rate of statistical hit determination: 195 hits were identified from
+the PSC-uncorrected spectra. Closer examination of hits identified without PSC
+correction indicates that USSR failed to fully subtract the statistical
+baseline from the screen spectra (e.g. Figure 7.3), resulting in residual
+baseline intensity passing into equation 7.2 during $K_D$ calculation and hit
+determination. In short, the use of PSC normalization prior to USSR enables
+more effective baseline subtraction by decreasing both dilution- and
+phase-related protein baseline intensity variation in collected \hnmr{} NMR
+spectra (Figure 7.5). Baseline estimates obtained by collecting a spectrum of
+pure protein will suffer from the same phase-induced variation, which would
+also increase the false positive rate during hit determination. The introduced
+combination of PSC and USSR provides a more reliable means of baseline
+identification, without the need for collection of a free protein reference
+spectrum.
 \end{doublespace}
 
-\section{Discussion}
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/ussr/05-rsd.png}
+\caption
+      [Impact of PSC on USSR Statistical Baselines.]{
+  {\bf Impact of PSC on USSR Statistical Baselines.}
+  \\
+  Relative standard deviations (RSDs) of the statistical baselines computed
+  before (red) and after (black) phase-scatter correction, which substantially
+  decreases inter-sample variability of the protein baseline signals.
+}
+\end{SCfigure}
+
+\begin{doublespace}
+Cursory analysis of the robustness of the USSR statistical
+baseline during random subsampling of the BSA dataset indicated that the
+PSC/USSR methodology can reliably operate at very low dataset sizes
+(i.e. 10--20 spectral pairs). Pearson correlations between true and subsampled
+baselines did not appreciably decrease even after harsh subsampling
+(Figure 7.3), and correlations computed from PSC-normalized data maintained
+significantly higher values than those from non-normalized data. While it
+would be possible to obtain a statistical baseline from fewer than ten spectral
+pairs, this is not recommended, as it will decrease the effectiveness of the
+Bonferroni-corected $t$-test that USSR performs during remodeling. Therefore,
+as a general rule of thumb, PSC/USSR analyses may be performed on
+high-throughput screening datasets having as few as ten spectral pairs, and
+higher sample sizes only serve to further increase the reliability of remodeled
+results.
+\end{doublespace}
+
+\section{Discussion and Conclusions}
 
 \begin{doublespace}
 FIXME.
-\end{doublespace}
-
-\section{Conclusions}
-
-\begin{doublespace}
+\\\\
 FIXME.
+\\\\
+FIXME.
+\\\\
+However, reliably identification of the protein baseline from screening data
+requires highly reproducible sample preparation, data collection and
+processing. The last of these requirements is met by the use of phase-scatter
+correction prior to remodeling, which brings protein baselines from all spectra
+into closer agreement with each other and minimizes the number of false hits
+identified during analysis. It is important to note that PSC is only an
+effective pre-treatment for USSR when protein baseline signals are of
+comparable intensity to ligand signals. PSC normalization is designed to
+maximize statistical agreements \emph{between} spectra by phase and
+normalization correction, and its use of the $L_2$ norm as a criterion for
+`agreement' implies that higher-intensity features will be preferentially
+corrected. Thus, PSC achieves the best results prior to USSR when protein
+signals are a major spectral component, as is the case when protein-ligand
+concentration ratios are near or greater than unity. In effect, the combined
+use of PSC and USSR expands the range of protein-ligand concentration ratios
+which may be probed by \hnmr{} line-broadening experiments for the purposes
+of high-throughput screening.
+\\\\
+Finally, it cannot be under-emphasized that the single-point $K_D$ computations
+employed by USSR during statistical hit determination are only
+order-of-magnitude estimates of the true dissociation rates, and can carry
+significant systematic and random errors. In particular, the fraction of bound
+ligand -- and by extension, the dissociation constant -- depends exquisitely
+on the estimated free and bound ligand linewidths, $v_F$ and $v_B$. Thus, any
+imprecision in the linewidth estimates will propagate into a systematic bias in
+the final dissociation constants. If required, verification of initial hits may
+be achieved to higher accuracy via multiple-point estimation of the $K_D$
+through linear or nonlinear least squares \cite{shortridge:jcomb2008}.
+\\\\
+An implementation of the USSR algorithm is available in open-source GNU Octave
+code as a part of the MVAPACK toolbox \cite{worley:acscb2014}.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
