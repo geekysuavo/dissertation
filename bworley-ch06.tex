@@ -208,6 +208,19 @@ respectively.
 
 \subsection{Metabolomics}
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/pscorr/01-minj2.png}
+\caption
+      [Cluster Quality after Normalization and PCA Modeling.]{
+  {\bf Cluster Quality after Normalization and PCA Modeling.}
+  \\
+  Comparison of PCA cluster quality for \hnmr{} NMR metabolomics data
+  normalized using different algorithms. The minimum $J_2$ value (worst
+  cluster quality) for each model is reported here, as it is a more effective
+  indicator of overall model and cluster quality than the mean or median.
+}
+\end{SCfigure}
+
 \subsubsection{NMR Data Processing}
 
 \begin{doublespace}
@@ -219,10 +232,10 @@ processing using MVAPACK routines \cite{worley:acscb2014}. Time-domain signals
 were zero-filled to 32$k$ points and Fourier transformed, resulting in
 a complex data matrix of 177 spectra divided amongst 16 classes
 ($N = 177, K = 32768, M = 16$). Spectra were both automatically phase corrected
-by simplex entropy minimization \cite{chen:jmr2002} and manuall phase corrected
-by applying a constant phase shift to all spectra. Both automatically and
-manually phase corrected datasets were then normalized using the CS, PQ, HM,
-SNV, MSC and PSC methods (cf. \hyperlink{subsection.3.4.3}{Normalization}).
+by simplex entropy minimization \cite{chen:jmr2002} and manually phase
+corrected by applying a constant phase shift to all spectra. Both automatically
+and manually phase corrected datasets were then normalized using the CS, PQ,
+HM, SNV, MSC and PSC methods (cf. \hyperlink{subsection.3.4.3}{Normalization}).
 Each normalized data matrix was binned using a uniform 0.04 ppm bin width,
 scaled per-variable to unit variance, and subjected to PCA. The $J_2$ statistic
 \cite{koutroumbas2006} was calculated for each class to provide a measure of
@@ -235,10 +248,28 @@ $\mathbf{C}$ is the covariance matrix of all scores, and the vertical bars
 represent the matrix determinant. Thus, as a cluster shrinks relative to the
 entirety of the scores-space data, its $J_2$ statistic will increase. While
 $J_2$ provides a measure of individual cluster tightness, it does not capture
-the degree of cluster overlap within a dataset. Figure 6.1 shows the results
-of the $J_2$ calculation for normalization methods applied to real \hnmr{}
-NMR metabolomics data.
-\\\\
+the degree of cluster overlap within a dataset. Figures 6.1 and 6.2 show the
+results of the $J_2$ calculation for normalization methods applied to real
+\hnmr{} NMR metabolomics data.
+\end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/pscorr/02-allj2.png}
+\caption
+      [Cluster Quality after Normalization and PCA Modeling.]{
+  {\bf Cluster Quality after Normalization and PCA Modeling.}
+  \\
+  Comparison of PCA cluster quality for \hnmr{} NMR metabolomics data
+  normalized using different algorithms. For each normalization method, a
+  box is defined by the estimated first and third quartiles of $J_2$ for the
+  clusters and whiskers are defined by the range of the $J_2$ values for the
+  clusters. For this dataset, the minimum $J_2$ value is most instructive,
+  given the fact that overall model quality is not well-reflected by the
+  $J_2$ metric in the case of distorted principal components.
+}
+\end{SCfigure}
+
+\begin{doublespace}
 To quantify differences between extracted principal components of automatically
 and manually phase corrected datasets, the angle between the first principal
 component loading vector of each pair of models ($\varphi$) was calculated as
@@ -253,6 +284,23 @@ given normalization method is a reflection on that method's ability to properly
 normalize data and produce consistent PCA models from different initial phase
 error conditions.
 \end{doublespace}
+
+\begin{table}[h!]
+\caption{Metabolite Spectra Used in Monte Carlo Simulations.}
+\begin{center}
+\begin{tabular}{l l l l}
+  \hline
+  Aminobutyrate & Adenosine & Alanine     & Arginine   \\
+  Asparagine    & Aspartate & Choline     & Citrulline \\
+  Ethanolamine  & Fructose  & Galactose   & Glucose    \\
+  Glutamate     & Glutamine & Glycine     & Histidine  \\
+  Isoleucine    & Lactate   & Leucine     & Lysine     \\
+  Malate        & Maltose   & Myoinositol & Ornithine  \\
+  Phenylalanine & Proline   & Putrescine  & Serine     \\
+  Succinate     & Sucrose   & Threonine   & Valine
+\end{tabular}
+\end{center}
+\end{table}
 
 \subsubsection{Simulated NMR Datasets}
 
@@ -280,6 +328,23 @@ stored row-wise in a matrix $\mathbf{S}$ for later use in Monte Carlo
 calculations.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/pscorr/03-rmse.png}
+\caption
+      [Monte Carlo Normalization Results.]{
+  {\bf Monte Carlo Normalization Results.}
+  \\
+  Results of 100 Monte Carlo iterations at 0.2$^\circ$ zero-order phase error,
+  indicating the ability of all normalization methods to recover the true
+  dilution factor of a nearly perfectly phased dataset. Red points reflect the
+  dilution factors calculated by integrated the DSS peak and blue points
+  reflect the dilution factor estimates from normalization. Upper panels show
+  the dilution factors recovered from automatically phased data after
+  normalization, and lower panels show dilution factors recovered from
+  unphased data after normalization.
+}
+\end{figure}
+
 \subsubsection{Monte Carlo Experiments}
 
 \begin{doublespace}
@@ -306,7 +371,36 @@ extracts, spiked with 100 $\mu$M DSS, where six distinct classes arise from
 differences in the concentrations of alanine, asparagine, glutamate, malate,
 proline, sucrose and valine. All other metabolites were assigned concentrations
 from a normal distribution having $\mu = 5$ $\mu$M and $\sigma = 0.5$ $\mu$M.
-\\\\
+\end{doublespace}
+
+\begin{table}[h!]
+\caption{Metabolite Concentrations Altered in Monte Carlo Simulations.}
+\begin{center}
+\begin{tabular}{l | l l l l l l}
+  \hline
+  {\bf Metabolite} & $\mathbf{C_A}$ ($\mu$M) & $\mathbf{C_B}$ ($\mu$M) &
+                     $\mathbf{C_C}$ ($\mu$M) & $\mathbf{C_D}$ ($\mu$M) &
+                     $\mathbf{C_E}$ ($\mu$M) & $\mathbf{C_F}$ ($\mu$M) \\
+  \hline
+  Alanine    &  $9.2 \pm 1.4$    &  $19.6 \pm 1.6$    &  $16.9 \pm 1.2$  &
+                $6.5 \pm 0.66$   &  $26.2 \pm 3.6$    &  $13.5 \pm 1.1$  \\
+  Asparagine &  $6.8 \pm 0.86$   &  $11.7 \pm 1.8$    &  $19.0 \pm 1.9$  &
+               $14.7 \pm 1.2$    &  $24.8 \pm 2.6$    &  $17.4 \pm 1.0$  \\
+  Glutamate  & $13.3 \pm 1.7$    &   $9.2 \pm 1.5$    &  $18.8 \pm 1.9$  &
+               $16.9 \pm 2.1$    &  $25.0 \pm 3.5$    &   $6.9 \pm 1.0$  \\
+  Malate     & $14.2 \pm 1.2$    &  $11.9 \pm 1.4$    &  $22.0 \pm 5.1$  &
+                $6.7 \pm 0.68$   &   $9.4 \pm 0.72$   &  $18.0 \pm 2.4$  \\
+  Proline    & $11.4 \pm 1.5$    &  $18.4 \pm 3.1$    &  $14.7 \pm 2.4$  &
+                $6.9 \pm 0.62$   &   $9.8 \pm 1.5$    &  $23.7 \pm 2.9$  \\
+  Sucrose    &  $7.1 \pm 0.9$    &  $17.2 \pm 2.1$    &  $19.3 \pm 2.0$  &
+               $13.2 \pm 1.9$    &   $9.3 \pm 0.56$   &  $23.3 \pm 2.7$  \\
+  Valine     &  $9.0 \pm 0.85$   &  $26.3 \pm 2.3$    &  $13.4 \pm 1.2$  &
+               $20.4 \pm 1.7$    &   $6.7 \pm 0.90$   &  $17.0 \pm 1.5$  \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{doublespace}
 Monte Carlo simulations were run to assess the performance of all discussed
 normalization methods over various amounts of phase error added to
 $\mathbf{X}$. Forty-six phase error points were calculated, in which the
@@ -321,7 +415,7 @@ PSC methods. Normalization to unit DSS integral was also performed for
 reference. An identical set of normalization calculations was performed on the
 unphased data. Estimated dilution factors were compared to the true values
 to produce a root-mean-square dilution error, $RMSE(\alpha)$, for each method.
-Figure 6.2 shows the $RMSE(\alpha)$ result of Monte Carlo simulation at
+Figure 6.3 shows the $RMSE(\alpha)$ result of Monte Carlo simulation at
 $0.2^\circ$ phase error. To assess normalization effects on multivariate model
 quality, spectra from each method were uniformly binned with 0.04 ppm bin
 widths, each bin scaled to unit variance, and subjected to PCA. Values of
@@ -329,16 +423,217 @@ $J_2$ for each of the six classes were then calculated, and the median of the
 values was reported for each Monte Carlo iteration. The $\varphi$ values
 between automatically phased and unphased principal component loadings were
 also calculated at each iteration to asses each normalization method's ability
-to produce consistent models in the presence of phase errors. Figure 6.3
+to produce consistent models in the presence of phase errors. Figure 6.4
 summarizes the results of Monte Carlo simulation over all phase errors based
 on $RMSE(\alpha)$, $J_2$ and $\varphi$.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/pscorr/04-montecarlo.png}
+\caption
+      [Summary of Monte Carlo Simulation Results.]{
+  {\bf Summary of Monte Carlo Simulation Results.}
+  \\
+  Results of the Monte Carlo simulation over all phase error points.
+  ({\bf A}) As phase error increases, dilution factor estimates from all
+  methods except PQ remain fairly stable. Estimates from PSC compete with
+  MSC, but suffer in comparison with HM.
+  ({\bf B}) However, $J_2$ values indicate that PSC outperforms all other
+  normalization methods at producing tight clusters at any realistic
+  phase error.
+  ({\bf C}) Finally, values of $\varphi$ calculated from PCA loadings indicate
+  that PSC maintains the highest model consistency in the face of imperfectly
+  phased data. Phase error on the $x$-axis refers to zero-order error; it
+  should be noted that each point also contains first-order phase error as
+  discussed in the Methods.
+}
+\end{figure}
+
 \subsection{High-throughput Screening}
 
+\subsubsection{Sample Preparation and NMR Acquisition}
+
 \begin{doublespace}
-FIXME.
+A set of 117 samples containing free ligand mixtures and a set of 117 samples
+containing Bovine Serum Albumin (BSA) with ligand mixtures were prepared based
+on previously published procedures \cite{powers:ddt2008,mercier:cchts2009}.
+In summary, each mixture contained no more than four ligands, each ligand had
+a concentration of 100 $\mu$M, and BSA had a concentration of 200 $\mu$M when
+present. All NMR samples were prepared to 600 $\mu$L total volume in a buffer
+containing 10 mM bis-tris-d$_{19}$, 1.0 mM NaCl, 1.0 mM KCl, 1.0 mM MgCl$_2$
+and 10 $\mu$M trimethylsilyl propanoic acid (TMSP) in D$_2$O at pH 7.0
+(uncorrected). Samples were loaded into standard 5 mm NMR tubes for spectral
+acquisition.
+\\\\
+All NMR experiments were collected on a Bruker Avance DRX 500 MHz spectrometer
+equipped with a 5 mm inverse triple-resonance (\hnmr{}, \cnmr{}, \nnmr{})
+cryoprobe with a $z$-axis gradient. A Bruker BACS-120 sample changer and
+ICON-NMR software were used to automate NMR data collection. Standard 1D
+\hnmr{} NMR spectra were collected for each sample using a SOGGY water
+suppression pulse sequence \cite{hwang:jmr1995,nguyen:jmr2007}. All
+experiments were performed at 20 $^\circ$C with 256 scans, 8 dummy scans,
+a carrier frequency offset of 2352.1 Hz, a 5482.5 Hz spectral width, and a 1.0
+section inter-scan delay. Free induction decays were collected with 4$k$
+complex data points, resulting in a total acquisition time of 8 minutes per
+experiment.
 \end{doublespace}
+
+\subsubsection{NMR Data Processing}
+
+\begin{doublespace}
+Acquired NMR spectra were loaded and processed in batch inside the GNU Octave
+3.6 programming environment \cite{eaton2008} using functions available in the
+MVAPACK software package \cite{worley:acscb2014}. Free induction decays were
+loaded in from Bruker DMX binary format and corrected for group delay by a
+fixed circular shift. All decays were then zero-filled twice, Fourier
+transformed and automatically phase corrected using a simplex optimization
+routine. Phase-scatter correction was applied to a copy of the screen spectral
+data, and spectral remodeling was performed in parallel on the uncorrected and
+corrected datasets for the purposes of comparison.
+\end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/pscorr/05-baseline.png}
+\caption
+      [Statistical Baseline from the BSA Screening Dataset.]{
+  {\bf Statistical Baseline from the BSA Screening Dataset.}
+  \\
+  Statistical baseline ($\boldsymbol{\mu} \pm 4 \boldsymbol{\sigma}$) computed
+  from the \hnmr{} NMR ligand-based screen against BSA. The mean baseline is
+  traced in deep red, while the confidence region for the baseline is filled
+  in light red underneath.
+}
+\end{SCfigure}
+
+\subsubsection{Statistical Spectral Remodeling}
+
+\begin{doublespace}
+The Uncomplicated Statistical Spectral Remodeling (USSR) method capitalizes on
+the reproducibility of the protein baseline and the low likelihood that ligand
+signals will dominate any given spectral data point across multiple samples.
+For each pair of free mixture ($\mathbf{f}_n$) and screen (mixture plus
+protein, $\mathbf{p}_n$) \hnmr{} NMR spectra, a difference spectrum
+($\mathbf{d}_n$) was computed using a simple point-wise subtraction. The
+central tendency ($\boldsymbol{\mu}$) and dispersion ($\boldsymbol{\sigma}$)
+of the difference spectra were then robustly estimated using the median and
+median absolute deviation, respectively. Figure 6.5 shows the statistical
+baseline computed by USSR from a screen of ligand binding to BSA. Once a
+statistical baseline is established for a given dataset, each spectrum
+$\mathbf{p}_n$ in the screen is remodeled to maximally remove interference
+from baseline signals. Each spectral data point in $\mathbf{p}_n$ is compared
+to $\boldsymbol{\mu} \pm \boldsymbol{\sigma}$ using a Bonferroni-corrected
+Student's $t$-test \cite{dunn:jasa1961}. The resulting $p$ value provides a
+measure of how distinguishable the corresponding data point is from the
+statistical baseline. Based on a preselected level of significance ($\alpha$),
+data points having low $p$ values are retained (less the statistical baseline)
+in the remodeled spectrum ($\mathbf{r}_n$) and data points having high $p$
+values are modeled as Gaussian white noise. Figure 6.6 shows an example
+remodeled spectrum from the ligand binding analysis of BSA.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/pscorr/06-ussrfit.png}
+\caption
+      [Statistical Baseline Removal from a Screen Spectrum.]{
+  {\bf Statistical Baseline Removal from a Screen Spectrum.}
+  \\
+  An example spectral remodeling result of tolazamide, dimethyl
+  4-methoxyisophthalate, 1,7-dimethylxanthine and oxolinic acid in the
+  presence of BSA, showing ({\bf A}) the free ligand spectrum (black) and
+  the remodeled spectrum (red) resulting from removing the statistical
+  baseline (red) from the screen spectrum (black) in ({\bf B}). The remodeled
+  pseudospectrum readily indicates that several peaks from dimethyl
+  4-methoxyisophthalate have broadened into the baseline due to interaction
+  with BSA.
+}
+\end{figure}
+
+\subsubsection{Statistical Hit Determination}
+
+\begin{doublespace}
+For each peak in each remodeled spectrum from USSR, a $K_D$ was computed based
+on the intensity ratio between free and remodeled ligand signals. First, in the
+limit of fast exchange between free and bound ligand states relative to the NMR
+timescale, the fraction of bound ligand ($f_B$) was computed:
+\begin{equation}
+f_B =
+ \left( \frac{I_F}{I_B} - 1 \right)
+ \left( \frac{v_B}{v_F} - 1 \right)^{-1}
+\end{equation}
+where $I_F$ and $I_B$ are the intensities of free and remodeled (bound) ligand
+signals, and $v_F$ and $v_B$ are the estimated NMR line widths of the free and
+remodeled ligand signals, respectively \cite{shortridge:jcomb2008}. This
+fast-exchange assumption may be safely regarded as valid in most
+high-throughput 1D \hnmr{} NMR protein-ligand affinity screening experiments
+\cite{lepre:chemrev2004}, where the width and intensity of each ligand signal
+is a population-weighted sum of its values in the free and bound states.
+Without any assumptions about relative concentrations of ligand and protein,
+the fraction of bound ligand is related to the total protein concentration
+$[P]_T$, total ligand concentration $[L]_T$ and $K_D$ via the following
+equation \cite{shortridge:jcomb2008}:
+\begin{equation}
+f_B = \left[
+  1 + \frac{2 K_D}{
+    ([P]_T - [L]_T - K_D) + \sqrt{([P]_T - [L]_T - K_D)^2 + 4 K_D [P]_T}
+  }
+\right]^{-1}
+\end{equation}
+
+The solution of the above equation for $K_D$ yields the following result:
+\begin{equation}
+K_D = \frac{(f_B - 1)(f_B [L]_T - [P]_T)}{f_B}
+\end{equation}
+which was used to computed per-peak $K_D$ values for each remodeled spectrum
+$\mathbf{r}_n$. Finally, the per-peak $K_D$ values were used to compute sample
+mean and standard deviation $K_D$ values for each ligand. Hit detection was
+accomplished by comparing per-ligand mean and standard deviation $K_D$ values
+against a threshold via a Student's $t$-test, where a resulting $p$ value less
+than a predefined significant $p$ value was reported as binding.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/pscorr/07-ussrfail.png}
+\caption
+      [Failed Baseline Removal due to Phase Errors.]{
+  {\bf Failed Baseline Removal due to Phase Errors.}
+  \\
+  Example of a failed USSR result, highlighting the impact of phase error
+  during computation and subtraction of the statistical baseline from a screen
+  spectrum. Remodeled peaks ({\bf A}, red) upfield of 4.0 ppm are in fact not
+  true signals, but were generated due to a phase-induced discrepancy between
+  the statistical baseline ({\bf B}, red) and the screen spectrum
+  ({\bf B}, black).
+}
+\end{figure}
+
+\subsubsection{Analysis of Dataset Size}
+
+\begin{doublespace}
+A small simulation study was conducted to assess the quality of USSR
+statistical baseline estimates over a range of sample sizes (number of spectral
+pairs). For sizes from 2 to 116, the BSA dataset was randomly subsampled,
+without replacement, to produce a smaller dataset. For each resultant dataset,
+the statistical baseline was estimated, and its Pearson correlation to the true
+statistical baseline was computed and stored. Over all numbers of spectral
+pairs in the simulation, the median baseline correlations were computed, and
+are reported in Figure 6.8.
+\end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/pscorr/08-blcorr.png}
+\caption
+      [Impact of Dataset Size on USSR Statistical Baselines.]{
+  {\bf Impact of Dataset Size on USSR Statistical Baselines.}
+  \\
+  Correlation between statistical baselines from bootstrap-subsampled datasets
+  of varying size and the original statistical baseline computed from the
+  complete BSA dataset. Lines indicate median correlations, and shaded regions
+  indicate confidence regions of plus or minus one standard deviation,
+  estimated using median absolute deviation. Blue lines and shaded regions
+  indicate values from subsampling the PSC normalized dataset, and red lines
+  and shaded regions indicate values from subsampling the uncorrected dataset.
+}
+\end{SCfigure}
 
 \section{Results}
 
