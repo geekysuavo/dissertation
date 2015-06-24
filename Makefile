@@ -1,43 +1,30 @@
 
+# NAME: base name of all generated files.
+NAME=bworley
+
+# CHAPTERS: list of all chapters.
+CHAPTERS=pub ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11
+
 # all: default compilation target.
-all: bworley.pdf
+all: $(NAME).pdf
 
 # .pdf: actual compilation target.
 bworley.pdf:
-	pdflatex -draftmode bworley
-	bibtex bworley-pub
-	bibtex bworley-ch01
-	bibtex bworley-ch02
-	bibtex bworley-ch03
-	bibtex bworley-ch04
-	bibtex bworley-ch05
-	bibtex bworley-ch06
-	bibtex bworley-ch07
-	bibtex bworley-ch08
-	bibtex bworley-ch09
-	bibtex bworley-ch10
-	bibtex bworley-ch11
-	pdflatex -draftmode bworley
-	pdflatex -draftmode bworley
-	pdflatex bworley
+	pdflatex -draftmode $(NAME)
+	for ch in $(CHAPTERS); do \
+	  bibtex $(NAME)-$${ch}; \
+	done
+	pdflatex -draftmode $(NAME)
+	pdflatex -draftmode $(NAME)
+	pdflatex $(NAME)
 
 # clean: target to remove all intermediate compilation results.
 clean:
-	rm -f bworley.pdf
-	rm -f bworley.aux bworley.log bworley.out
-	rm -f bworley.toc bworley.loa bworley.lof bworley.lot
-	rm -f bworley-pub.aux  bworley-pub.bbl  bworley-pub.blg
-	rm -f bworley-ch01.aux bworley-ch01.bbl bworley-ch01.blg
-	rm -f bworley-ch02.aux bworley-ch02.bbl bworley-ch02.blg
-	rm -f bworley-ch03.aux bworley-ch03.bbl bworley-ch03.blg
-	rm -f bworley-ch04.aux bworley-ch04.bbl bworley-ch04.blg
-	rm -f bworley-ch05.aux bworley-ch05.bbl bworley-ch05.blg
-	rm -f bworley-ch06.aux bworley-ch06.bbl bworley-ch06.blg
-	rm -f bworley-ch07.aux bworley-ch07.bbl bworley-ch07.blg
-	rm -f bworley-ch08.aux bworley-ch08.bbl bworley-ch08.blg
-	rm -f bworley-ch09.aux bworley-ch09.bbl bworley-ch09.blg
-	rm -f bworley-ch10.aux bworley-ch10.bbl bworley-ch10.blg
-	rm -f bworley-ch11.aux bworley-ch11.bbl bworley-ch11.blg
+	rm -f $(NAME).pdf $(NAME).aux $(NAME).log $(NAME).out
+	rm -f $(NAME).toc $(NAME).loa $(NAME).lof $(NAME).lot
+	for ch in $(CHAPTERS); do \
+	  rm -f $(NAME)-$${ch}.aux $(NAME)-$${ch}.bbl $(NAME)-$${ch}.blg; \
+	done
 
 # again: target to clean and recompile the default target.
 again: clean all
