@@ -54,6 +54,21 @@ extraction. Extracted caffeine in CH$_2$Cl$_2$ was diluted 20-fold into 1.0
 mL and subjected to UV/Vis absorption spectroscopy for caffeine quantitation.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/01-uvfit.png}
+\caption
+      [UV/Vis Caffeine Quantitation Band-fitting Results.]{
+  {\bf UV/Vis Caffeine Quantitation Band-fitting Results.}
+  \\
+  UV/Vis absorbance band-fitting results for caffeine concentration estimation
+  of dark roast ({\bf A}), light roast ({\bf B}), regular medium roast
+  ({\bf C}), and decaffeinated medium roast ({\bf D}). Black lines represent
+  observed spectra, dashed grey lines represent fitted spctra, red lines
+  represent fitted caffeine, and blue and green lines represent additional
+  Gaussian bands required for fitting.
+}
+\end{figure}
+
 \subsubsection{UV/Vis Spectroscopy}
 
 \begin{doublespace}
@@ -91,11 +106,11 @@ multiplicative scatter correction (MSC, \cite{fearn:cils2009}). To quantify
 caffeine in the extracts, the absorption spectrum of each extract was fit by
 nonlinear least squares \cite{marquardt:jsiam1963} to the sum of the scaled
 caffeine reference spectrum and no more than two extra `background' Gaussian
-bands. The ratio of the fit caffeine reference spectrum in each extract to
-that of the known samples was used as an estimate of caffeine concentration
-in the extracts. Concentrations of the medium regular, medium decaffeinated,
-dark and light roasts were 1.526 mM, 0.217 mM, 1.979 mM and 4.993 mM,
-respectively.
+bands (Figure 4.1). The ratio of the fit caffeine reference spectrum in each
+extract to that of the known samples was used as an estimate of caffeine
+concentration in the extracts. Concentrations of the medium regular, medium
+decaffeinated, dark and light roasts were 1.526 mM, 0.217 mM, 1.979 mM and
+4.993 mM, respectively.
 \end{doublespace}
 
 \subsubsection{Multivariate Analysis}
@@ -112,7 +127,25 @@ values. Spectral regions upfield of 0.44 ppm and downfield of 9.16 ppm were
 removed from the dataset, as they contained no informative signals. As solvent
 resonances were adequately suppressed by the excitation sculpting pulse
 sequence, no spectral regions were removed around the water resonance.
-\\\\
+Figure 4.2 illustrates the final result of spectral processing of the coffees
+dataset using MVAPACK.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/02-spectra.png}
+\caption
+      [Processed \hnmr{} NMR Spectra of Coffee Roasts.]{
+  {\bf Processed \hnmr{} NMR Spectra of Coffee Roasts.}
+  \\
+  Representative processed 1D \hnmr{} NMR spectra for all spectra of each
+  coffee roast, acquired using the water-suppressed CPMG-$z$ pulse sequence
+  and processed in MVAPACK. To reach this point, free induction decays were
+  simply Fourier transformed and automatically phased. No manual phase
+  corrections were applied after autophasing.
+}
+\end{figure}
+
+\begin{doublespace}
 For principal component analysis (PCA), the dataset was normalized by the
 method of probabilistic quotients (PQ, \cite{dieterle:anchem2006}) and
 subjected to adaptive intelligent binning \cite{demeyer:anchem2008}.
@@ -121,7 +154,7 @@ Low-variation `noise' bins were automatically removed from the dataset
 and 284 variables. The data matrix was scaled to unit variance
 \cite{vandenberg:bmcg2006} prior to NIPALS PCA modeling \cite{jolliffe2002},
 which produced six significant components having cumulative \rsqx{} and
-\qsq{} statistics of 0.9689 and $0.9046 \pm 0.0075$, respectively
+\qsq{} statistics of 0.9689 and $0.8965 \pm 0.0105$, respectively
 \cite{eshghi:cils2014}.
 \\\\
 Linear discriminant analysis (LDA) was performed on the first three dimensions
@@ -129,7 +162,27 @@ of resulting PCA scores to yield a two-component model that best
 captured the between-class variation present in the three orthonormal PCA
 score vectors. LDA modeling yielded a model having a cumulative \rsqx{}
 statistic of 0.9950 and cumulative \rsqy{} and \qsq{} statistics of 1.0.
-\\\\
+Scores from the PCA model of the coffees \hnmr{} NMR spectral data, and
+their corresponding LDA projection, are shown in Figure 4.3.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/03-pca-lda.png}
+\caption
+      [Principal Component Scores of the Coffees Spectra.]{
+  {\bf Principal Component Scores of the Coffees Spectra.}
+  \\
+  PCA ({\bf A}) and LDA ({\bf B}) scores of the four coffee roasts. Red,
+  green, blue and violet points represent dark, light, decaffeinated medium,
+  and regular medium roasts, respectively. Ellipsoids and ellipses enclose
+  the 95\% confidence intervals estimated by the sample means and covariances
+  of scores from each class. Axis labels in panels ({\bf A}) and ({\bf B})
+  indicate scores in PCA and LDA bases, respectively, and not the same set
+  of scores.
+}
+\end{figure}
+
+\begin{doublespace}
 For orthogonal projections to latent structures regression
 (OPLS-R, \cite{trygg:jchemo2002}), the full-resolution dataset was aligned
 using a per-class application of interval correlation-optimized shifting
@@ -139,8 +192,8 @@ Pareto-scaled data matrix was regressed by OPLS against a response vector
 containing caffeine concentrations estimated by UV/Vis analysis of the four
 coffee roasts, yielding a model with one predictive component and one
 orthogonal component (\rsqxp{} = 0.5294, \rsqxo{} = 0.1288, \rsqy{} = 0.9822,
-\qsq{} = $0.9370 \pm 0.0223$). CV-ANOVA significance testing returned a $p$
-value equal to zero ($F$ = 291.24) to within double-precision floating point
+\qsq{} = $0.9502 \pm 0.0008$). CV-ANOVA significance testing returned a $p$
+value equal to zero ($F$ = 2258.8) to within double-precision floating point
 error, indicating a reliable model. The OPLS-R and LDA models were further
 validated using response permutation tests having 1,000 iterations each. The
 permutation tests of both models resulted in $p$ values less than 0.001 for
