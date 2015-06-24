@@ -213,10 +213,96 @@ SIMCA-P+ 13.0 only permits the export of scores with no more than four decimal
 places.
 \end{doublespace}
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/apps/04-oplsr-p.png}
+\caption
+      [Backscaled Coffees OPLS-R Model Loadings.]{
+  {\bf Backscaled Coffees OPLS-R Model Loadings.}
+  \\
+  Backscaled OPLS-R predictive loadings of the four coffee roasts regressed
+  according to estimated caffeine concentration. The pseudospectral nature of
+  backscaled loadings facilitates analysis of model results by any
+  spectroscopist. The four most intense positive positive peaks in the
+  loadings pseudospectrum correspond directly to caffeine NMR resonances
+  archived in the BMRB, indicating a fairly successful regression against
+  caffeine concentration.
+}
+\end{SCfigure}
+
 \subsection{Results and Discussion}
 
 \begin{doublespace}
-FIXME.
+Use of MVAPACK during analysis of the coffees dataset arguably facilitated
+rapid identification of ideal processing, treatment and modeling parameters
+during data handling. Use of automatic phase correction, adaptive intelligent
+binning, and PQ normalization yielded a dataset in which three principal
+components were sufficient to fully separate all classes in scores space,
+and subsequent LDA modeling resulted in complete class separation in only
+two components (Figure 4.3).
+\\\\
+As opposed to the PCA modeling procedure, which utilized binned spectra,
+OPLS-R model training was performed using full-resolution 1D \hnmr{} NMR
+spectra in order to reap the interpretive advantages of full-resolution
+backscaled loadings (Figure 4.4). The availability of \emph{i}COshift
+alignment \cite{savorani:jmr2010} in MVAPACK effectively makes the modeling
+of full-resolution NMR spectral data possible by correcting positional noise
+\cite{aberg:abc2009} in the spectra that corrupts the bilinear nature of the
+data. By regressing the NMR data against estimates of caffeine concentration
+obtained by UV/Vis spectroscopy (Figure 4.1), a loading pseudo-spectrum of
+caffeine was obtained that matched almost perfectly with spectral data
+deposited in the Biological Magnetic Resonance Bank \cite{ulrich:nar2008}.
+It is conceivable that spectral features coextracted with caffeine in the
+loadings correspond to coffee bean metabolites lost alongside caffeine during
+roasting or decaffeination.
+\end{doublespace}
+
+\begin{figure}[H]
+\includegraphics[width=6.5in]{figs/apps/05-oplsr-t.png}
+\caption
+      [Coffees OPLS-R Scores as Evidence of Overfit.]{
+  {\bf Coffees OPLS-R Scores as Evidence of Overfit.}
+  \\
+  OPLS-R scores of the four coffee roasts, where each roast was regressed
+  against its caffeine concentration estimated by UV/Vis absorbance
+  spectroscopy. Scores in panels ({\bf A}) through ({\bf D}) were computed
+  from models having 1 through 4 orthogonal components, respectively.
+}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=6.5in]{figs/apps/06-oplsr-tcv.png}
+\caption
+      [Coffees OPLS-R Cross-validated Scores.]{
+  {\bf Coffees OPLS-R Cross-validated Scores.}
+  \\
+  OPLS-R scores of the four coffee roasts, where each roast was regressed
+  against its caffeine concentration, as in Figure 4.5. Mean score values
+  and confidence ellipses for each observation were computed from 100
+  iterations of seven-fold Monte Carlo internal cross-validation.
+}
+\end{figure}
+
+\begin{doublespace}
+Notably, the UV/Vis-estimated caffeine concentration of the dark roast coffee
+was slightly higher than that of the medium roast, which is contrary to
+expectation given that the coffees were brewed using equal volumes of
+grounds. However, OPLS-R of the NMR data using the estimated caffeine
+concentrations correctly ranked the roasts according to expectation
+(Figure 4.5A). When more orthogonal components were allowed into the OPLS-R
+model, the dark roast again shifted to a higher caffeine concentration,
+beautifully indicating the presence of overfitting (Figure 4.5B--D).
+Monte Carlo cross-validated scores further supported the fact that a $1+1$
+OPLS model was the most appropriate (Figure 4.6). Therefore, an OPLS-R model
+having only a single orthogonal component was chosen, given the fact that it
+more faithfully modeled the underlying NMR data at the expense of
+contradicting the more uncertain UV/Vis measurements.
+\\\\
+Finally, no discernable difference was observed between the 1D \hnmr{} NMR
+spectra acquired with and without $T_2$-filtering. Spectra collected on
+in-house brewed coffee exhibited high levels of protein background signal,
+which were readily suppressed using the CPMG-$z$ pulse sequence element. On
+the other hand, the spectra of the four purchased roasts showed no such
+background signal, possibly due to more correct brewing technique.
 \end{doublespace}
 
 \section{Fingerprinting of Joint \hnmr{} NMR and DI-ESI-MS Data}
@@ -280,7 +366,7 @@ FIXME.
 \section{Monte Carlo Analysis of Scores-space Separations}
 
 \begin{doublespace}
-FIXME.
+FIXME \cite{worley:anchem2015}.
 \end{doublespace}
 
 \subsection{Materials and Methods}
