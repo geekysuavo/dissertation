@@ -311,13 +311,64 @@ results.
 \section{Discussion and Conclusions}
 
 \begin{doublespace}
-FIXME.
+While the saturation transfer difference (STD) NMR experiment
+\cite{mayer:jacs2001} is a popular choice for ligand-based NMR affinity
+screens, a 1D \hnmr{} NMR spectrum requires only a few seconds to acquire,
+making it an ideal choice for high-throughput screening. STD experiments
+require significantly longer acquisition times (upwards of hours) in order
+to acquire difference spectra with sufficient signal-to-noise to reduce false
+negatives. A particular strength of STD is the minimal amount of protein
+needed per experiment, making it practical to screen a reasonably large
+chemical library (upwards of thousands of compounds) with only a few
+milligrams of protein. Through a judicious choice of protein and ligand
+concentrations coupled with the use of cryoprobes and high magnetic fields,
+it is also possible to minimize protein requirements in 1D \hnmr{}
+line-broadening screens. While STD experiments still tend to require less
+protein than line-broadening experiments, the higher false positive rate of
+STD screening easily negates any advantages of minimal protein usage. This
+high false positive rate arises due to the tendency of STD experiments to
+emphasize weak binding affinities commonly encountered during aggregation
+and nonspecific binding \cite{harner:jbnmr2013,lepre:menz2011}.
 \\\\
-FIXME.
+NMR line-broadening experiments take advantage of the molecular-weight
+dependence of $T_2$ relaxation and the resultant measurable difference in
+line-widths between proteins and the compounds in a screening library
+\cite{hajduk:jacs1997}. Upon binding a protein target, the \hnmr{} NMR
+resonances of a compound will broaden significantly or even disappear.
+In principal, this spectral broadening is easily observable and binding is
+readily identified. In practice, background signals from the protein can
+confound the data analysis. This background interference increases with the
+size and concentration of the protein and leads to an increase in false
+negative rates. Apparent line-width differences between free and bound
+ligands \emph{also} increase with protein size and concentration, making the
+optimal experimental conditions for NMR line-broadening screens exactly the
+same conditions which confound manual interpretation. Clearly, the ability to
+accurately remove the protein background from an NMR line-broadening experiment
+will improve both the utility and reliability of the technique, especially at
+relatively high protein-ligand concentration ratios where binding is more
+apparent.
 \\\\
-FIXME.
+By removing interfering protein baseline signals, USSR provides a
+straightforward means of visually or computationally analzing screening
+results. In fact, the outcome of applying the USSR method to an extremely
+challenging and atypical test case is rather dramatic: an NMR line-broadening
+screen of BSA against a chemical library of 456 compounds identified 43
+binders, despite the BSA background signals completely obscuring the ligand
+spectral features. An example screening result of tolazamide, dimethyl
+4-methoxyisophthalate, 1,7-dimethylxanthine and oxolinic acid against BSA is
+illustrated in Figure 7.2. Removal of the interfering protein statistical
+baseline from the screen spectrum (Figure 7.2B) yielded a high-quality
+pseudo-spectrum of the ligand mixture in the presence of BSA. Overlaying the
+remodeled NMR spectrum with the free ligand mixture spectrum indicated that
+the two spectra were essentially identical for the non-binding ligands
+(Figure 7.2A). Only dimethyl 4-methoxyisophthalate, which binds BSA, exhibited
+any difference after remodeling. The USSR method of baseline estimation and
+subtraction is expected to perform equally well under any conditions where a
+common, highly reproducible spectral feature exists within a dataset. The
+presented application of PSC/USSR to high-throughput protein-ligand affinity
+screening is but one example of its potential uses.
 \\\\
-However, reliably identification of the protein baseline from screening data
+However, reliable identification of the protein baseline from screening data
 requires highly reproducible sample preparation, data collection and
 processing. The last of these requirements is met by the use of phase-scatter
 correction prior to remodeling, which brings protein baselines from all spectra

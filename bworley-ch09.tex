@@ -55,7 +55,6 @@ Under the assumption that each group in the scores space is distributed as a
 multivariate normal random variable, the separations between groups may be
 calculated using the squared Mahalanobis distance metric
 \cite{mahalanobis:pnisi1936}:
-
 \begin{equation}
 D_M^2 =
   (\mathbf{u}_j - \mathbf{u}_i)^T
@@ -68,15 +67,12 @@ $p$-variate sample means of groups $i$ and $j$, respectively, and
 $\mathbf{S}_p \in \mathbb{R}^{p \times p}$ is the pooled variance-covariance
 matrix, a weighted sum of the covariance matrices from groups $i$ and
 $j$:
-
 \begin{equation}
 \mathbf{S}_p = \frac{n_i \mathbf{S}_i + n_j \mathbf{S}_j}{n_i + n_j}
 \end{equation}
-
 where $n_i$ and $n_j$ are the number of observations in groups $i$ and $j$,
 respectively. The Mahalanobis distance may then be related to a Hotelling's
 $T^2$ statistic by the following scaling \cite{mardia1979}:
-
 \begin{equation}
 T^2 = \left( \frac{n_i n_j}{n_i + n_j} \right) D_M^2
 \end{equation}
@@ -84,7 +80,6 @@ T^2 = \left( \frac{n_i n_j}{n_i + n_j} \right) D_M^2
 This $T^2$ statistic is an extension of the Student's $t$ statistic to
 hypothesis tests in multiple dimensions, and may be related to an $F$
 distribution by a final scaling \cite{mardia1979}:
-
 \begin{equation}
 x_F =
   \frac{n_i + n_j - p - 1}{p (n_i + n_j - 2)} T^2 \sim
@@ -144,11 +139,9 @@ to estimate 95\% confidence ellipses for scores in any number of dimensions.
 The sample mean $\mathbf{u}$ and sample covariance matrix $\mathbf{S}$ for each
 group must first be calculated from its scores-space data. Then, each group
 covariance matrix is decomposed into its eigenvalues and eigenvectors,
-
 \begin{equation}
 \mathbf{S} = \mathbf{Q} \mathbf{\Lambda} \mathbf{Q}^{-1}
 \end{equation}
-
 where $\mathbf{Q} \in \mathbb{R}^{p \times p}$ is an orthogonal matrix holding
 the eigenvectors of $\mathbf{S}$, and
 $\mathbf{\Lambda} \in \mathbb{R}^{p \times p}$ is a diagonal matrix holding the
