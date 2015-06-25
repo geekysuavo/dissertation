@@ -308,7 +308,30 @@ background signal, possibly due to more correct brewing technique.
 \section{Fingerprinting of Joint \hnmr{} NMR and DI-ESI-MS Data}
 
 \begin{doublespace}
-FIXME \cite{marshall:metab2015}.
+Multiblock bilinear factorizations such as CPCA, MB-PLS and MB-OPLS provide a
+powerful framework for analyzing a set of multivariate observations from
+multiple analytical measurements containing potentially correlated variables
+\cite{westerhuis:jchemo1997,westerhuis:jchemo1998,smilde:jchemo2003}. Such
+algorithms provide analogous information to PCA, PLS and OPLS in situations
+where extra knowledge is available to subdivide the measured variables into
+multiple ``blocks''. As a result, the correlation structures of each block
+\emph{and} the between-block correlations may be simultaneously utilized.
+Due to the existence of common trends among all blocks, this use of
+between-block correlations during modeling will ideally bring the model
+loadings (latent variables) into better agreement with the true underlying
+biochemistry (hidden variables). In short, multiblock algorithms provide an
+ideal means of integrating 1D \hnmr{} NMR and direct injection electrospray
+mass spectrometry (DI-ESI-MS) datasets for metabolic fingerprinting
+\cite{xu:abc2013}.
+\\\\
+Consensus PCA (\hyperlink{subsection.3.5.4}{CPCA-W}),
+Multiblock PLS (\hyperlink{subsection.3.5.5}{MB-PLS}), and
+Multiblock OPLS (\hyperlink{subsection.3.5.6}{MB-OPLS}) were used to analyze
+1D \hnmr{} NMR and DI-ESI-MS data collected on metabolite extracts from
+human dopaminergic neuroblastoma cells (SK-N-SH) after different neurotoxin
+treatments \cite{marshall:metab2015}. Each dataset was also individually
+subjected to single-block modeling by PCA and PLS in order to highlight the
+information gained by jointly modeling the data within multiblock frameworks.
 \end{doublespace}
 
 \subsection{Materials and Methods}
@@ -316,25 +339,90 @@ FIXME \cite{marshall:metab2015}.
 \subsubsection{NMR Acquisition and Processing}
 
 \begin{doublespace}
-FIXME.
+NMR data were collected and processed according to previously described
+procedures \cite{zhang:jiomic2013}. A Bruker Avance DRX 500 MHz spectrometer
+equipped with a 5 mm inverse triple-resonance cryoprobe (\hnmr{}, \cnmr{},
+\nnmr{}) with a $z$-axis gradient, a BACS-120 sample changer, and an automatic
+tuning and matching accessory were utilized for automated NMR data collection.
+Free induction decays were collected into 32$k$ complex data points over a
+spectral window of $2342.5 \pm 2741.2$ ppm, using the SOGGY water suppression
+pulse sequence (\emph{zgesgp}, \cite{hwang:jmr1995,nguyen:jmr2007}).
+\\\\
+Following acquisition, the 1D \hnmr{} NMR free induction decays were processed
+in the MVAPACK toolbox \cite{worley:acscb2014}. A 1.0 Hz exponential
+apodization fuction and a single round of zero-filling were applied prior to
+Fourier transformation. Spectra were then automatically phased and normalized
+using phase-scatter correction (PSC, \cite{worley:cils2014},
+cf. \hyperlink{chapter.6}{Chapter 6}). Finally, chemical shift regions
+containing spectral baseline noise or solvent signals were manually removed.
+Binning of the processed NMR spectra was performed using the Adaptive
+Intelligent (AI) binning algorithm that avoids splitting signals into
+multiple bins \cite{demeyer:anchem2008}.
 \end{doublespace}
 
 \subsubsection{MS Acquisition and Processing}
 
 \begin{doublespace}
-FIXME.
+Mass spectra of the SK-N-SH metabolite extracts were acquired in positive ion
+mode over a mass range of $m/z$ 50--1,200. Spectra were acquired for 30 s each
+using the following source conditions: 2.5 kV electrospray capillary voltage,
+60 V sampling cone voltage, 4.0 V extraction voltage, $80^\circ$C source
+temperature, $250^\circ$C desolvation temperature, 500 L/h desolvation gas
+flow rate, and 15 $\mu$L/min injection flow rate.
+\\\\
+The initial stages of mass spectral data processing were performed using
+MassLynx V4.1 (Waters Corp., Milford, MA). A background subtraction was
+performed on all spectra: reference spectra of either paraquat,
+1-methyl-4-phenylpyridinium (MPP$^+$), rotenone, or 6-hydroxydopamine (6-OHDA)
+in H$_2$O/CH$_3$OH/HCO$_2$H (49.75:49.75:0.5) at 10 ppm were used as
+backgrounds. Background subtraction of each spectrum was performed in a
+class-dependent manner (e.g. the MPP$^+$ reference mass spectrum was used as
+background for MPP$^+$-treated cell samples). As a result, mass spectral
+signals from the drugs themselves were guaranteed to not influence subsequent
+analyses. The background-subtracted mass spectra were then loaded into MVAPACK
+for binning and normalization. All mass spectra were linearly re-interpolated
+onto a common axis that spanned from $m/z$ 50--1200 in 0.003 $m/z$ steps,
+resulting in 383334 variables prior to processing. Based on the low
+probability of observing a metabolite in the mass range $m/z$ 1100--1200,
+the region was removed prior to binning. Mass spectra were uniformly binned
+using a bin width of 0.5 $m/z$, resulting in a data matrix of 2095 variables.
+Finally, the MS data matrix observations were normalized using probabilistic
+quotient (PQ) normalization \cite{dieterle:anchem2006}.
 \end{doublespace}
 
 \subsubsection{Multivariate Statistical Analysis}
 
 \begin{doublespace}
-FIXME.
+Using functions available in the latest version of MVAPACK, the NMR and MS
+data were joined into a single multiblock data structure and modeled using
+CPCA-W, MB-PLS and MB-OPLS. Both blocks were scaled to unit variance prior
+to modeling, and equal contribution of each block to the models (fairness)
+was ensured by further scaling each block by the square root of its variable
+count \cite{smilde:jchemo2003}. For the purposes of comparison, PCA and PLS
+models of the independent NMR and MS data matrices were also constructed.
+All PLS models were trained on a binary discriminant response matrix
+(i.e. PLS-DA), in which untreated cells were assigned for one class,
+and all neurotoxin-treated cells were assigned to a second class.
 \end{doublespace}
 
 \subsubsection{Cross-validation of Multivariate Models}
 
 \begin{doublespace}
-FIXME.
+Initially, all PCA and CPCA-W models were internally cross-validated using a
+leave-one-out (LOOCV) procedure in MVAPACK during model training
+\cite{eshghi:cils2014}. A subsequent set of PCA models was trained and
+cross-validated using a Monte Carlo seven-fold (MCCV) procedure that
+produced less optimistic \qsq{} statistics. All PLS-DA, MB-PLS-DA and
+MB-OPLS-DA models were internally cross-validated using a Monte Carlo
+seven-fold procedure \cite{wold:cils2001}. All MCCV rounds involved 50
+iterations per tested model component. The results of cross-validation
+were summarized by per-component \qsq{} statistics, and the number of model
+components was chosen such that the cumulative \qsq{} was a strictly increasing
+function of component count. Response permutation tests of all supervised
+models were performed with 1000 permutations each to assess the statistical
+significance of \rsqy{} and \qsq{} values \cite{westerhuis:metab2008a}.
+CV-ANOVA significance tests \cite{eriksson:jchemo2008} were also performed
+to supplement the results of the permutation tests.
 \end{doublespace}
 
 \subsection{Results and Discussion}
