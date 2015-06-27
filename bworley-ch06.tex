@@ -173,11 +173,12 @@ induction decays were loaded into GNU Octave 3.6 \cite{eaton2008} for
 processing using MVAPACK routines \cite{worley:acscb2014}. Time-domain signals
 were zero-filled to 32$k$ points and Fourier transformed, resulting in
 a complex data matrix of 177 spectra divided amongst 16 classes
-($N = 177, K = 32768, M = 16$). Spectra were both automatically phase corrected
-by simplex entropy minimization \cite{chen:jmr2002} and manually phase
-corrected by applying a constant phase shift to all spectra. Both automatically
-and manually phase corrected datasets were then normalized using the CS, PQ,
-HM, SNV, MSC and PSC methods (cf. \hyperlink{subsection.3.4.3}{Normalization}).
+($N = 177, K = 32,768, M = 16$). Spectra were both automatically phase
+corrected by simplex entropy minimization \cite{chen:jmr2002} and manually
+phase corrected by applying a constant phase shift to all spectra. Both
+automatically and manually phase corrected datasets were then normalized using
+the CS, PQ, HM, SNV, MSC and PSC methods
+(cf. \hyperlink{subsection.3.4.3}{Normalization}).
 Each normalized data matrix was binned using a uniform 0.04 ppm bin width,
 scaled per-variable to unit variance, and subjected to PCA. The $J_2$ statistic
 \cite{koutroumbas2006} was calculated for each class to provide a measure of

@@ -89,8 +89,8 @@ ICON-NMR software were used to automate NMR data collection. A standard 1D
 spectrum using a $z$-filtered Carr-Purcell-Meiboom-Gill (CPMG) sequence
 \cite{rastrelli:jacs2009} with an identical SOGGY water suppression element
 were acquired for each sample. All experiments were performed at $20^\circ$C
-with 128 scans, 32 dummy scans, a carrier frequency offset of 2350.6 Hz, a
-6009.0 Hz spectral width, and a 1.0 s inter-scan delay. For $T_2$ filtered
+with 128 scans, 32 dummy scans, a carrier frequency offset of 2,351 Hz, a
+6,009 Hz spectral width, and a 1.0 s inter-scan delay. For $T_2$ filtered
 spectra, 20 repetitions of a CPMG-$z$ element having a delay ($\tau$) of 5.0
 ms were performed per scan, for a total filter time ($2n\tau$) of 200.0 ms.
 Free induction decays were collected with 32,768 total data points resulting
@@ -345,7 +345,7 @@ equipped with a 5 mm inverse triple-resonance cryoprobe (\hnmr{}, \cnmr{},
 \nnmr{}) with a $z$-axis gradient, a BACS-120 sample changer, and an automatic
 tuning and matching accessory were utilized for automated NMR data collection.
 Free induction decays were collected into 32$k$ complex data points over a
-spectral window of $2342.5 \pm 2741.2$ ppm, using the SOGGY water suppression
+spectral window of $2,342 \pm 2,741$ ppm, using the SOGGY water suppression
 pulse sequence (\emph{zgesgp}, \cite{hwang:jmr1995,nguyen:jmr2007}).
 \\\\
 Following acquisition, the 1D \hnmr{} NMR free induction decays were processed
@@ -381,11 +381,11 @@ background for MPP$^+$-treated cell samples). As a result, mass spectral
 signals from the drugs themselves were guaranteed to not influence subsequent
 analyses. The background-subtracted mass spectra were then loaded into MVAPACK
 for binning and normalization. All mass spectra were linearly re-interpolated
-onto a common axis that spanned from $m/z$ 50--1200 in 0.003 $m/z$ steps,
-resulting in 383334 variables prior to processing. Based on the low
-probability of observing a metabolite in the mass range $m/z$ 1100--1200,
+onto a common axis that spanned from $m/z$ 50--1,200 in 0.003 $m/z$ steps,
+resulting in 383,334 variables prior to processing. Based on the low
+probability of observing a metabolite in the mass range $m/z$ 1,100--1,200,
 the region was removed prior to binning. Mass spectra were uniformly binned
-using a bin width of 0.5 $m/z$, resulting in a data matrix of 2095 variables.
+using a bin width of 0.5 $m/z$, resulting in a data matrix of 2,095 variables.
 Finally, the MS data matrix observations were normalized using probabilistic
 quotient (PQ) normalization \cite{dieterle:anchem2006}.
 \end{doublespace}
@@ -419,36 +419,239 @@ iterations per tested model component. The results of cross-validation
 were summarized by per-component \qsq{} statistics, and the number of model
 components was chosen such that the cumulative \qsq{} was a strictly increasing
 function of component count. Response permutation tests of all supervised
-models were performed with 1000 permutations each to assess the statistical
+models were performed with 1,000 permutations each to assess the statistical
 significance of \rsqy{} and \qsq{} values \cite{westerhuis:metab2008a}.
 CV-ANOVA significance tests \cite{eriksson:jchemo2008} were also performed
 to supplement the results of the permutation tests.
 \end{doublespace}
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/apps/07-mbpca-t.png}
+\caption
+      [Comparison of PCA and MB-PCA Scores.]{
+  {\bf Comparison of PCA and MB-PCA Scores.}
+  \\
+  Scores generated from ({\bf A}) PCA of \hnmr{} NMR in vacuo, ({\bf B}) PCA
+  of DI-ESI-MS in vacuo, and ({\bf C}) MB-PCA of \hnmr{} NMR and DI-ESI-MS.
+  Separations between classes are increased upon combination of the two
+  data matrices via MB-PCA. Yellow, red, green, violet and blue scores
+  correspond to the control, 6-OHDA, MPP$^+$, paraquat and rotenone classes,
+  respectively.
+}
+\end{SCfigure}
+
+\begin{SCfigure}
+\includegraphics[width=2.5in]{figs/apps/08-mbpca-d.png}
+\caption
+      [Dendrograms of PCA and MB-PCA Scores.]{
+  {\bf Dendrograms of PCA and MB-PCA Scores.}
+  \\
+  Dendrograms computed from scores-space class separations
+  \cite{worley:abio2013} in the in vacuo PCA and MB-PCA models. Panels
+  ({\bf A--C}) correspond to scores in panels ({\bf A--C}) in Figure 4.7,
+  above.
+}
+\end{SCfigure}
+
 \subsection{Results and Discussion}
-
-\subsubsection{Data Treatment}
-
-\begin{doublespace}
-FIXME.
-\end{doublespace}
 
 \subsubsection{Classical Modeling}
 
 \begin{doublespace}
-FIXME.
+PCA of the binned NMR data matrix ($N = 29, K = 159$) resulted in 10 principal
+components having cumulative \rsqx{} and \qsq{} statistics of 0.9485 and
+0.4591, respectively, based on LOOCV. Overall, no patterns were readily
+discernable in the NMR PCA scores (Figure 4.7A) due to high within-class
+variation in the data. However, scores for paraquat treatment were found
+to significantly separate from all other classes ($p < 0.002$) along the
+first principal component. Scores from PCA of the binned MS data matrix
+($N = 29, K = 2,095$) were found to exhibit markedly less within-class
+variation compared to the NMR data (Figure 4.7B). Using LOOCV, three
+significant components were identified from the binned MS data, yielding
+fairly low cumulative \rsqx{} and \qsq{} statistics of 0.3397 and 0.1590.
+While paraquat treatment still separated from other drug treatments in MS
+PCA scores space, the greatest separations were observed between treated
+and untreated (control) cells ($p < 1.0 \times 10^{-9}$). These differing
+patterns of separation in NMR and MS PCA scores suggested that multiblock
+analyses could provide further information, ideally separating both control
+and paraquat scores from all other classes. Figure 4.8 contains dendrograms
+of scores-space class separation for each scores plot in Figure 4.7.
+\\\\
+Per-component \qsq{} statistics computed from LOOCV of the NMR and MS PCA
+models suggested fairly marginal model reliability at component counts greater
+than one, so follow-up analyses were performed using MCCV on the same data
+matrices to obtain less optimistic estimates of reliability. In both cases,
+MCCV produced single-component PCA models, indicating that the LOOCV had
+substantially over-estimated the number of principal components in each
+matrix. A comparison of the resulting \qsq{} statistics from LOOCV and MCCV
+is shown in Figure 4.9.
+\\\\
+PLS-DA of the full-resolution NMR ($N = 29, K = 16,138$) and
+MS ($N = 29, K = 2,095$) data matrices both resulted in two-component models.
+With the exception of the algorithmically forced separation between control
+and treatment classes, similar clustering patterns were observed when compared
+to the PCA scores (cf. Figure 4.10A--B). MCCV results from the
+NMR ($R^2_Y = 0.9519, Q^2 = 0.7303 \pm 0.0517$) and
+MS ($R^2_Y = 0.9951, Q^2 = 0.9440 \pm 0.01142$) PLS-DA models indicated
+reasonable levels of response fit and predictive ability. Further validation
+by CV-ANOVA \cite{eriksson:jchemo2008} indicated reliable models with $p$
+values of 0.002 and $9.8 \times 10^{-6}$ for NMR and MS data, respectively.
+Response permutation tests for both PLS-DA models returned $p < 0.001$,
+supporting the CV-ANOVA test results.
 \end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/apps/09-rqpca.png}
+\caption
+      [Comparison of LOOCV and MCCV \qsq{} Statistics for PCA.]{
+  {\bf Comparison of LOOCV and MCCV \qsq{} Statistics for PCA.}
+  \\
+  \rsq{} (red), $Q^2_{\mathrm{LOOCV}}$ (green) and $Q^2_{\mathrm{MCCV}}$ (blue)
+  statistics from ({\bf A}) PCA of \hnmr{} NMR in vacuo, ({\bf B}) PCA of
+  DI-ESI-MS in vacuo, and ({\bf C}) MB-PCA of \hnmr{} NMR and DI-ESI-MS.
+  In all cases, MCCV indicates that both datasets contain a single significant
+  principal component, while LOOCV over-estimates the number of significant
+  components.
+}
+\end{SCfigure}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/apps/10-mbpls-t.png}
+\caption
+      [Comparison of PLS-DA and MB-PLS-DA Scores.]{
+  {\bf Comparison of PLS-DA and MB-PLS-DA Scores.}
+  \\
+  Cross-validated scores generated from ({\bf A}) PLS-DA of \hnmr{} NMR in
+  vacuo, ({\bf B}) PLS-DA of DI-ESI-MS in vacuo, and ({\bf C}) MB-PLS-DA of
+  \hnmr{} NMR and DI-ESI-MS. Consensus directions in MB-PLS-DA scores space
+  show decreased rotation during cross-validation when compared to PLS-DA
+  scores of the in vacuo PCA model. Yellow, red, green, violet and blue scores
+  correspond to the control, 6-OHDA, MPP$^+$, paraquat and rotenone classes,
+  respectively.
+}
+\end{SCfigure}
 
 \subsubsection{Multiblock Modeling}
 
 \begin{doublespace}
-FIXME.
+Identification of consensus directions in the NMR and MS data matrices that
+maximally captured overall variation (MB-PCA) or response correlations (MB-PLS)
+resulted in more informative models than those calculated against either NMR
+or MS in vacuo. Using MB-PCA with LOOCV, five significant components were
+identified ($Q^2 = 0.2322$) that cumulatively explained comparable amounts
+of variation in the NMR ($R^2_X = 0.8528$) and MS ($R^2_X = 0.5015$) blocks
+relative to the individual PCA models. As expected, MB-PCA combined the
+information from both blocks to dramatically increase class separations in
+super-scores space (Figure 4.7C). More specifically, both control and paraquat
+classes were separated from other neurotoxin treatments, predominantly along
+the first principal component. Furthermore, MPP$^+$ treatment exhibited
+significant separation from 6-OHDA and rotenone treatments, which was not
+expected from examination of the individual NMR or MS PCA scores.
 \end{doublespace}
 
-\subsubsection{Metabolite Identification}
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/11-mbpls-p.png}
+\caption
+      [Backscaled NMR and MS Block Loadings.]{
+  {\bf Backscaled NMR and MS Block Loadings.}
+  \\
+  Backscaled ({\bf A}) \hnmr{} NMR block and ({\bf B}) DI-ESI-MS block loadings
+  from MB-PLS-DA. Comparison of the above panels to those from MB-OPLS-DA
+  (Figures 4.12, 4.13) reveals the mixed predictive and orthogonal variation
+  present in MB-PLS loadings. It is also important to note that a second
+  PLS component exists, and thus complete interpretation of the joint NMR
+  and MS data requires simultaneous examination of \emph{two} sets of
+  block loadings.
+}
+\end{figure}
 
 \begin{doublespace}
-FIXME.
+Subsequent re-evaluation of the MB-PCA model's reliability using MCCV reduced
+the number of expected significant components to two (Figure 4.9C). However,
+secondary and higher components' \qsq{} statistics were still found to be
+statistically indistinguishable from zero, which further suggests that only
+one principal direction exists in the binned NMR and MS data matrices that
+captures any substantial variation.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/12-mbopls-p.png}
+\caption
+      [Backscaled NMR and MS Predictive Block Loadings.]{
+  {\bf Backscaled NMR and MS Predictive Block Loadings.}
+  \\
+  Backscaled predictive ({\bf A}) \hnmr{} NMR block and ({\bf B}) DI-ESI-MS
+  block loadings from MB-OPLS-DA.
+}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/13-mbopls-po.png}
+\caption
+      [Backscaled NMR and MS Orthogonal Block Loadings.]{
+  {\bf Backscaled NMR and MS Orthogonal Block Loadings.}
+  \\
+  Backscaled orthogonal ({\bf A}) \hnmr{} NMR block and ({\bf B}) DI-ESI-MS
+  block loadings from MB-OPLS-DA.
+}
+\end{figure}
+
+\begin{doublespace}
+MB-PLS of the data yielded similar improvements in model information content.
+Two significant components were identified
+($R^2_Y = 0.9876, Q^2 = 0.9014 \pm 0.0185$) that clearly separated control and
+paraquat treatment classes from all other classes in scores space
+(Figure 4.10). CV-ANOVA testing produced a $p$ value of $3.4 \times 10^{-4}$
+and response permutation testing yielded $p < 0.001$, indicating a reliable
+MB-PLS-DA model. Backscaled first-component MB-PLS-DA loadings are shown in
+Figure 4.11. Modeling the multiblock data with MB-OPLS and MCCV produced a
+single predictive component and a single orthogonal component
+($R^2_Y = 0.9031, Q^2 = 0.7084 \pm 0.0241$), making later interpretation
+markedly simpler (cf. Figures 4.12 and 4.13). Examination of cross-validated
+MB-OPLS-DA scores (Figure 4.14) provides an excellent example of how PLS mixes
+predictive and compensatory variation. In MB-OPLS super-scores, paraquat
+treatment is distinctly separated from other neurotoxin treatment classes along
+the orthogonal component ($\mathbf{t_o}$). In the MB-PLS model, this
+distinction between paraquat and other drug treatments becomes mixed with the
+variation that separates the control class from all drug treatments. In effect,
+the two effects have been disentagled in the MB-OPLS model, providing richer
+information about the differing mechanisms of each neurotoxic drug. Additional
+orthogonal components would serve to further disentangle the two effects, at
+the slight expense of model reliability. Validation of the MB-OPLS model by
+CV-ANOVA resulted in a $p$ value equal to $5.5 \times 10^{-6}$, and permutation
+testing corroborated CV-ANOVA with $p < 0.001$, once again indicating a
+reliable supervised model.
+\end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/apps/14-mbopls-t.png}
+\caption
+      [MB-OPLS-DA Cross-validated Scores.]{
+  {\bf MB-OPLS-DA Cross-validated Scores.}
+  \\
+  Cross-validated scores generated from MB-OPLS-DA of the joint \hnmr{} NMR
+  and DI-ESI-MS data. The OPLS filter within MB-OPLS has effectively rotated
+  the super-scores of the MB-PLS model (Figure 4.10C) to better differentiate
+  between class-predictive and class-orthogonal variation.
+}
+\end{SCfigure}
+
+\subsection{Conclusions}
+
+\begin{doublespace}
+The use of multiblock bilinear factorizations that capitalize on the
+availability of blocking information afforded greater model interpretability
+with the NMR and MS data than what was provided by single-block methods. The
+neurotoxins dataset provided an opportunity to compare the results of LOOCV
+and MCCV for optimal principal component count determination when marginally
+predictive data is being modeled. As expected, MCCV was a less optimistic
+estimator of model reliability than LOOCV, and produced more parsimonious PCA
+decompositions. Finally, the dataset was an ideal proving ground for the new
+MB-OPLS algorithm, as MB-PLS-DA had clearly mixed class-predictive variation
+into multiple components. The use of MB-OPLS-DA resulted in more easily
+interpretable backscaled loadings, and provided more information relating to
+separations between control and drug treatment \emph{and} separations between
+paraquat and other drug treatments (Figure 4.13).
 \end{doublespace}
 
 \section{Monte Carlo Analysis of Scores-space Separations}
