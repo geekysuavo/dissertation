@@ -1374,8 +1374,6 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
       $\:\mathbf{w} \in \mathbb{R}^B$,%
       $\:\mathbf{t}_b \in \mathbb{R}^N$,%
       $\:\mathbf{p}_b \in \mathbb{R}^K \quad \forall b \in \ints{1}{B}$
-\STATE $\mathbf{X} \gets
-        [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{t} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{t}$ may also be initialized to a column of $\mathbf{X}$
 }
@@ -1389,10 +1387,10 @@ block loadings $\mathbf{p}_b$ for each of the $B$ provided blocks:
                                    {\mathbf{t}^T \mathbf{t}}$
   \STATE $\mathbf{t} \gets \mathbf{R} \mathbf{w}$
 \UNTIL{$\tau < \varepsilon$}
-\STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
 \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{X}_b}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}
         \quad \forall b \in \ints{1}{B}$
+\STATE $\mathbf{p}^T \gets [{\mathbf{p}_1}^T, \dots {\mathbf{p}_B}^T]$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1457,7 +1455,6 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
       $\:\mathbf{p}_b \in \mathbb{R}^K$,%
       $\:\mathbf{w}_b \in \mathbb{R}^K
        \quad \forall b \in \ints{1}{B}$
-\STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
 }
@@ -1474,10 +1471,10 @@ original algorithm for MB-PLS is of the NIPALS-type, and is shown below:
   \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
                                  {\mathbf{c}^T \mathbf{c}}$
 \UNTIL{$\tau < \varepsilon$}
-\STATE $\mathbf{p} \propto \mathbf{X}^T \mathbf{t}$
 \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{X}_b}^T \mathbf{t}}
                                  {\mathbf{t}^T \mathbf{t}}
         \quad \forall b \in \ints{1}{B}$
+\STATE $\mathbf{p}^T \gets [{\mathbf{p}_1}^T, \dots {\mathbf{p}_B}^T]$
 \end{algorithmic}
 \end{algorithm}
 
@@ -1532,11 +1529,12 @@ interfere with MB-PLS predictions:
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
 
-The recently developed MB-OPLS algorithm is based on NIPALS MB-PLS, with an
-added OPLS-type OSC filter that removes $\mathbf{Y}$-uncorrelated variation
-from super-loadings. Deflation of predictive and orthogonal components from
-each block is achieved using super-scores, as in the above MB-PLS algorithm.
-The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
+The recently developed MB-OPLS algorithm (cf. \hyperlink{chapter.9}{Chapter 9})
+is based on NIPALS MB-PLS, with an added OPLS-type OSC filter that removes
+$\mathbf{Y}$-uncorrelated variation from super-loadings. Deflation of
+predictive and orthogonal components from each block is achieved using
+super-scores, as in the above MB-PLS algorithm. The complete
+matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
 \end{doublespace}
 
 \begin{algorithm}[H]
@@ -1559,13 +1557,11 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
        \quad \forall b \in \ints{1}{B}$
-\STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\mathbf{u} \sim U_{N \times 1}$ \COMMENT{
   $\mathbf{u}$ may also be initialized to a column of $\mathbf{Y}$
 }
 \STATE done $\gets$ \FALSE
 \STATE $a \gets 0$
-\STATE $\mathbf{E} \gets \mathbf{X}$
 \STATE $\mathbf{E}_b \gets \mathbf{X}_b
         \quad \forall b \in \ints{1}{B}$
 \WHILE{\NOT done}
@@ -1573,8 +1569,6 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
     \FORALL{$b \in \ints{1}{B}$}
       \STATE $\mathbf{w}_b \propto {\mathbf{E}_b}^T \mathbf{u}$
       \STATE $\mathbf{t}_b \gets \mathbf{E}_b \mathbf{w}_b$
-      \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{E}_b}^T \mathbf{t}_b}
-                                       {\mathbf{t}_b^T \mathbf{t}_b}$
     \ENDFOR
     \STATE $\mathbf{R} \gets [\mathbf{t}_1, \dots \mathbf{t}_B]$
     \STATE $\mathbf{w} \propto \mathbf{R}^T \mathbf{u}$
@@ -1584,27 +1578,26 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
     \STATE $\mathbf{u} \gets \tfrac{\mathbf{Y} \mathbf{c}}
                                    {\mathbf{c}^T \mathbf{c}}$
   \UNTIL{$\tau < \varepsilon$}
-  \STATE $\mathbf{p} \gets \tfrac{\mathbf{E}^T \mathbf{t}}
-                                 {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{p}_b \gets \tfrac{{\mathbf{E}_b}^T \mathbf{t}}
+                                   {\mathbf{t}^T \mathbf{t}}
+          \quad \forall b \in \ints{1}{B}$
+  \STATE $\mathbf{p}^T \gets [{\mathbf{p}_1}^T, \dots {\mathbf{p}_B}^T]$
   \STATE $\mathbf{z} \gets \mathbf{p}$
   \STATE $\mathbf{z} \gets \mathbf{z} -
           \tfrac{\mathbf{v}_m^T \mathbf{z}}
                 {\mathbf{v}_m^T \mathbf{v}_m} \mathbf{v}_m
           \quad \forall m \in \ints{1}{M}$
   \STATE $\mathbf{w_o} \propto \mathbf{z}$
-  \STATE $\mathbf{t_o} \gets \mathbf{E} \mathbf{w_o}$
-  \STATE $\mathcal{P}_o \gets \tfrac{\mathbf{t_o} \mathbf{t_o}^T}
-                                    {\mathbf{t_o}^T \mathbf{t_o}}$
-  \STATE $\mathbf{p_o} \gets \tfrac{\mathbf{E}^T \mathbf{t_o}}
-                                   {\mathbf{t_o}^T \mathbf{t_o}}$
+  \STATE $\mathbf{t_o} \gets [\mathbf{E}_1, \dots \mathbf{E}_B] \mathbf{w_o}$
   \STATE $\mathbf{p_o}_b \gets
-          \tfrac{(\mathcal{P}_o \mathbf{E}_b)^T \mathbf{t_o}}
+          \tfrac{{\mathbf{E}_b}^T \mathbf{t_o}}
                 {\mathbf{t_o}^T \mathbf{t_o}}
           \quad \forall b \in \ints{1}{B}$
   \STATE $\mathbf{t_o}_b \gets
-          \tfrac{\mathcal{P}_o \mathbf{E}_b \mathbf{p_o}_b}
+          \tfrac{\mathbf{E}_b \mathbf{p_o}_b}
                 {{\mathbf{p_o}_b}^T \mathbf{p_o}_b}
           \quad \forall b \in \ints{1}{B}$
+  \STATE $\mathbf{p_o}^T \gets [{\mathbf{p_o}_1}^T, \dots {\mathbf{p_o}_B}^T]$
   \STATE $\lambda \gets \tfrac{\| \mathbf{z} \|_2}{\| \mathbf{p} \|_2}$
   \IF{$\lambda < \lambda_{th}$}
     \STATE $\mathbf{T_o} \gets [\mathbf{T_o}, \; \mathbf{t_o}]$
@@ -1614,7 +1607,6 @@ The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
             \quad \forall b \in \ints{1}{B}$
     \STATE $\mathbf{P_o}_b \gets [\mathbf{P_o}_b, \; \mathbf{p_o}_b]
             \quad \forall b \in \ints{1}{B}$
-    \STATE $\mathbf{E} \gets \mathbf{E} - \mathbf{t_o} \mathbf{p_o}^T$
     \STATE $\mathbf{E}_b \gets \mathbf{E}_b - \mathbf{t_o} {\mathbf{p_o}_b}^T
             \quad \forall b \in \ints{1}{B}$
     \STATE $a \gets a + 1$
@@ -1681,35 +1673,29 @@ to extract block-level models from super-model scores and loadings.
       $\:\mathbf{T_o}_b \in \mathbb{R}^{N \times a}$,%
       $\:\mathbf{P_o}_b \in \mathbb{R}^{K \times a}
        \quad \forall b \in \ints{1}{B}$
-\STATE $\mathbf{X} \gets [\mathbf{X}_1, \dots \mathbf{X}_B]$
 \STATE $\{\mathbf{t}, \: \mathbf{p}, \: \mathbf{u}, \: \mathbf{c}, \:
         \mathbf{T_o}, \: \mathbf{P_o}\} \gets
         \mathrm{OPLS}(\mathbf{X}, \mathbf{Y})$
-\STATE $\mathcal{P}_p \gets
-        \mathbf{I} - \mathbf{T_o} \left(
-         \mathbf{T_o}^T \mathbf{T_o}
-        \right)^{-1} \mathbf{T_o}^T$
 \FORALL{$b \in \ints{1}{B}$}
-  \STATE $\mathbf{w}_{PLS} \propto {\mathbf{X}_b}^T \mathbf{u}$
-  \STATE $\mathbf{t}_b \gets
-          \mathcal{P}_p \mathbf{X}_b \mathbf{w}_{PLS}$
-  \STATE $\mathbf{p}_b \gets
-          \tfrac{(\mathcal{P}_p \mathbf{X}_b)^T \mathbf{t}_b}
-                {{\mathbf{t}_b}^T \mathbf{t}_b}$
   \FORALL{$a_o \in \ints{1}{a}$}
     \STATE $\mathbf{t_o} \gets \mathbf{T_o}_{a_o}$ \COMMENT{
       Extract the $a_o$-th column of $\mathbf{T_o}$ }
-    \STATE $\mathcal{P}_o \gets \tfrac{\mathbf{t_o} \mathbf{t_o}^T}
-                                      {\mathbf{t_o}^T \mathbf{t_o}}$
+    \STATE $\mathbf{w_o}_b \gets [\mathbf{W_o}_{a_o}]_b$ \COMMENT{
+      Extract the $b$-th block of of $\mathbf{W_o}_{a_o}$ }
+    \STATE $\mathbf{t_o}_b \gets \mathbf{X}_b \mathbf{w_o}_b$
     \STATE $\mathbf{p_o}_b \gets
-            \tfrac{(\mathcal{P}_o \mathbf{X}_b)^T \mathbf{t_o}}
+            \tfrac{{\mathbf{X}_b}^T \mathbf{t_o}}
                   {\mathbf{t_o}^T \mathbf{t_o}}$
-    \STATE $\mathbf{t_o}_b \gets
-            \tfrac{\mathcal{P}_o \mathbf{X}_b \mathbf{p_o}_b}
-                  {{\mathbf{p_o}_b}^T \mathbf{p_o}_b}$
     \STATE $\mathbf{P_o}_b \gets [\mathbf{P_o}_b, \: \mathbf{p_o}_b]$
     \STATE $\mathbf{T_o}_b \gets [\mathbf{T_o}_b, \: \mathbf{t_o}_b]$
+    \STATE $\mathbf{X}_b \gets \mathbf{X}_b - \mathbf{t_o} {\mathbf{p_o}_b}^T$
   \ENDFOR
+  \STATE $\mathbf{w}_b \propto {\mathbf{X}_b}^T \mathbf{u}$
+  \STATE $\mathbf{t}_b \gets \mathbf{X}_b \mathbf{w}_b$
+  \STATE $\mathbf{p}_b \gets
+          \tfrac{{\mathbf{X}_b}^T \mathbf{t}}
+                {\mathbf{t}^T \mathbf{t}}$
+  \STATE $\mathbf{X}_b \gets \mathbf{X}_b - \mathbf{t} {\mathbf{p}_b}^T$
 \ENDFOR
 \end{algorithmic}
 \end{algorithm}
@@ -1734,15 +1720,12 @@ to extract block-level models from super-model scores and loadings.
 \end{figure}
 
 \begin{doublespace}
-For each of the $B$ data blocks, the extraction procedure computes predictive
-block scores and loadings by projecting the $\mathbf{Y}$-correlated portion
-of the block ($\mathcal{P}_p \mathbf{X}_b$) onto the weights derived by MB-PLS,
-and then projecting the same portion onto the predictive scores (steps 6--7).
-Each set of orthogonal block scores and loadings is then computed by projecting
-the $\mathbf{Y}$-uncorrelated portion of the block explained by that set of
-orthogonal super-scores ($\mathcal{P}_o \mathbf{X}_b$) onto the scores
-$\mathbf{t_o}$. The resulting block scores and loadings from algorithm 3.7 are
-identical to those produced by algorithm 3.6.
+For each of the $B$ data blocks, the extraction procedure first computes
+orthogonal block loadings and scores, and deflates them from the block. Then,
+predictive block scores and loadings are computed using the method outlined
+previously \cite{westerhuis:jchemo1998} for extracting MB-PLS block components
+from a PLS model (steps 12--14). The resulting block scores and loadings from
+algorithm 3.7 are identical to those produced by algorithm 3.6.
 \end{doublespace}
 
 \section{Validation}

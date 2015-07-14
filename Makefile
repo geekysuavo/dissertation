@@ -3,7 +3,7 @@
 NAME=bworley
 
 # CHAPTERS: list of all chapters.
-CHAPTERS=pub ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11
+CHAPTERS=pub ch01 ch02 ch03 ch04 ch05 ch06 ch07 ch08 ch09 ch10 ch11 ch12
 
 # all: default compilation target.
 all: $(NAME).pdf
