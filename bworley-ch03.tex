@@ -1868,6 +1868,39 @@ This model reliability statistic is often referred to as a ``cross-validated''
 \rsq{} statistic, and provides a relative measure of how well a given model
 will generalize to the estimation of future observations. Like \rsq{}
 statistics, \qsq{} is also computable on a per-component basis.
+\\\\
+When the values in $\mathbf{Y}$ do not vary continuously, but instead hold
+binary class membership information, it is possible for \qsq{} -- as defined
+by the previous equation -- to under-estimate model reliability
+\cite{westerhuis:metab2008b}. In the case of two-class discrimination, \qsq{}
+quadratically penalizes values in $\hat{\mathbf{y}}$ that are beyond the class
+labels in $\mathbf{y}$. In more concrete terms, a cross-validation predicted
+class label of 1.5 for a true class label of 1.0 should incur no penalty, as
+it represents an unambiguous prediction. However, the quadratic nature of
+\qsq{} penalizes such results. When PLS and OPLS are used for class
+discrimination, the more suitable ``discriminant \qsq{}'' (\dqsq{}) is a more
+suitable metric of reliability:
+\begin{equation}
+DQ^2 = 1 - \frac{\mathrm{PRESSD}}{\sstot{}}
+\end{equation}
+where PRESSD represents the discriminant PRESS statistic:
+\begin{equation}
+\mathrm{PRESSD} = \sum_{n=1}^N
+\begin{cases}
+  0 & \text{if } y_n = 1 \text{ and } \hat{y}_n > 1 \\
+  0 & \text{if } y_n = 0 \text{ and } \hat{y}_n < 0 \\
+  (y_n - \hat{y}_n)^2 & \text{else}
+\end{cases}
+\end{equation}
+
+In effect, PRESSD computes the sum of all squared $\mathbf{y}$-residuals that
+represent a potentially ambiguous classification \cite{westerhuis:metab2008b}.
+The same result may be achieved by simply bounding the values within
+$\hat{\mathbf{y}}$ to the class label extents in $\mathbf{y}$, followed by the
+use of standard PRESS and \qsq{} calculations. This alternative strategy has
+the added benefit of ensuring that the prediction sum of squares
+$\frosq{\hat{\mathbf{y}}}$ never exceeds the total sum of squares
+$\frosq{\mathbf{y}}$, which is a requirement for CV-ANOVA, discussed below.
 \end{doublespace}
 
 \subsection{Internal Cross-validation}
@@ -1915,8 +1948,8 @@ algorithm demonstrates the computation of \qsq{} for a single PLS component:
                              \mathbf{Y}^{(-n_g)})$ \COMMENT{
  $\mathbf{X}^{(-n_g)}$, $\mathbf{Y}^{(-n_g)}$ contain no rows from group $g$
 }
-  \STATE $\mathbf{B}^{(g)} \gets \tfrac{\mathbf{w} \mathbf{c}^T}
-                                       {\mathbf{p}^T \mathbf{w}}$
+  \STATE $\mathbf{B}^{(n_g)} \gets \tfrac{\mathbf{w} \mathbf{c}^T}
+                                         {\mathbf{p}^T \mathbf{w}}$
 \ENDFOR
 \FORALL{$n \in \ints{1}{N}$}
   \STATE $\hat{\mathbf{y}}_n \gets
