@@ -669,13 +669,66 @@ FIXME.
 \subsubsection{Initial Datasets}
 
 \begin{doublespace}
-FIXME.
+Two classes of observations (Light and Medium Decaffeinated) from the binned
+data matrix were extracted from the latest version of the Coffees
+dataset \cite{worley:acscb2014}. The resulting data matrix (referred to as
+$\mathbf{X}$: $N = 32, K = 284$) contains a highly significant separation
+between the two classes based on caffeine 1D \hnmr{} NMR spectral features.
+A second dataset, generated from a comparison of two chemically defined cell
+growth media, was used to provide further support for the trends observed
+during Monte Carlo analysis of the Coffees data matrix. The resulting Media
+data matrix ($N = 50, K = 238$) also contains highly significant separation
+between two classes based on 1D \hnmr{} NMR spectral features.
+\\\\
+Prior to Monte Carlo simulation, the $\ell_2$ norm (largest singular value) of
+each data matrix $\mathbf{X}$ was computed and stored as $\sigma_{max}$. A set
+of 50 noise standard deviations ($\sigma$) where each value ranged from
+$\sigma_{max}/500$ to $\sigma_{max}/10$. For each noise standard deviation,
+a set of 200 Monte Carlo iterations was performed. Another set of 200
+iterations was also performed on each original data matrix $\mathbf{X}$ without
+any added noise.
 \end{doublespace}
 
 \subsubsection{Monte Carlo Simulation}
 
 \begin{doublespace}
-FIXME.
+At each Monte Carlo iteration, an $N \times K$ real matrix of noise values was
+drawn as $NK$ independently and identically distributed samples from a
+zero-mean normal distribution having a standard deviation of $\sigma$,
+corresponding to the current noise value as described above. The data matrix
+$\mathbf{X}$ was summed with the noise matrix, and a three-component ($A = 3$)
+PCA model was computed on the resulting sum ($\mathbf{X'}$) after unit variance
+scaling \cite{vandenberg:bmcg2006} using a NIPALS algorithm
+\cite{jolliffe2002}. The explained variation (\rsq{}) of each principal
+component was computed as described in \hyperlink{section.3.6}{Section 3.6}.
+A Monte Carlo leave-$n$-out cross-validation (MCCV) was performed based on the
+modified method of Krzanowski and Eastment \cite{eshghi:cils2014} in order to
+obtain a per-component predictive ability (\qsq{}) statistic. A seven-fold
+partitioning of observations and variables, randomly resampled ten times, was
+performed for each PCA MCCV run. Following PCA model training, the Mahalanobis
+distance between the two classes was computed using PCA scores
+\cite{demaesschalck:cils2000}.
+\\\\
+After computation of the Mahalanobis distance, the noisy data matrix
+$\mathbf{X'}$ was Pareto-scaled and subjected to OPLS-DA using a Pareto-scaled
+binary $(0,1)$ response vector ($\mathbf{y}$) and a NIPALS OPLS algorithm
+\cite{trygg:jchem2002}. A one-component ($A_p = 1, A_o = 1$) OPLS model was
+constructed, from which backscaled predictive loadings were extracted by
+dividing by the coefficients obtained from Pareto scaling
+\cite{cloarec:anchem2005b}. The Pearson correlation coefficient between
+backscaled loadings and the known `true' loadings --
+$\mathrm{corr}(\mathbf{p},\mathbf{p_0})$ -- was computed for later
+visualization. Explained variation (\rsqy{}) was computed as described in
+\hyperlink{section.3.6}{Section 3.6}. A Monte Carlo leave-$n$-out internal
+cross-validation (MCCV) of the OPLS model was performed using a seven-fold
+partitioning of the data matrix that was randomly resampled ten times
+\cite{xu:cils2001}. Predictive ability (\qsq{}) statistics were computed as
+the mean \qsq{} obtained from MCCV results. Thus, each OPLS model contained
+a set of ten fitted residual matrices from cross-validation available for use
+in CV-ANOVA significance testing \cite{eriksson:jchemo2008}. During CV-ANOVA
+calculations, the median values of mean square error (MSE) was computed from
+all residual matrices, and the ratio of median fitted MSE to median residual
+MSE was calculated to yield an $F$-statistic for $p$ value generation.
 \end{doublespace}
 
 \subsection{Results and Discussion}
