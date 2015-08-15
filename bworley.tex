@@ -25,6 +25,7 @@
 \usepackage{sidecap}
 \usepackage[chapter]{algorithm}
 \usepackage{algorithmic}
+\usepackage{listings}
 
 % reference sections are typically un-numbered chapter headings, which don't
 % work with what we need to do in the thesis. this changes the bibliography
@@ -97,6 +98,26 @@
     <{\egroup}%
 }
 \newcommand*\rot{\multicolumn{1}{R{90}{1em}}}
+
+% define fixed-width fonts that support bold-face type
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9}
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}
+
+% define a new command that begins styling text as python source code.
+\newcommand\pythonstyle{\lstset{
+  language=Python,
+  basicstyle=\ttm,
+  otherkeywords={self},
+  keywordstyle=\ttb,
+  frame=none,
+  showstringspaces=false
+}}
+
+% define a new environment that allows for python syntax highlighting.
+\lstnewenvironment{python}[1][]{
+  \pythonstyle
+  \lstset{#1}
+}{}
 
 % big bang.
 \begin{document}
