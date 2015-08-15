@@ -482,16 +482,155 @@ true HSQC spectrum with representative IST reconstructions after subsampling
 by Poisson-gap, sine-gap and sine-burst schedules.
 \end{doublespace}
 
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/dgs/07-residuals.png}
+\caption
+      [Relative IST Reconstruction Residuals.]{
+  {\bf Relative IST Reconstruction Residuals.}
+  \\
+  Iterative soft thresholding reconstruction $\ell_2$ residuals of ({\bf A})
+  simulated noise-free decays and ({\bf B}) 2D \hnnmr{} HSQC slices from
+  one-dimensional Poisson-gap schedules having sampling densities of
+  30\% (blue), 10\% (green) and 5\% (red). Residuals of sine-gap and sine-burst
+  schedules are shown as solid and dashed vertical lines, respectively.
+}
+\end{figure}
+
 \subsection{Computation of Performance Metrics}
 
 \begin{doublespace}
-FIXME.
+All computational analyses were performed in GNU Octave 3.6 \cite{eaton2008}
+using routines currently available in the open-source MVAPACK toolbox for
+NMR chemometrics \cite{worley:acscb2014}. Impulse sets were generated for
+each constructed schedule by setting sampled grid points to one and skipped
+grid points to zero. At each sampling density and grid size for which schedules
+were created, point-spread functions were calculated by discrete Fourier
+transformation of each schedule's impulse set. Point-spread functions for
+schedules built on two-dimensional grids are shown for each sampling density
+in Figure 2.5. For one-dimensional schedules, reconstruction residuals were
+computed for a noise-free synthetic free induction decay containing a single
+frequency component. The synthetic decay had a normalized frequency and decay
+rate of 0.04 and 0.002, respectively. The decay was resampled according to each
+schedule and reconstructed with 400 iterations of Iterative Soft Thresholding
+(IST) at a threshold level of 98\% \cite{hyberts:jbnmr2012}. Following
+reconstruction, the residual was calculated using the $\ell_2$-norm of the
+differences between the true and reconstructed signals. Figure 2.7A shows the
+distributions of IST reconstruction residuals for Poisson-gap, sine-gap and
+sine-burst schedules. Reconstructions of the half-transformed HSQC were also
+performed after nonuniformly subsampling using sine-gap schedules, sine-burst
+schedules, and a subset ($N$ = 10,000) of the generated Poisson-gap schedules.
+Figure 2.7B shows IST reconstruction residuals computed from the HSQC spectrum.
 \end{doublespace}
+
+\begin{table}[h!]
+\caption{Peak-picking Performance Figures from IST-reconsructed HSQC Spectra.}
+\begin{center}
+\begin{tabular}{l l | l l l l l l}
+  \hline
+  {\bf Method} & & {\bf Matched}       & {\bf Lost}     & {\bf Gained} &
+                   $\boldsymbol{\rho}$ & $\mathbf{d_H}$ & $\mathbf{d_N}$ \\
+  \hline
+     & 30\% & 92/99 & 7/99 &  2 & 0.9736 & 0.003064 & 0.006165 \\
+  PG & 10\% & 96/99 & 3/99 &  6 & 0.9692 & 0.003451 & 0.011702 \\
+     &  5\% & 94/99 & 5/99 & 32 & 0.9751 & 0.003034 & 0.012806 \\
+  \hline
+     & 30\% & 93/99 & 6/99 &  3 & 0.9704 & 0.003184 & 0.005882 \\
+  SG & 10\% & 96/99 & 3/99 & 13 & 0.9732 & 0.002801 & 0.011357 \\
+     &  5\% & 97/99 & 2/99 & 31 & 0.9630 & 0.003450 & 0.014585 \\
+  \hline
+     & 30\% & 91/99 & 8/99 &  3 & 0.9820 & 0.003319 & 0.008370 \\
+  SB & 10\% & 97/99 & 2/99 & 13 & 0.9820 & 0.003045 & 0.012806 \\
+     &  5\% & 97/99 & 2/99 & 45 & 0.9575 & 0.003587 & 0.016998 \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Generation of Peak-picking Statistics}
+
+\begin{doublespace}
+For each 2D \hnnmr{} HSQC spectrum of ubiquitin reconstructed via IST at each
+sampling density and each sampling method, a set of quality statistics was
+computed (Table 2.1). Peak lists were generated using the
+\verb peakHN.tcl  utility provided by NMRPipe \cite{delaglio:jbnmr1995}, with
+a minimum intensity threshold of $3.0 \times 10^7$. Then, a greedy algorithm
+was used to generate a maximum-cardinality bipartite matching between the peak
+list of each reconstructed spectrum and the peak list of the true spectrum.
+Chemical shift windows of 0.015 ppm and 0.08 ppm were used along the \hnmr{}
+and \nnmr{} dimensions, respectively, during matching. The numbers of peaks
+matched, lost and gained in the reconstructed spectra, relative to the true
+spectrum, were all counted. Lost peaks were any picked peaks in the true
+spectrum that had no match in the reconstruction. Gained peaks were any
+picked peaks in the reconstruction with no partner in the true spectrum.
+The intensities of all matched peaks in each reconstruction were then
+compared against their true intensities through the computation of a Pearson
+correlation coefficient, $\rho$, which effectively summarizes the linearity
+of the reconstruction algorithm as a function of sampling schedule. Finally,
+root-mean-square chemical shift deviations of all matched peaks along the
+\hnmr{} dimension ($d_H$) and the \nnmr{} dimension ($d_N$) were also
+computed.
+\end{doublespace}
+
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/dgs/08-rejhist.png}
+\caption
+      [Gap Length Histograms from Rejection Sampling.]{
+  {\bf Gap Length Histograms from Rejection Sampling.}
+  \\
+  Normalized histograms of gap lengths at various points in an ensemble of
+  100,00 sampling schedules generated by rejection sampling from the
+  Poisson-gap expectation sampling distribution (equation 2.11). Bars
+  shown in blue, green, red and orange represent the gap length histograms
+  at $\theta$ equal to 0.0098, 0.24, 0.73 and 0.88, respectively. Examination
+  of these histograms clearly indicates that the schedules generated by
+  rejection sampling are \emph{not} Poisson-gap schedules.
+}
+\end{SCfigure}
 
 \subsection{Analysis of Sampling Distributions}
 
 \begin{doublespace}
-FIXME.
+Expectation sampling distributions were also generated from the set of
+Poisson-gap schedules by averaging their resulting impulse sets. Figure 2.2
+shows the expectation sampling distributions for one-dimensional schedules
+having different sampling densities, and Figures 2.3 and 2.4 show the
+distributions for two-dimensional schedules having the same densities.
+The heavy bias towards early time points in Poisson-gap sampling is
+reaffirmed in all figures. Sampling distributions were also computed via
+equations 2.11 and 2.12 for comparison to the distributions obtained by
+averaging multiple impulse sets (Figures 2.2 and 2.3). To verify that fully
+random sampling from equation 2.11 and gap sampling from $g_{PG}$ are not
+equivalent, 100,000 sampling schedules were generated by rejection sampling
+51 grid points from equation 2.11 at $\Lambda=62.9$ and $N=1024$, and
+histograms of the gap lengths at each grid point were computed (Figure 2.8).
+If the two methods were indeed equivalent, one would expect the histograms
+in Figure 2.8 to resemble Poisson distributions.
+\end{doublespace}
+
+\subsection{Average Poisson-gap Sequences}
+
+\begin{doublespace}
+For Figure 2.1, each schedule $\{x_1^{(m)}, x_2^{(m)},\dots, x_n^{(m)}\}$ in
+the generated ensemble of $M$ (here, $M$ = 50,000) one-dimensional Poisson-gap
+schedules was averaged on a term-by-term basis:
+\begin{equation}
+\langle x_i \rangle = \frac{1}{M} \sum_{m=1}^M x_i^{(m)}
+\end{equation}
+to produce the average Poisson-gap schedule
+$\{\langle x_1 \rangle, \langle x_2 \rangle,\dots, \langle x_n \rangle\}$.
+Similar procedures were performed to compute the standard deviation of the
+Poisson-gap ensemble. Deterministic sampling schedules with a 1x exponential
+bias were computed according to procedures outlined by
+Eddy et al. \cite{eddy:jmr2012}. Relative errors (Figure 2.1) between a given
+sine-gap schedule $\{y_1, y_2,\dots, y_n\}$ and average Poisson-gap schedule
+were computed by a term-by-term subtraction of one schedule from the other,
+followed by a division by the average Poisson-gap terms:
+\begin{equation}
+\Delta_i = \frac{y_i - \langle x_i \rangle}{\langle x_i \rangle}
+ \quad \forall i \in \{1,2,\dots, n\}
+\end{equation}
+
+Relative errors between the deterministic exponential schedules and the
+average Poisson-gap sequence were similarly computed.
 \end{doublespace}
 
 \section{Results}
