@@ -633,16 +633,152 @@ Relative errors between the deterministic exponential schedules and the
 average Poisson-gap sequence were similarly computed.
 \end{doublespace}
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/dgs/09-spurs.png}
+\caption
+      [Introduction of Spurs by Squared-sine Modulation.]{
+  {\bf Introduction of Spurs by Squared-sine Modulation.}
+  \\
+  Impulse response functions (IRFs) of sine-gap (blue) and sine-burst (red)
+  sampling schedules at 5\% density, demonstrating the appearance of
+  low-frequency spurs induced by burst augmentation of the gap equation.
+}
+\end{SCfigure}
+
 \section{Results}
 
 \begin{doublespace}
-FIXME.
+While at first glance, the deterministic schedule constructed using $g_{SG}$
+in Figure 2.5 may appear unrelated to the Poisson-gap schedule, it is in fact
+a realization of Poisson-gap sampling in which all random draws from the
+underlying Poisson distribution have resulted in the expected value. This
+fact is corroborated by the corresponding point-spread functions, which
+closely resemble those of the stochastic example at 30\% and 10\% sampling
+density. Reconstruction residuals from IST (Figure 2.7) also reveal a high
+similarity between the deterministic sine-gap and stochastic Poisson-gap
+schedules at 30\% and 10\% density. However, the sine-gap PSF becomes less
+comparable to that of Poisson-gap at low sampling densities, where the
+benefits of employing random deviates are more apparent. It is worth noting
+that the striking appearance of sampling artifacts in the sine-gap PSF is a
+consequence of the log-scaled color gradient used in Figure 2.5, which was
+necessary in order to visually expose very low-intensity artifacts.
+\\\\
+The addition of burst augmentation in the form of $g_{SB}$ produces a slight
+improvement in all reconstruction residuals with respect to $g_{SG}$ and
+$g_{PG}$. Artifacts arising from regularity in $g_{SG}$-based schedules at
+low sampling densities are diminished by burst augmentation, resulting in
+point-spread functions that more closely resemble those from Poisson-gap
+sampling. This reduction of artifacts by burst augmentation comes at a small
+cost, at low-frequency spurs are introduced into the sine-burst point-spread
+function (Figure 2.9) by modulating the gap equation. However, these spurs
+are low in magnitude and only readily apparent at very low (5\%) sampling
+density. Furthermore, IST residuals of sine-burst schedules (Figure 2.7,
+dashed lines) are generally lower than those of sine-gap schedules, and
+appear to improve relative to the mean residuals from Poisson-gap schedules
+as sampling density is decreased. Therefore, while sine-gap sampling is a
+valuable tool for understanding the nature of Poisson-gap sampling, it is
+clearly bested in performance by sine-burst sampling as global sampling
+density is decreased.
+\\\\
+The tradeoff between minimizing the length of all gaps in a schedule, as
+Poisson-gap strives to do, and minimizing the effective dwell time, as in
+burst-mode sampling, is apparent by examination of gap lengths produced by
+each method (Figure 2.10). As advertised, sine-burst sampling schedules
+have decreased median gap lengths with respect to both sine-gap and
+Poisson-gap schedules (Figure 2.10A), at the expense of slightly increased
+maximum gap lengths (Figure 2.10B). Rather remarkably, sine-gap schedules
+have lower maximum gap lengths than their stochastic Poisson-gap cousins
+\emph{and} sine-burst schedules, which reinforces the concept that the
+addition of \emph{any} mechanism to reduce the greatest common factor of
+the gap lengths between sampled points with force an increase in the
+largest gap between points.
 \end{doublespace}
+
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/dgs/10-gaps.png}
+\caption
+      [Summary of Gap Lengths for all Sampling Methods.]{
+  {\bf Summary of Gap Lengths for all Sampling Methods.}
+  \\
+  Distributions of median ({\bf A}) and maximum ({\bf B}) gap lengths from
+  one-dimensional Poisson-gap schedules having sampling densities of
+  30\% (blue), 10\% (green) and 5\% (red). Gap lengths of sine-gap and
+  sine-burst schedules are shown as solid and dashed vertical lines,
+  respectively. The gap lengths resulting from burst augmentation of the
+  sine-gap equation have markedly decreased median values at the expense
+  of increased maximum values, relative to sine-gap and Poisson-gap schedules.
+}
+\end{figure}
 
 \section{Discussion and Conclusions}
 
 \begin{doublespace}
-FIXME.
+This chapter has shown that Poisson-gap sampling is a single instance in a
+class of gap sampling methods, which may or may not be defined stochastically.
+Using the well-defined gap sampling algorithm, two novel deterministic sampling
+methods have been described: sine-gap and sine-burst sampling. Neither of
+these new methods relies on random deviates, and both have comparable
+performance to Poisson-gap sampling according to IST reconstruction residuals.
+From a practical perspective, Poisson-gap, sine-gap and sine-burst sampling
+methods produced nearly equivalent HSQC spectral reconstructions (Figure 2.6)
+that yielded essentially identical information (chemical shifts, peak
+intensities) as highlighted in Table 2.1. For the practicing spectroscopist,
+this equates to the ability to nonuniformly sample at the performance level
+of Poisson-gap, without specifying a pseudorandom seed. Gap sampling is a
+flexible and attractive alternative to traditional probabilistic sampling
+methods that use probability densities to define the local sampling density
+over a Nyquist grid. In effect, gap sampling approaches the problem of local
+sampling density from the opposite direction of probabilistic sampling by
+defining the distances \emph{between} samples on the grid. This chapter also
+holds a brief derivation of the mathematical connection between stochastic
+gap equations and their expectation sampling distributions, which allows for
+direct visualization of the grid-point weighting produced by a given gap
+equation. While these expectation sampling distributions are useful in
+describing the sampling behavior of a stochastic gap equation, they do not
+provide a means of converting a gap-based sampling method into a fully random
+sampling method. In other words, it has been shown that any method of
+constrained random sampling using a gap equation is inequivalent to fully
+random sampling from its corresponding expectation sampling distribution.
+\\\\
+Finally, burst augmentation provides a concrete example of how deterministic
+gap sampling may be tuned to behave in a similar fashion to pseudorandom
+numbers. At first glance, the third row of Figure 2.5 would appear to have
+been generated stochastically, but it is a consequence of the squared-sine
+modulation term in $g_{SB}$. It has historically been true that stochastically
+generated sampling schedules produced fewer prominent artifacts than
+deterministic methods such as radial or spiral sampling, due to high
+regularity of the latter schemes. However, pseudorandom variates are
+not required for effective sampling artifact suppression. Furthermore,
+while most pseudorandom number generators are indeed deterministic for a
+given seed value, this determinism is \emph{inherently different} from the
+determinism offered by sine-gap and sine-burst sampling. By design, any
+parameters (e.g. reconstruction residuals) measured from pseudorandomly
+generated sampling schedules will not be smoothly varying -- and therefore
+optimizable -- functions of their random seed value. As a consequence, no
+absolute guarantee of spectral quality is provided to the spectroscopist
+employing pseudorandom sampling schedules, even if the relative difference
+in quality between the best- and worst-performing Poisson-gap seed values
+is small at sampling densities above 10\%. This problem with seeds has
+already been recognized: Poisson-gap and jittered sampling methods are, in
+fact, two separate attempts at minimizing -- but not removing -- the effect
+of seed values on schedule performance
+\cite{hyberts:jacs2010,kazimierczuk:jmr2007,mobli:jmr2015}. Deterministic
+gap sampling completely frees the user from specifying an arbitrary seed
+value, and provides a highly general framework that enables further
+investigation into which features of NUS schedules yield higher-quality
+reconstruction results.
+\\\\
+The C implementations of Poisson-gap, sine-gap and sine-burst sampling are
+free and open source software, and are available for download at
+\url{http://bionmr.unl.edu/dgs.php}. The programs are highly portable and
+C99 compliant, so they may be compiled on any modern operating system. An
+online schedule generation tool is also provided at the same address for
+rapid generation of one-, two- and three-dimensional NUS schedules suitable
+for direct use on Bruker or Agilent spectrometers. As defined and implemented,
+the recursive schedule generation algorithm is not limited to any number of
+grid dimensions. However, the online tool has been hard-limited to 3D grids
+to minimize server load.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
