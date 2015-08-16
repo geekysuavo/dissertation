@@ -657,13 +657,42 @@ paraquat and other drug treatments (Figure 4.13).
 \section{Monte Carlo Analysis of Scores-space Separations}
 
 \begin{doublespace}
-FIXME \cite{worley:anchem2015}.
+While the necessity of validating PLS and OPLS models is well understood
+within the statistics and chemometrics communities, it is an unfortunate fact
+that validation of PLS and OPLS models is still infrequent in work published
+by non-statistically oriented research groups \cite{brereton:jchemo2014b}.
+This is especially true in the rapidly growing field of metabolomics, where
+these methods are quite often -- and quite mistakenly -- considered surrogates
+for PCA. PCA, PLS and OPLS are distinct modeling frameworks that achieve very
+different goals (cf. \hyperlink{section.3.5}{Section 3.5}) and extract
+different information from a dataset. However, the optimistically forced
+class separations provided by PLS-DA and OPLS-DA have spawned a pattern of
+misuse in metabolomics and related fields. When PCA fails to identify
+significant separation between classes, untrained analysts may move to
+biased, insufficiently vetted OPLS-DA models without considering the
+statistical implications \cite{aksenov:anchem2014,mclaughlin:anchem2014}.
+While it is certainly possible for OPLS-DA to identify separation when PCA
+does not, the statistical significance of the separation must be validated
+before conclusions are drawn from the results. Studies that lack proper
+validation are automatically suspect from a statistical viewpoint, implying
+that future attempts to reproduce their results may fail. Thus, validation
+of all supervised models is an absolute requirement in chemometrics.
+\\\\
+Even before supervised models are trained, the separations between classes in
+PCA scores space may be used as an informative qualitative predictor of
+whether reliable OPLS-DA models may be trained on the same data. This section
+presents practical guidelines on what level of OPLS-DA model reliability may
+be expected based solely on PCA class separations.
 \end{doublespace}
 
 \subsection{Materials and Methods}
 
 \begin{doublespace}
-FIXME.
+A Monte Carlo simulation was performed using MVAPACK \cite{worley:acscb2014}
+to analyze the relationship between class separations in PCA scores space and
+OPLS-DA cross-validation metrics, as a function of spectral noise content.
+Two data matrices that both contained highly significant class-discriminating
+variation were used within two parallel simulations.
 \end{doublespace}
 
 \subsubsection{Initial Datasets}
@@ -722,25 +751,160 @@ visualization. Explained variation (\rsqy{}) was computed as described in
 \hyperlink{section.3.6}{Section 3.6}. A Monte Carlo leave-$n$-out internal
 cross-validation of the OPLS model was performed using a seven-fold
 partitioning of the data matrix that was randomly resampled ten times
-\cite{xu:cils2001}. Predictive ability (\qsq{}) statistics were computed as
-the mean \qsq{} obtained from MCCV results. Thus, each OPLS model contained
-a set of ten fitted residual matrices from cross-validation available for use
-in CV-ANOVA significance testing \cite{eriksson:jchemo2008}. During CV-ANOVA
-calculations, the median values of mean square error (MSE) was computed from
-all residual matrices, and the ratio of median fitted MSE to median residual
-MSE was calculated to yield an $F$-statistic for $p$ value generation.
+\cite{xu:cils2001}. Predictive ability (\dqsq{}) statistics were computed as
+the mean \dqsq{} obtained from MCCV results \cite{westerhuis:metab2008b}.
+Thus, each OPLS model contained a set of ten fitted residual matrices from
+cross-validation available for use in CV-ANOVA significance testing
+\cite{eriksson:jchemo2008}. During CV-ANOVA calculations, the median values
+of mean square error (MSE) were computed from all residual matrices, and the
+ratio of median fitted MSE to median residual MSE was calculated to yield an
+$F$-statistic for $p$ value generation.
 \end{doublespace}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/15-scatter-a.png}
+\caption
+      [Monte Carlo Results for the Coffees Data Matrix.]{
+  {\bf Monte Carlo Results for the Coffees Data Matrix.}
+  \\
+  Relationships to OPLS-DA CV-ANOVA $p$ values obtained through Monte Carlo
+  simulation of ({\bf A}) the Mahalanobis distance ($D_M$) between classes
+  in PCA scores space, and ({\bf B}) the correlation between OPLS-DA model
+  predictive loadings given noisy data ($\mathbf{p}$) and loadings obtained
+  on the original Coffees data matrix ($\mathbf{p_0}$). The density of points
+  in both panels is indicated by coloring, where red indicates high point
+  density and blue indicates low density.
+}
+\end{figure}
+
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/16-scatter-b.png}
+\caption
+      [Monte Carlo Results for the Media Data Matrix.]{
+  {\bf Monte Carlo Results for the Media Data Matrix.}
+  \\
+  Summarization of Monte Carlo results from the Media data matrix. See Figure
+  4.15 for more details.
+}
+\end{figure}
 
 \subsection{Results and Discussion}
 
 \begin{doublespace}
-FIXME.
+As expected, PCA scores-space class separations rapidly decreased as noise is
+added to the data. Addition of noise also forced a rise in OPLS-DA
+cross-validation statistics. As a result, a strong exponential relationship
+is observed between Mahalanobis distances calculated from PCA scores and
+CV-ANOVA $p$ values from OPLS-DA models (Figures 4.15A and 4.16A). Because
+PCA modeling uses no class membership information, the scores-space distances
+in these figures are essentially the least biased method of appraising
+discrimination ability. As the two classes become less distinguishable based
+on their spectral measurements, PCA will expose less separation between their
+scores. When PCA fails to expose class separation, OPLS-DA will continue to
+do so \emph{at the expense of model reliability}, as it is relying on weaker
+sources of variation in the noisier data. While the exact form of the
+relationship between distance and $p$ value will depend on the input data and
+responses, this analysis provides clear evidence that distances between classes
+in PCA scores may be used as a qualitative ruler of future supervised model
+reliability.
 \end{doublespace}
 
-\section{Conclusions}
+\begin{figure}[ht!]
+\includegraphics[width=6.5in]{figs/apps/17-lines.png}
+\caption
+      [Effect of Noise on Loadings and CV-ANOVA Statistics.]{
+  {\bf Effect of Noise on Loadings and CV-ANOVA Statistics.}
+  \\
+  ({\bf A}) Decrease of correlation between estimated loadings ($\mathbf{p}$)
+  and true loadings ($\mathbf{p_0}$) as varying degrees of noise are added to
+  the Coffees (red) and Media (blue) data matrices. Light shaded regions
+  indicate confidence intervals of plus or minus one standard deviation from
+  the mean correlation. A value of 1x additive noise corresponds to a noise
+  standard deviation equaling 0.002 times the data matrix $\ell_2$ norm.
+  ({\bf B}) Increase of $p$ values from CV-ANOVA validation as varying degrees
+  of noise are added to the data matrices. Shaded regions indicate plus or
+  minus one standard deviation from the median $p$ value.
+}
+\end{figure}
 
 \begin{doublespace}
-FIXME.
+The shrinkage of Mahalanobis distances as data matrix noise increases occurs
+concomitantly with a rapid loss of correlation between ideal OPLS predictive
+loadings and estimated loadings (Figures 4.15B, 4.16B and 4.17A). It is
+critical to note that class separations in OPLS scores space do not appreciably
+decrease (Figure 4.18) with the decreased loading correlations. In effect, the
+OPLS model has identified different, \emph{less reliable} sources of variation
+in the noisy data matrix in order to maintain class separation. OPLS-DA
+requires only that some variation in the measured data correlates with class
+membership, regardless of whether that variation is signal or noise
+\cite{wold:cils2001,trygg:jchemo2002,gottfries:jchemo2008}. When the true
+predictive spectral features that reflect the underlying biochemistry have
+become masked by noise, OPLS-DA will shift its focus to the variation that
+best predicts class membership. Because OPLS-DA provides the most optimistic
+result possible, validation becomes a necessity.
+\end{doublespace}
+
+\begin{figure}[ht!]
+\begin{center}
+  \includegraphics[width=5in]{figs/apps/18-scores.png}
+\end{center}
+\caption
+      [Effect of Noise on PCA and OPLS-DA Scores.]{
+  {\bf Effect of Noise on PCA and OPLS-DA Scores.}
+  \\
+  Comparison of representative PCA ({\bf A}, {\bf C}, {\bf E}) and OPLS-DA
+  ({\bf B}, {\bf D}, {\bf F}) scores resulting from modeling the original
+  data matrix ({\bf A}, {\bf B}), the 4x noisy data matrix ({\bf C}, {\bf D}),
+  and the 20x noisy data matrix ({\bf E}, {\bf F}). Ellipses represent
+  the 95\% confidence regions for class membership.
+}
+\end{figure}
+
+\begin{doublespace}
+These Monte Carlo simulations once again illustrate how noise can masquerade
+as class-predictive variation in statistical analyses of high-dimensional
+spectral measurements. Moreover, the simulations touch on an often-overlooked
+distinction between class separations and
+\emph{reliable, statistically significant} class separations in PCA/PLS scores
+space. Although PLS and OPLS may separate classes in situations where PCA
+cannot, this outcome should raise a red flag to the analyst that the model
+is suspect and the data may not sufficiently predict class membership. Only
+after rigorous cross-validation can it be safely inferred that OPLS-DA class
+separations are reliable and significant. If cross-validated estimates of
+OPLS-DA scores still separate the desired classes, and CV-ANOVA and permutation
+testing report significant $p$ values, the models may be used for chemical
+inference. If cross-validation is left unreported, conclusions drawn from the
+models must be met with strong skepticism \cite{westerhuis:metab2008a,
+  brereton:jchemo2014b}.
+\\\\
+The results of these Monte Carlo analyses relating PCA scores-space separations
+to OPLS-DA cross-validation metrics effectively summarize the reasons why
+rigorous cross-validation is necessary in chemometric studies relying on
+multivariate methods. More specifically, they reaffirm the importance of PCA
+as a first-pass unsupervised tool in metabolic fingerprinting and untargeted
+metabolic profiling studies, where class separations in scores space are often
+the sole basis for further experimentation. It is an unfortunate common
+practice in such studies to dismiss completely overlapped classes in PCA scores
+space and move ahead to (usually un-validated) supervised methods such as PLS
+and OPLS that force scores-space separation. Such practices almost guarantee
+the irreproducibility of any conclusions drawn from trained multivariate
+models, as the relationship from Monte Carlo simulation indicates. It is
+therefore highly recommended that methods which assign Mahalanobis
+distance-based confidence ellipses to classes in PCA scores
+\cite{worley:abio2013}, report cross-validation estimated scores plots for
+PLS and OPLS models \cite{westerhuis:metab2008a}, and provide one or more
+cross-validated metrics during model training \cite{worley:acscb2014} be used
+in these studies whenever possible.
+\\\\
+These analyses are only a case study for two specific data matrices, and are
+not meant to provide a quantitative relationship between any of the discussed
+metrics over all possible metabolomics studies. Instead, they lend positive
+numerical support to the recommendations that analysts rigorously validate
+their models by multiple means, including CV-ANOVA, response permutation
+testing, and even qualitative examination of PCA scores-space class
+separations. It is hoped that this work may be used to further promote
+best practices of supervised multivariate model training and validation in
+the community.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
