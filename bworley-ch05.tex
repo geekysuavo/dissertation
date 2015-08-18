@@ -77,6 +77,7 @@ handling functions.
   software than may be shown here. All functions in bold typeface are provided
   in MVAPACK.
 }
+\label{figure.5.1}
 \end{figure}
 
 \section{Materials and Methods}
@@ -111,12 +112,13 @@ determined by interactive manipulation of any given dataset, it may be
 immortalized in an Octave script, thus providing documentation of procedures
 and allowing for rapid recalculation of all associated results.
 \\\\
-Figure 5.1 illustrates a simple MVAPACK script capable of taking 1D \hnmr{} NMR
-data from raw free induction decays to validated PCA and OPLS-DA models. In
-section 1, a binary class matrix $\mathbf{Y}$ and an accompanying set of class
-labels are built, and the time-domain raw data is loaded into the complex data
-matrix $\mathbf{F}$. In section 2, the time-domain data matrix $\mathbf{F}$ is
-zero-filled once and Fourier-transformed to produce the complex spectral data
+\figref{5.1}{Figure 5.1} illustrates a simple MVAPACK script capable of taking
+1D \hnmr{} NMR data from raw free induction decays to validated PCA and
+OPLS-DA models. In section 1, a binary class matrix $\mathbf{Y}$ and an
+accompanying set of class labels are built, and the time-domain raw data
+are loaded into the complex data matrix $\mathbf{F}$. In section 2, the
+time-domain data matrix $\mathbf{F}$ is zero-filled once and
+Fourier-transformed to produce the complex spectral data
 matrix $\mathbf{S}$. Section 3 automatically phase corrects each spectrum in
 $\mathbf{S}$, normalizes and corrects for between-spectrum phase differences,
 and corrects the chemical shift abscissa to center the reference peak at $0.0$
@@ -129,9 +131,10 @@ a model quality plot and a scores plot are produced. In section 7, similar
 functions are used to train an OPLS-DA model and produce summary plots.
 Finally, section 8 performs CV-ANOVA \cite{eriksson:jchemo2008} and response
 permutation \cite{westerhuis:metab2008a} significance tests to fully validate
-the supervised OPLS-DA model. While Figure 5.1 is completely functional, it is
-still an extremely bare-bones approach to metabolic fingerprinting. MVAPACK
-provides countless other functions and schemes for handling data.
+the supervised OPLS-DA model. While \figref{5.1}{Figure 5.1} is completely
+functional, it is still an extremely bare-bones approach to metabolic
+fingerprinting. MVAPACK provides countless other functions and schemes
+for handling data.
 \end{doublespace}
 
 \subsection{Feature Set}
@@ -457,8 +460,8 @@ required by the analyst. MVAPACK addresses this need by providing a complete
 pipeline that is tuned for metabolic fingerprinting. Use of MVAPACK reduces
 data analysis time in metabolic fingerprinting from days to minutes, simply
 by collecting all the required functions into a single scriptable environment.
-In fact, the example script in Figure 5.1 would execute in under five minutes
-on a modern GNU/Linux or Mac OS X computer system.
+In fact, the example script in \figref{5.1}{Figure 5.1} would execute in under
+five minutes on a modern GNU/Linux or Mac OS X computer system.
 \\\\
 The routine processing of {\it any} 1D and 2D NMR spectral data may be readily
 done with MVAPACK, and processing routines are easily batched. The MVAPACK

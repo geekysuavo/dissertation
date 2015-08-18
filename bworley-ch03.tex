@@ -113,6 +113,7 @@ experiments, with a focus on 1D \hnmr{} and 2D \hcnmr{} NMR datasets.
   ($\mathbf{u}$) and loadings ($\mathbf{c}$). Tick marks denote
   transposition.
 }
+\label{figure.3.1}
 \end{figure}
 
 \section{Multivariate Datasets}
@@ -122,8 +123,8 @@ In the majority of cases, multivariate datasets used in metabolomics take the
 form of second-order tensors in $\mathbb{R}^{N \times K}$. More simply, these
 datasets are real matrices having $N$ rows and $K$ columns. By convention,
 the data are arranged as $N$ observation row vectors of length $K$, where $K$
-is referred to as the dimensionality of the dataset (Figure 3.1). Typical
-examples of 1D datasets include sets of \hnmr{} or \cnmr{} NMR spectra
+is referred to as the dimensionality of the dataset (\figref{3.1}{Figure 3.1}).
+Typical examples of 1D datasets include sets of \hnmr{} or \cnmr{} NMR spectra
 \cite{beckonert:nprot2007,koh:colon2009}, direct-injection mass spectra
 (DI-MS, \cite{castrillo:phch2003,southam:anchem2007,zhou:asms2010}), infrared
 (IR) and Raman spectra \cite{ellis:analyst2006,cherney:anchem2007}, or
@@ -135,20 +136,21 @@ directly accept these second-order tensors for modeling (vide infra).
 \\\\
 The dimensionality of a multivariate dataset may be increased by adding another
 ``mode'', resulting in a third-order (or higher) tensor
-($\mathbf{X} \in \mathbb{R}^{N \times K_1 \times K_2}$, Figure 3.2). In such
-cases, the total dimensionality of the dataset is now the product of the
-dimensionalities along each mode of the data tensor (e.g. $K_1 \times K_2$).
-Third-order tensors are the natural data structures for sets of two-dimensional
-observations, including \hhnmr{}, \hcnmr{} and \hnnmr{} NMR spectra, hyphenated
-chromatography-mass spectra (LC-MS, GC-MS), hyphenated electrophoresis-mass
-spectra (CE-MS), and hyphenated ion-mobility mass spectra (IM-MS). While
-third-order data tensors may hold substantially more chemical information than
-their second-order counterparts, they are not directly compatible with bilinear
-factorization methods, and they require specialized processing,
-treatment and modeling algorithms \cite{lu:ieee2009,lu:pr2011}. As an example,
-tensors may be vectorized into matrices \cite{hedenstrom:cils2008} that are
-suited for PCA and PLS, but at the cost of lost structural information. Methods
-such as uncorrelated multilinear PCA (UMPCA, \cite{lu:ieee2009}), on the other
+($\mathbf{X} \in \mathbb{R}^{N \times K_1 \times K_2}$,
+\figref{3.2}{Figure 3.2}). In such cases, the total dimensionality of the
+dataset is now the product of the dimensionalities along each mode of the
+data tensor (e.g. $K_1 \times K_2$). Third-order tensors are the natural
+data structures for sets of two-dimensional observations, including
+\hhnmr{}, \hcnmr{} and \hnnmr{} NMR spectra, hyphenated chromatography-mass
+spectra (LC-MS, GC-MS), hyphenated electrophoresis-mass spectra (CE-MS), and
+hyphenated ion-mobility mass spectra (IM-MS). While third-order data tensors
+may hold substantially more chemical information than their second-order
+counterparts, they are not directly compatible with bilinear factorization
+methods, and they require specialized processing, treatment and modeling
+algorithms \cite{lu:ieee2009,lu:pr2011}. As an example, tensors may be
+vectorized into matrices \cite{hedenstrom:cils2008} that are suited for
+PCA and PLS, but at the cost of lost structural information. Methods such
+as uncorrelated multilinear PCA (UMPCA, \cite{lu:ieee2009}), on the other
 hand, provide a means of directly decomposing tensors into low-dimensional
 spaces while maintaining structural information.
 \end{doublespace}
@@ -168,6 +170,7 @@ spaces while maintaining structural information.
   ($\mathbf{w}$, $\mathbf{z}$) used to transform the observations in
   $\mathbf{X}$ into scores-space. Tick marks denote transposition.
 }
+\label{figure.3.2}
 \end{SCfigure}
 
 \begin{figure}[hb!]
@@ -188,6 +191,7 @@ spaces while maintaining structural information.
   ($\mathbf{t}_b$), block loadings ($\mathbf{p}_b$) and block weights
   ($\mathbf{w}_b$). Tick marks denote transposition.
 }
+\label{figure.3.3}
 \end{figure}
 
 \begin{doublespace}
@@ -364,6 +368,7 @@ discrete Fourier transform (DFT) to move the data into the frequency domain.
   convolution of its frequency-domain counterpart with the impulse response
   in ({\bf B}). Frequency values in ({\bf B}) are normalized.
 }
+\label{figure.3.4}
 \end{figure}
 
 \subsection{Frequency-domain Processing}
@@ -473,6 +478,7 @@ fall into one of the general structures outlined in
   ({\bf E}, {\bf F}) algorithms. Results of bin region integration are shown
   in the bottom panels.
 }
+\label{figure.3.5}
 \end{figure}
 
 \subsection{Binning}
@@ -522,6 +528,7 @@ relying on uniform bin boundaries.
   each observation was shifted to maximize correlation with its respective
   group mean. Spectral color indicates the observation index.
 }
+\label{figure.3.6}
 \end{figure}
 
 \subsection{Alignment}
@@ -606,6 +613,7 @@ platforms \cite{fearn:cils2009}.
   ({\bf D}) The set of synthetic spectra after Pareto scaling, in which noise
   amplification is reduced relative to UV scaling.
 }
+\label{figure.3.7}
 \end{SCfigure}
 
 \subsection{Scaling}
@@ -764,6 +772,7 @@ referred to as low-rank approximations of their data matrices.
   residuals $\mathbf{E}$, with each outer product of the approximation
   broken out.
 }
+\label{figure.3.8}
 \end{figure}
 
 \begin{doublespace}
@@ -845,6 +854,7 @@ squares (NIPALS, \cite{geladi:aca1986}):
   having different means, where the major source of variation is parallel to
   the direction that separates the groups.
 }
+\label{figure.3.9}
 \end{SCfigure}
 
 \begin{doublespace}
@@ -886,17 +896,18 @@ an optimal number of components $A^\ast$ is reached.
 
 \begin{doublespace}
 From the algebraic properties of PCA, an intuitive geometric picture may be
-constructed (Figure 3.9). In essence, PCA determines the directions within
-a data matrix -- the principal components -- that contain the greatest sources
-of variation in that matrix (3.9A), where each direction is constrained
-to be orthogonal to all previous directions. When observations in $\mathbf{X}$
-fall into two or more experimental groups, they produce different clustering
-patterns in the PCA scores $\mathbf{T}$. In cases where the within-group
-variation in one or more groups is the major source of variation in
-$\mathbf{X}$, PCA will fail to effectively separate the groups in scores space
-(3.9B). However, when the between-group variation significantly contributes to
-the total variation in $\mathbf{X}$, the groups will be well-separated (3.9C).
-Thus, PCA is a powerful method of identifying major trends among variables in
+constructed (\figref{3.9}{Figure 3.9}). In essence, PCA determines the
+directions within a data matrix -- the principal components -- that contain
+the greatest sources of variation in that matrix (3.9A), where each direction
+is constrained to be orthogonal to all previous directions. When observations
+in $\mathbf{X}$ fall into two or more experimental groups, they produce
+different clustering patterns in the PCA scores $\mathbf{T}$. In cases where
+the within-group variation in one or more groups is the major source of
+variation in $\mathbf{X}$, PCA will fail to effectively separate the groups
+in scores space (\figref{3.9}{Figure 3.9B}). However, when the between-group
+variation significantly contributes to the total variation in $\mathbf{X}$,
+the groups will be well-separated (\figref{3.9}{3.9C}). Thus, PCA is a
+powerful method of identifying major trends among variables in
 a data matrix, as well as general relationships between observations, and does
 not bias its results based on class identity. For a description of methods to
 quantify separations between experimental groups in PCA scores space, see
@@ -959,10 +970,11 @@ inverted and calculation of each $d_n^2$ is greatly simplified. Mahalanobis
 distances computed using PCA scores are close approximations of their true
 values in the original high-dimensional space \cite{demaesschalck:cils2000},
 and provide a means of outlier detection in high-dimensional data
-(Figure 3.10). Outliers may be visually identified from scatter plots of PCA
-scores (3.10B) or from run plots of their corresponding squared Mahalanobis
-distances (3.10C). In both cases, the squared Mahalanobis distance is compared
-to the $\chi^2$ distribution at a preselected significance $\alpha$ and $A$
+(\figref{3.10}{Figure 3.10}). Outliers may be visually identified from scatter
+plots of PCA scores (\figref{3.10}{Figure 3.10B}) or from run plots of their
+corresponding squared Mahalanobis distances (\figref{3.10}{Figure 3.10C}).
+In both cases, the squared Mahalanobis distance is compared to the
+$\chi^2$ distribution at a preselected significance $\alpha$ and $A$
 degrees of freedom \cite{hotelling:ams1931,worley:abio2013}.
 \end{doublespace}
 
@@ -987,6 +999,7 @@ degrees of freedom \cite{hotelling:ams1931,worley:abio2013}.
   thresholds for outlier detection. Point colorings indicate relative squared
   Mahalanobis distances.
 }
+\label{figure.3.10}
 \end{SCfigure}
 
 \subsubsection{PCA for Multiple Linear Regression}
@@ -1042,15 +1055,15 @@ during estimation. Furthermore, the variances of PCR-estimated coefficients
 $\hat{\mathbf{B}}'$ are lower than those of the original OLS estimates
 $\hat{\mathbf{B}}$. The PCR method will fail to obtain useful estimates,
 however, when response-correlated information in the data matrix is not
-a major source of variation (cf. Figure 3.9B). In such cases, methods such
-as PLS must be used instead.
+a major source of variation (cf. \figref{3.9}{Figure 3.9B}). In such cases,
+methods such as PLS must be used instead.
 \end{doublespace}
 
 \subsection{Partial Least Squares}
 
 \begin{doublespace}
 Partial least squares (PLS) approaches the high-dimensional multiple linear
-regression problem introduced in equation (3.30) by approximating both
+regression problem introduced in equation 3.30 by approximating both
 $\mathbf{X}$ \emph{and} $\mathbf{Y}$ using bilinear factorizations
 \cite{wold:cils2001}:
 \begin{align}
@@ -1111,6 +1124,7 @@ NIPALS-based, and is shown below:
   having different means, where the major source of variation is parallel to
   the direction that separates the groups.
 }
+\label{figure.3.11}
 \end{SCfigure}
 
 \begin{doublespace}
@@ -1131,8 +1145,9 @@ iteration assignments now produces a different iteration equation:
 which is the equation for power iteration on the cross-covariance matrix
 $\mathbf{X}^T \mathbf{Y} \mathbf{Y}^T \mathbf{X}$. The NIPALS PLS algorithm
 computes the dominant eigenvector $\mathbf{w}$ of the cross-covariances between
-the data and responses (cf. Figure 3.11). As in PCA, computation of subsequent
-PLS components is achieved by deflating the data and response matrices:
+the data and responses (cf. \figref{3.11}{Figure 3.11}). As in PCA,
+computation of subsequent PLS components is achieved by deflating
+the data and response matrices:
 \begin{align}
 \mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T \\
 \mathbf{Y}' \gets \mathbf{Y} - \mathbf{t} \mathbf{c}^T
@@ -1174,6 +1189,7 @@ the following transformation \cite{manne:cils1987}:
   ({\bf C}) Projection of the set of points in ({\bf B}) onto their
   response-orthogonal (OPLS) component.
 }
+\label{figure.3.12}
 \end{SCfigure}
 
 \subsection{Orthogonal Projections to Latent Structures}
@@ -1508,10 +1524,11 @@ $\mathbf{Y}$-uncorrelated variation exists in one or more data blocks
 the generalized OnPLS multiblock modeling framework, which extends O2PLS to
 $B$ data blocks, was developed \cite{lofstedt2012}. Like in O2PLS, no matrix
 in OnPLS is special, and all matrices are regressed against all others in a
-complete association graph (Figure 3.13A). While such complete connectivity
-may be useful during unsupervised modeling, it is an overcomplication in
-the multiblock regression schemes normally handled in metabolomics. Because
-each data block need only predict a single block of responses (Figure 3.11B),
+complete association graph (\figref{3.13}{Figure 3.13A}). While such complete
+connectivity may be useful during unsupervised modeling, it is an
+overcomplication in the multiblock regression schemes normally handled in
+metabolomics (cf. \hyperlink{chapter.9}{Chapter 9}. Because each data block
+must only predict a single block of responses (\figref{3.11}{Figure 3.11B}),
 the multiblock OPLS (MB-OPLS) method is a more suitable candidate.
 \\\\
 Multiblock OPLS decomposes each block $\mathbf{X}_b$ into a set of
@@ -1653,6 +1670,7 @@ to extract block-level models from super-model scores and loadings.
   models, where each data block $\mathbf{X}_b$ predicts a set of responses held
   in the unique matrix $\mathbf{Y}$.
 }
+\label{figure.3.13}
 \end{figure}
 
 \begin{algorithm}[H]
@@ -1717,6 +1735,7 @@ to extract block-level models from super-model scores and loadings.
   how MB-OPLS achieves the same segregation of predictive and orthogonal
   variation as OPLS and OnPLS on a per-block basis.
 }
+\label{figure.3.14}
 \end{figure}
 
 \begin{doublespace}
@@ -1744,6 +1763,7 @@ algorithm 3.7 are identical to those produced by algorithm 3.6.
   ({\bf C}) Same scenario as ({\bf A}) with $K = 20$.
   ({\bf D}) Same scenario as ({\bf A}) with $K = 100$.
 }
+\label{figure.3.15}
 \end{figure}
 
 \begin{doublespace}
@@ -1767,9 +1787,10 @@ responses. These powerful modeling features make PLS and OPLS fully capable
 of producing results based on noise alone, if so requested
 \cite{westerhuis:metab2008a}. As the number of variables in the data increases
 over the number of observations, the danger of overfitting also increases
-(Figure 3.15). In effect, the probability of observing correlations to the
-responses increases with variable count, just as the probability of observing
-long runs of heads or tails increases with the number of fair coin tosses.
+(\figref{3.15}{Figure 3.15}). In effect, the probability of observing
+correlations to the responses increases with variable count, just as the
+probability of observing long runs of heads or tails increases with the number
+of fair coin tosses.
 \\\\
 In chemometric studies of spectroscopic datasets, where $N \ll K$, the tendency
 of bilinear models to over-fit must be balanced by rigorous application of
@@ -2007,6 +2028,7 @@ training is to only retain components having positive \qsq{} statistics.
   $\hat{x}_{ik}$ is then obtained from the $(i,k)$-th index of
   $\hat{\mathbf{t}} \hat{\mathbf{p}}^T$
 }
+\label{figure.3.16}
 \end{figure}
 
 \subsubsection{Unsupervised Models}
@@ -2025,10 +2047,10 @@ computed after leaving out variables in the group, and a loading vector
 $\hat{\mathbf{p}}$ is computed after leaving out observations in the group.
 The outer product of $\hat{\mathbf{t}}$ and $\hat{\mathbf{p}}$ is then used
 in estimating the data matrix elements located at the intersections of the
-left-out variables and observations (Figure 3.16). The following algorithm
-demonstrates the computation of \qsq{} for a single principal component, given
-a row partitioning $\boldsymbol{\sigma}$ and a column partitioning
-$\boldsymbol{\rho}$:
+left-out variables and observations (\figref{3.16}{Figure 3.16}). The
+following algorithm demonstrates the computation of \qsq{} for a single
+principal component, given a row partitioning $\boldsymbol{\sigma}$ and
+a column partitioning $\boldsymbol{\rho}$:
 \end{doublespace}
 
 \begin{algorithm}[H]

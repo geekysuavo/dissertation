@@ -110,6 +110,7 @@ drawn from the same distribution.
   scores in ({\bf A}) using Mahalanobis distances, with $p$ values for the null
   hypothesis reported at each branch.
 }
+\label{figure.10.1}
 \end{figure}
 
 \subsection{Dendrogram Generation}
@@ -190,11 +191,11 @@ where the parameters $t$, $u$ and $v$ are all evaluated on $(0,2\pi)$. These
 methods allow for the inclusion of confidence regions onto two- and
 three-dimensional scores plots that reflect the 95\% membership boundaries
 for each group. The approach assumes normally distributed within-group errors.
-Figures 10.1A and 10.2 illustrate the inclusion of these group confidence
-regions in representative PCA and OPLS-DA scores, respectively. The ellipses
-and ellipsoids clearly define statistically significant class separation and
-also provide an example in which multiple groups actually belong to the same
-underlying biological classification.
+\figref{10.1}{Figures 10.1A} and \figref{10.2}{10.2} illustrate the inclusion
+of these group confidence regions in representative PCA and OPLS-DA scores,
+respectively. The ellipses and ellipsoids clearly define statistically
+significant class separation and also provide an example in which multiple
+groups actually belong to the same underlying biological classification.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -208,6 +209,7 @@ underlying biological classification.
   significance of class separation and provide an illustration where two
   groups are distinct in three-dimensional scores space.
 }
+\label{figure.10.2}
 \end{SCfigure}
 
 \section{Results and Discussion}
@@ -243,9 +245,10 @@ not true of Mahalanobis distances in PLS or OPLS scores space, because of the
 underlying supervision of the PLS algorithm. These features differ from the
 Euclidean distance metric, which is a special case of the Mahalanobis metric
 that arises when the group covariance matrices equal the identity matrix.
-Figure 10.1B illustrates the dendrogram structure based on the use of
-Mahalanobis distances determined from a set of scores, and Figure 10.3 shows
-the dendrogram structure based on Euclidean distances from the same scores.
+\figref{10.1}{Figure 10.1B} illustrates the dendrogram structure based on the
+use of Mahalanobis distances determined from a set of scores, and
+\figref{10.3}{Figure 10.3} shows the dendrogram structure based on
+Euclidean distances from the same scores.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -258,6 +261,7 @@ the dendrogram structure based on Euclidean distances from the same scores.
   a Euclidean distance metric. Bootstrap statistics reported at each branch
   were computed from 5,000 bootstrap iterations.
 }
+\label{figure.10.3}
 \end{SCfigure}
 
 \begin{doublespace}

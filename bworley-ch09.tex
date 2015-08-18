@@ -585,6 +585,7 @@ chemometrics toolbox \cite{worley:acscb2014}.
   $\mathbf{y}$-uncorrelated variation accomplished by the integrated
   OSC filter.
 }
+\label{figure.9.1}
 \end{figure}
 
 \subsection{Synthetic Example}
@@ -596,11 +597,12 @@ were constructed to hold one $\mathbf{y}$-predictive component
 ($\mathbf{t_o} {\mathbf{p_o}_i}^T$). The score vectors were non-overlapping
 (orthogonal) Gaussian density functions, and all block loading vectors were
 mutually overlapping Gaussian density or square step functions. The true
-synthetic block loadings are illustrated in Figure 9.1A. A two-component
-MB-PLS-R model was trained on the synthetic three-block example dataset,
-as well as a $1+1$ (one predictive, one orthogonal) component MB-OPLS-R
-model. Block loadings extracted by MB-PLS-R and MB-OPLS-R and shown in
-Figures 9.1B and 9.1C, respectively.
+synthetic block loadings are illustrated in \figref{9.1}{Figure 9.1A}.
+A two-component MB-PLS-R model was trained on the synthetic three-block
+example dataset, as well as a $1+1$ (one predictive, one orthogonal)
+component MB-OPLS-R model. Block loadings extracted by MB-PLS-R and
+MB-OPLS-R and shown in \figref{9.1}{Figures 9.1B} and
+\figref{9.1}{9.1C}, respectively.
 \end{doublespace}
 
 \subsection{Joint \hnmr{} NMR and DI-ESI-MS Datasets}
@@ -648,6 +650,7 @@ to further assess model reliability \cite{eriksson:jchemo2008}.
   (red), 1-methyl-4-phenylpyridinium (green) and paraquat (violet)
   sub-classes. Cross-validated super scores are shown in Figure 9.3.
 }
+\label{figure.9.2}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -663,6 +666,7 @@ to further assess model reliability \cite{eriksson:jchemo2008}.
   Monte Carlo iterations. Class colors are identical to those in
   Figure 9.2.
 }
+\label{figure.9.3}
 \end{figure}
 
 \section{Results and Discussion}
@@ -672,9 +676,10 @@ In both the contrived dataset and the real spectroscopic dataset, the
 interpretative advantage offered by MB-OPLS over MB-PLS is strikingly
 apparent. In the synthetic example, MB-OPLS capably identifies the true
 predictive and orthogonal loadings in the presence of $\mathbf{y}$-orthogonal
-variation that clouds the interpretation of MB-PLS loadings (Figure 9.1). By
-design, this comparison between MB-OPLS and MB-PLS is highly similar to the
-first example presented by L\"{o}fstedt and Trygg to compare nPLS and OnPLS
+variation that clouds the interpretation of MB-PLS loadings
+(\figref{9.1}{Figure 9.1}). By design, this comparison between
+MB-OPLS and MB-PLS is highly similar to the first example
+presented by L\"{o}fstedt and Trygg to compare nPLS and OnPLS
 for general data discovery \cite{lofstedt:jchemo2011}. However, as is
 evidenced by the differences between equations 9.3 and 9.7 above, MB-OPLS
 solves an inherently distinct problem from OnPLS: the identification of
@@ -684,29 +689,30 @@ of responses.
 The ability of MB-OPLS to separate predictive and orthogonal variation from
 multiple data matrices is further exemplified in the discriminant analysis
 of the real spectroscopic dataset. From the rotated discrimination axis in
-the MB-PLS-DA scores (Figure 9.2A), it is clear that predictive and orthogonal
-variation have become mixed in the corresponding block loadings
-(\hyperref[figure.4.11]{Figure 4.11}).
-Integration of an OSC filter into the multiblock model in the form of
-MB-OPLS-DA achieves the expected rotation of super scores to place more
-predictive variation into the first component (Figure 9.2B). As a consequence
-of this rotation, spectral information that separates paraquat treatment from
-other neurotoxin treatments is also moved into the orthogonal component. For
-example, strong loadings from citrate in the \hnmr{} NMR MB-PLS block loadings
-(\hyperref[figure.4.11]{Figure 4.11A}, 2.6 ppm) are substantially diminished
+the MB-PLS-DA scores (\figref{9.2}{Figure 9.2A}), it is clear that predictive
+and orthogonal variation have become mixed in the corresponding block loadings
+(\figref{4.11}{Figure 4.11}). Integration of an OSC filter into the multiblock
+model in the form of MB-OPLS-DA achieved the expected rotation of super scores
+to place more predictive variation into the first component
+(\figref{9.2}{Figure 9.2B}). As a consequence of this rotation, spectral
+information that separates paraquat treatment from other neurotoxin treatments
+is also moved into the orthogonal component. For example, strong loadings from
+citrate in the \hnmr{} NMR MB-PLS block loadings
+(\figref{4.11}{Figure 4.11A}, 2.6 ppm) are substantially diminished
 in the predictive block loadings from MB-OPLS
-(\hyperref[figure.4.12]{Figure 4.12A}), as separation between paraquat and
+(\figref{4.12}{Figure 4.12A}), as separation between paraquat and
 other treatments has been isolated along the orthogonal component in super
 scores. Inspection of the orthogonal block loadings from MB-OPLS
-(\hyperref[figure.4.13]{Figure 4.13}) will reveal, as expected, that citrate
+(\figref{4.13}{Figure 4.13}) will reveal, as expected, that citrate
 contributes more to separation between neurotoxin treatments than to
 separation between treatments and controls.
 \\\\
 The partial correlation of both predictive and orthogonal block scores in
 MB-OPLS is readily observed in the comparison of block scores from MB-PLS
-and MB-OPLS (Figures 9.4 and 9.5). While the super scores in Figure 9.2B
-are rotated to separate predictive and orthogonal variation, block scores
-in Figures 9.4B and 9.5B have slightly rotated back into alignment with
+and MB-OPLS (\figref{9.4}{Figures 9.4} and \figref{9.5}{9.5}). While the
+super scores in \figref{9.2}{Figure 9.2B} are rotated to separate predictive
+and orthogonal variation, block scores in \figref{9.4}{Figures 9.4B} and
+\figref{9.5}{9.5B} have slightly rotated back into alignment with
 the MB-PLS block scores. This partial correlation and re-mixing of
 predictive and orthogonal variation in MB-OPLS block scores is a consequence
 of the use of super score deflation in the presented algorithm. When all
@@ -724,11 +730,13 @@ in statistics of 0.903 and 0.706$\pm$0.028, respectively. In addition, MB-OPLS
 modeling yielded \rsqxp{} and \rsqxo{} statistics of 0.378 and 0.245 for the
 first block, and 0.236 and 0.083 for the second block. Monte Carlo
 cross-validated super scores from MB-PLS and MB-OPLS are depicted in
-Figure 9.2. Compared to MB-PLS scores in Figure 9.2A, MB-OPLS scores
-(Figure 9.2B) exhibit an increased uncertainty due to the coupled nature
-of predictive and orthogonal components in OPLS models. Further validation
-of the MB-OPLS-DA model via CV-ANOVA produced a $p$ value equal to
-$2.88 \times 10^{-6}$, indicating a sufficiently reliable model.
+\figref{9.2}{Figure 9.2}. Compared to MB-PLS scores in
+\figref{9.2}{Figure 9.2A}, MB-OPLS scores
+(\figref{9.2}{Figure 9.2B}) exhibit an increased uncertainty due to the
+coupled nature of predictive and orthogonal components in OPLS models.
+Further validation of the MB-OPLS-DA model via CV-ANOVA produced
+a $p$ value equal to $2.88 \times 10^{-6}$, indicating a sufficiently
+reliable model.
 \\\\
 It is worthy of final mention that the objective solved by MB-OPLS is but a
 single member of a superfamily of methods introduced in detail by Hanafi
@@ -759,6 +767,7 @@ alone \cite{smilde:jchemo2003,westerhuis:jchemo1998}.
   \hnmr{} NMR data matrix. Ellipses and class colors are identical to those
   in Figure 9.2.
 }
+\label{figure.9.4}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -771,6 +780,7 @@ alone \cite{smilde:jchemo2003,westerhuis:jchemo1998}.
   DI-ESI-MS data matrix. Ellipses and class colors are identical to those
   in Figure 9.2.
 }
+\label{figure.9.5}
 \end{figure}
 
 \section{Conclusions}

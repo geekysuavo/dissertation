@@ -134,9 +134,10 @@ By construction, gap sampling schedules computed according to $g_{SG}$ will
 describe the average behavior of $g_{PG}$. This is readily verified in one
 dimension by generating a sufficiently large set of stochastic Poisson-gap
 schedules and comparing the mean value of each sequence term to that of a
-sine-gap schedule (Figure 2.1). Sine-gap schedules lie centrally within the
-Poisson-gap ensemble, while other schedules unrelated to Poisson-gap
-deviate substantially from the confidence region of the ensemble.
+sine-gap schedule (\figref{2.1}{Figure 2.1}). Sine-gap schedules
+lie centrally within the Poisson-gap ensemble, while other schedules
+unrelated to Poisson-gap deviate substantially from the confidence
+region of the ensemble.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -155,6 +156,7 @@ deviate substantially from the confidence region of the ensemble.
   centrally within the Poisson-gap ensemble, while any other schedule
   unrelated to Poisson-gap (e.g. exponential) does not.
 }
+\label{figure.2.1}
 \end{figure}
 
 \subsection{Multidimensional Gap Sampling}
@@ -280,6 +282,7 @@ deviates to achieve reasonable artifact suppression.
   (equation 2.11) derived from $g_{PG}$. Values of $\Lambda$ were 5.0, 25.4
   and 62.9 for 30\%, 10\% and 5\% sampling density, respectively.
 }
+\label{figure.2.2}
 \end{figure}
 
 \subsection{Expectation Sampling Distributions}
@@ -290,11 +293,12 @@ measure of how likely each Nyquist grid point is to be sampled. While one may
 speculate on the approximate weighting obtained by a given gap equation,
 quantitation of the expectation of the sampling distribution requires the
 construction and averaging of a large number of sampling schedules
-(cf. Figures 2.2--4). Fortunately, the expectation sampling distribution of
-a given gap equation may be analytically obtained by computing the probability
-of sampling each point on the grid using a recursive formula. We define an
-expectation sampling distribution $p(i)$ that varies over a one-dimensional
-Nyquist grid of $N$ points as follows:
+(cf. \figref{2.2}{Figures 2.2}, \figref{2.3}{2.3} and \figref{2.4}{2.4}).
+Fortunately, the expectation sampling distribution of a given gap equation
+may be analytically obtained by computing the probability of sampling each
+point on the grid using a recursive formula. We define an expectation
+sampling distribution $p(i)$ that varies over a one-dimensional Nyquist
+grid of $N$ points as follows:
 \begin{equation}
 p(i) = \sum_{k=1}^{i-1} p(i \mid i-k) p(i-k)
 \end{equation}
@@ -333,10 +337,11 @@ p(i-k)
 
 As in the case of gap sampling, the sampling distribution produced by equation
 2.11 is parameterized only by the scaling factor $\Lambda$, where larger values
-yield more forward-biased schedules (Figure 2.2). We refer to this equation as
-the `expectation' Poisson-gap sampling distribution because it describes the
-expected value of the probability of sampling any Nyquist grid point, and is
-not itself useful for generating schedules that obey $g_{PG}$.
+yield more forward-biased schedules (\figref{2.2}{Figure 2.2}). We refer
+to this equation as the `expectation' Poisson-gap sampling distribution
+because it describes the expected value of the probability of sampling any
+Nyquist grid point, and is not itself useful for generating schedules that
+obey $g_{PG}$.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -353,6 +358,7 @@ not itself useful for generating schedules that obey $g_{PG}$.
   shown in panels ({\bf A}, {\bf D}), ({\bf B}, {\bf E}) and
   ({\bf C}, {\bf F}), respectively.
 }
+\label{figure.2.3}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -366,6 +372,7 @@ not itself useful for generating schedules that obey $g_{PG}$.
   Hyberts and Wagner. Sampling densities of 30\%, 10\% and 5\% are
   shown in panels ({\bf A}), ({\bf B}) and ({\bf C}), respectively.
 }
+\label{figure.2.4}
 \end{figure}
 
 \subsection{Multidimensional Expectation Sampling Distributions}
@@ -387,13 +394,14 @@ p_2(i_1,i_2) =& \sum_{k=1}^{i_2-1} p(i_1,i_2 \mid i_1,i_2-k) p_2(i_1,i_2-k)
 p(i_1,i_2) =&\: p_1(i_1,i_2) + p_2(i_1,i_2)
 \end{align}
 
-Figure 2.3 illustrates the expectation Poisson-gap sampling distribution on
-two-dimensional Nyquist grids. It is important to note that the Poisson-gap
-sampler originally proposed by Hyberts et al. does not strictly follow
-Algorithm 2.1, because its sampling of each dimension is dependent upon
-which points in other dimensions have been previously sampled. This divergence
-between multidimensional Poisson-gap and Poisson-gap constructed using
-Algorithm 2.1 is observed by comparison of Figure 2.3 and 2.4, and is only
+\figref{2.3}{Figure 2.3} illustrates the expectation Poisson-gap sampling
+distribution on two-dimensional Nyquist grids. It is important to note that
+the Poisson-gap sampler originally proposed by Hyberts et al. does not
+strictly follow Algorithm 2.1, because its sampling of each dimension is
+dependent upon which points in other dimensions have been previously sampled.
+This divergence between multidimensional Poisson-gap and Poisson-gap
+constructed using Algorithm 2.1 is observed by comparison of
+\figref{2.3}{Figures 2.3} and \figref{2.4}{2.4}, and is only
 truly apparent at very low sampling densities.
 \end{doublespace}
 
@@ -412,6 +420,7 @@ truly apparent at very low sampling densities.
   colorings are the log-scaled versions of those found in Figure 1 of
   \cite{hoch:acr2014} in order to emphasize low-intensity sampling artifacts.
 }
+\label{figure.2.5}
 \end{figure}
 
 \section{Materials and Methods}
@@ -423,9 +432,9 @@ Deterministic sine-gap and sine-burst schedules were constructed using a small
 C program that implements the presented gap sampling algorithm described above.
 Schedules were generated at 30\%, 10\% and 5\% sampling densities on
 one-dimensional grids having 1,024 points and two-dimensional grids having
-128$\times$128 points. The first and third rows of Figure 2.5 show the
-deterministic schedules resulting from $g_{SG}$ and $g_{SB}$ at 30\%
-density, respectively.
+128$\times$128 points. The first and third rows of \figref{2.5}{Figure 2.5}
+show the deterministic schedules resulting from $g_{SG}$ and $g_{SB}$
+at 30\% density, respectively.
 \end{doublespace}
 
 \subsection{Generation of Stochastic Schedules}
@@ -440,8 +449,8 @@ Fifty thousand schedules were computed at each of the sampling densities
 and grid sizes listed in \hyperlink{subsection.2.3.1}{Subsection 2.3.1}.
 Each schedule was generated with a unique, large, odd-valued seed number
 to ensure the broadest possible sampling of the PG ensemble. The second
-row of Figure 2.5 shows a representative two-dimensional Poisson-gap
-schedule at 30\% sampling density.
+row of \figref{2.5}{Figure 2.5} shows a representative two-dimensional
+Poisson-gap schedule at 30\% sampling density.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -458,6 +467,7 @@ schedule at 30\% sampling density.
   sine-burst ({\bf D}) schedules, respectively. All spectra are plotted with
   identical contour levels.
 }
+\label{figure.2.6}
 \end{figure}
 
 \subsection{Spectral Data Collection}
@@ -477,9 +487,9 @@ were set to 3,293$\pm$4,209 Hz along \hnmr{} and 8,514$\pm$1,419 Hz along
 Fourier-transformed and phase-corrected along \hnmr{} to produce a
 half-transformed spectrum for IST reconstruction analysis (vide infra),
 and subsequently windowed and Fourier-transformed along \nnmr{} to yield the
-`true' uniformly sampled 2D \hnnmr{} HSQC spectrum. Figure 2.6A compares the
-true HSQC spectrum with representative IST reconstructions after subsampling
-by Poisson-gap, sine-gap and sine-burst schedules.
+`true' uniformly sampled 2D \hnnmr{} HSQC spectrum. \figref{2.6}{Figure 2.6A}
+compares the true HSQC spectrum with representative IST reconstructions after
+subsampling by Poisson-gap, sine-gap and sine-burst schedules.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -494,6 +504,7 @@ by Poisson-gap, sine-gap and sine-burst schedules.
   30\% (blue), 10\% (green) and 5\% (red). Residuals of sine-gap and sine-burst
   schedules are shown as solid and dashed vertical lines, respectively.
 }
+\label{figure.2.7}
 \end{figure}
 
 \subsection{Computation of Performance Metrics}
@@ -507,19 +518,21 @@ grid points to zero. At each sampling density and grid size for which schedules
 were created, point-spread functions were calculated by discrete Fourier
 transformation of each schedule's impulse set. Point-spread functions for
 schedules built on two-dimensional grids are shown for each sampling density
-in Figure 2.5. For one-dimensional schedules, reconstruction residuals were
-computed for a noise-free synthetic free induction decay containing a single
-frequency component. The synthetic decay had a normalized frequency and decay
-rate of 0.04 and 0.002, respectively. The decay was resampled according to each
-schedule and reconstructed with 400 iterations of Iterative Soft Thresholding
-(IST) at a threshold level of 98\% \cite{hyberts:jbnmr2012}. Following
-reconstruction, the residual was calculated using the $\ell_2$-norm of the
-differences between the true and reconstructed signals. Figure 2.7A shows the
+in \figref{2.5}{Figure 2.5}. For one-dimensional schedules, reconstruction
+residuals were computed for a noise-free synthetic free induction decay
+containing a single frequency component. The synthetic decay had a normalized
+frequency and decay rate of 0.04 and 0.002, respectively. The decay was
+resampled according to each schedule and reconstructed with 400 iterations
+of Iterative Soft Thresholding (IST) at a threshold level
+of 98\% \cite{hyberts:jbnmr2012}. Following reconstruction, the residual
+was calculated using the $\ell_2$-norm of the differences between the
+true and reconstructed signals. \figref{2.7}{Figure 2.7A} shows the
 distributions of IST reconstruction residuals for Poisson-gap, sine-gap and
 sine-burst schedules. Reconstructions of the half-transformed HSQC were also
 performed after nonuniformly subsampling using sine-gap schedules, sine-burst
 schedules, and a subset ($N$ = 10,000) of the generated Poisson-gap schedules.
-Figure 2.7B shows IST reconstruction residuals computed from the HSQC spectrum.
+\figref{2.7}{Figure 2.7B} shows IST reconstruction residuals computed
+from the HSQC spectrum.
 \end{doublespace}
 
 \begin{table}[h!]
@@ -584,34 +597,39 @@ computed.
   of these histograms clearly indicates that the schedules generated by
   rejection sampling are \emph{not} Poisson-gap schedules.
 }
+\label{figure.2.8}
 \end{SCfigure}
 
 \subsection{Analysis of Sampling Distributions}
 
 \begin{doublespace}
 Expectation sampling distributions were also generated from the set of
-Poisson-gap schedules by averaging their resulting impulse sets. Figure 2.2
-shows the expectation sampling distributions for one-dimensional schedules
-having different sampling densities, and Figures 2.3 and 2.4 show the
-distributions for two-dimensional schedules having the same densities.
-The heavy bias towards early time points in Poisson-gap sampling is
-reaffirmed in all figures. Sampling distributions were also computed via
-equations 2.11 and 2.12 for comparison to the distributions obtained by
-averaging multiple impulse sets (Figures 2.2 and 2.3). To verify that fully
-random sampling from equation 2.11 and gap sampling from $g_{PG}$ are not
-equivalent, 100,000 sampling schedules were generated by rejection sampling
-51 grid points from equation 2.11 at $\Lambda=62.9$ and $N=1024$, and
-histograms of the gap lengths at each grid point were computed (Figure 2.8).
-If the two methods were indeed equivalent, one would expect the histograms
-in Figure 2.8 to resemble Poisson distributions.
+Poisson-gap schedules by averaging their resulting impulse sets.
+\figref{2.2}{Figure 2.2} shows the expectation sampling distributions
+for one-dimensional schedules having different sampling densities, and
+\figref{2.3}{Figures 2.3} and \figref{2.4}{2.4} show the distributions
+for two-dimensional schedules having the same densities. The heavy bias
+towards early time points in Poisson-gap sampling is reaffirmed in all
+figures. Sampling distributions were also computed via equations
+2.11 and 2.12 for comparison to the distributions obtained by averaging
+multiple impulse sets (\figref{2.2}{Figures 2.2} and \figref{2.3}{2.3}).
+To verify that fully random sampling from equation 2.11 and gap sampling
+from $g_{PG}$ are not equivalent, 100,000 sampling schedules were generated
+by rejection sampling 51 grid points from equation 2.11 at $\Lambda=62.9$
+and $N=1024$, and histograms of the gap lengths at each grid point were
+computed (\figref{2.8}{Figure 2.8}). If the two methods were indeed
+equivalent, one would expect the histograms in \figref{2.8}{Figure 2.8} to
+resemble Poisson distributions.
 \end{doublespace}
 
 \subsection{Average Poisson-gap Sequences}
 
 \begin{doublespace}
-For Figure 2.1, each schedule $\{x_1^{(m)}, x_2^{(m)},\dots, x_n^{(m)}\}$ in
-the generated ensemble of $M$ (here, $M$ = 50,000) one-dimensional Poisson-gap
-schedules was averaged on a term-by-term basis:
+For \figref{2.1}{Figure 2.1}, each schedule
+$\{x_1^{(m)}, x_2^{(m)},\dots, x_n^{(m)}\}$ in
+the generated ensemble of $M$ (here, $M$ = 50,000)
+one-dimensional Poisson-gap schedules was averaged
+on a term-by-term basis:
 \begin{equation}
 \langle x_i \rangle = \frac{1}{M} \sum_{m=1}^M x_i^{(m)}
 \end{equation}
@@ -620,7 +638,8 @@ $\{\langle x_1 \rangle, \langle x_2 \rangle,\dots, \langle x_n \rangle\}$.
 Similar procedures were performed to compute the standard deviation of the
 Poisson-gap ensemble. Deterministic sampling schedules with a 1x exponential
 bias were computed according to procedures outlined by
-Eddy et al. \cite{eddy:jmr2012}. Relative errors (Figure 2.1) between a given
+Eddy et al. \cite{eddy:jmr2012}. Relative errors
+(\figref{2.1}{Figure 2.1}) between a given
 sine-gap schedule $\{y_1, y_2,\dots, y_n\}$ and average Poisson-gap schedule
 were computed by a term-by-term subtraction of one schedule from the other,
 followed by a division by the average Poisson-gap terms:
@@ -643,25 +662,27 @@ average Poisson-gap sequence were similarly computed.
   sampling schedules at 5\% density, demonstrating the appearance of
   low-frequency spurs induced by burst augmentation of the gap equation.
 }
+\label{figure.2.9}
 \end{SCfigure}
 
 \section{Results}
 
 \begin{doublespace}
 While at first glance, the deterministic schedule constructed using $g_{SG}$
-in Figure 2.5 may appear unrelated to the Poisson-gap schedule, it is in fact
-a realization of Poisson-gap sampling in which all random draws from the
-underlying Poisson distribution have resulted in the expected value. This
-fact is corroborated by the corresponding point-spread functions, which
-closely resemble those of the stochastic example at 30\% and 10\% sampling
-density. Reconstruction residuals from IST (Figure 2.7) also reveal a high
+in \figref{2.5}{Figure 2.5} may appear unrelated to the Poisson-gap
+schedule, it is in fact a realization of Poisson-gap sampling in which all
+random draws from the underlying Poisson distribution have resulted in the
+expected value. This fact is corroborated by the corresponding point-spread
+functions, which closely resemble those of the stochastic example at 30\% and
+10\% sampling density. Reconstruction residuals from IST
+(\figref{2.7}{Figure 2.7}) also reveal a high
 similarity between the deterministic sine-gap and stochastic Poisson-gap
 schedules at 30\% and 10\% density. However, the sine-gap PSF becomes less
 comparable to that of Poisson-gap at low sampling densities, where the
 benefits of employing random deviates are more apparent. It is worth noting
 that the striking appearance of sampling artifacts in the sine-gap PSF is a
-consequence of the log-scaled color gradient used in Figure 2.5, which was
-necessary in order to visually expose very low-intensity artifacts.
+consequence of the log-scaled color gradient used in \figref{2.5}{Figure 2.5},
+which was necessary in order to visually expose very low-intensity artifacts.
 \\\\
 The addition of burst augmentation in the form of $g_{SB}$ produces a slight
 improvement in all reconstruction residuals with respect to $g_{SG}$ and
@@ -670,23 +691,24 @@ low sampling densities are diminished by burst augmentation, resulting in
 point-spread functions that more closely resemble those from Poisson-gap
 sampling. This reduction of artifacts by burst augmentation comes at a small
 cost, at low-frequency spurs are introduced into the sine-burst point-spread
-function (Figure 2.9) by modulating the gap equation. However, these spurs
-are low in magnitude and only readily apparent at very low (5\%) sampling
-density. Furthermore, IST residuals of sine-burst schedules (Figure 2.7,
-dashed lines) are generally lower than those of sine-gap schedules, and
-appear to improve relative to the mean residuals from Poisson-gap schedules
-as sampling density is decreased. Therefore, while sine-gap sampling is a
-valuable tool for understanding the nature of Poisson-gap sampling, it is
-clearly bested in performance by sine-burst sampling as global sampling
-density is decreased.
+function (\figref{2.9}{Figure 2.9}) by modulating the gap equation.
+However, these spurs are low in magnitude and only readily apparent at very
+low (5\%) sampling density. Furthermore, IST residuals of sine-burst schedules
+(\figref{2.7}{Figure 2.7}, dashed lines) are generally lower than
+those of sine-gap schedules, and appear to improve relative to the mean
+residuals from Poisson-gap schedules as sampling density is decreased.
+Therefore, while sine-gap sampling is a valuable tool for understanding
+the nature of Poisson-gap sampling, it is clearly bested in performance
+by sine-burst sampling as global sampling density is decreased.
 \\\\
 The tradeoff between minimizing the length of all gaps in a schedule, as
 Poisson-gap strives to do, and minimizing the effective dwell time, as in
 burst-mode sampling, is apparent by examination of gap lengths produced by
-each method (Figure 2.10). As advertised, sine-burst sampling schedules
-have decreased median gap lengths with respect to both sine-gap and
-Poisson-gap schedules (Figure 2.10A), at the expense of slightly increased
-maximum gap lengths (Figure 2.10B). Rather remarkably, sine-gap schedules
+each method (\figref{2.10}{Figure 2.10}). As advertised, sine-burst
+sampling schedules have decreased median gap lengths with respect to both
+sine-gap and Poisson-gap schedules (\figref{2.10}{Figure 2.10A}),
+at the expense of slightly increased maximum gap lengths
+(\figref{2.10}{Figure 2.10B}). Rather remarkably, sine-gap schedules
 have lower maximum gap lengths than their stochastic Poisson-gap cousins
 \emph{and} sine-burst schedules, which reinforces the concept that the
 addition of \emph{any} mechanism to reduce the greatest common factor of
@@ -709,6 +731,7 @@ largest gap between points.
   sine-gap equation have markedly decreased median values at the expense
   of increased maximum values, relative to sine-gap and Poisson-gap schedules.
 }
+\label{figure.2.10}
 \end{figure}
 
 \section{Discussion and Conclusions}
@@ -721,8 +744,9 @@ methods have been described: sine-gap and sine-burst sampling. Neither of
 these new methods relies on random deviates, and both have comparable
 performance to Poisson-gap sampling according to IST reconstruction residuals.
 From a practical perspective, Poisson-gap, sine-gap and sine-burst sampling
-methods produced nearly equivalent HSQC spectral reconstructions (Figure 2.6)
-that yielded essentially identical information (chemical shifts, peak
+methods produced nearly equivalent HSQC spectral reconstructions
+(\figref{2.6}{Figure 2.6}) that yielded essentially identical
+information (chemical shifts, peak
 intensities) as highlighted in Table 2.1. For the practicing spectroscopist,
 this equates to the ability to nonuniformly sample at the performance level
 of Poisson-gap, without specifying a pseudorandom seed. Gap sampling is a
@@ -743,11 +767,11 @@ random sampling from its corresponding expectation sampling distribution.
 \\\\
 Finally, burst augmentation provides a concrete example of how deterministic
 gap sampling may be tuned to behave in a similar fashion to pseudorandom
-numbers. At first glance, the third row of Figure 2.5 would appear to have
-been generated stochastically, but it is a consequence of the squared-sine
-modulation term in $g_{SB}$. It has historically been true that stochastically
-generated sampling schedules produced fewer prominent artifacts than
-deterministic methods such as radial or spiral sampling, due to high
+numbers. At first glance, the third row of \figref{2.5}{Figure 2.5} would
+appear to have been generated stochastically, but it is a consequence of the
+squared-sine modulation term in $g_{SB}$. It has historically been true that
+stochastically generated sampling schedules produced fewer prominent artifacts
+than deterministic methods such as radial or spiral sampling, due to high
 regularity of the latter schemes. However, pseudorandom variates are
 not required for effective sampling artifact suppression. Furthermore,
 while most pseudorandom number generators are indeed deterministic for a

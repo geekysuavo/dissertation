@@ -121,6 +121,7 @@ corrected datasets for the purposes of comparison.
   traced in deep red, while the confidence region for the baseline is filled
   in light red underneath.
 }
+\label{figure.7.1}
 \end{SCfigure}
 
 \subsection{Statistical Spectral Remodeling}
@@ -134,9 +135,9 @@ protein, $\mathbf{p}_n$) \hnmr{} NMR spectra, a difference spectrum
 ($\mathbf{d}_n$) was computed using a simple point-wise subtraction. The
 central tendency ($\boldsymbol{\mu}$) and dispersion ($\boldsymbol{\sigma}$)
 of the difference spectra were then robustly estimated using the median and
-median absolute deviation, respectively. Figure 7.1 shows the statistical
-baseline computed by USSR from a screen of ligand binding to BSA. Once a
-statistical baseline is established for a given dataset, each spectrum
+median absolute deviation, respectively. \figref{7.1}{Figure 7.1} shows the
+statistical baseline computed by USSR from a screen of ligand binding to BSA.
+Once a statistical baseline is established for a given dataset, each spectrum
 $\mathbf{p}_n$ in the screen is remodeled to maximally remove interference
 from baseline signals. Each spectral data point in $\mathbf{p}_n$ is compared
 to $\boldsymbol{\mu} \pm \boldsymbol{\sigma}$ using a Bonferroni-corrected
@@ -145,8 +146,8 @@ measure of how distinguishable the corresponding data point is from the
 statistical baseline. Based on a preselected level of significance ($\alpha$),
 data points having low $p$ values are retained (less the statistical baseline)
 in the remodeled spectrum ($\mathbf{r}_n$) and data points having high $p$
-values are modeled as Gaussian white noise. Figure 7.2 shows an example
-remodeled spectrum from the ligand binding analysis of BSA.
+values are modeled as Gaussian white noise. \figref{7.2}{Figure 7.2} shows
+an example remodeled spectrum from the ligand binding analysis of BSA.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -164,6 +165,7 @@ remodeled spectrum from the ligand binding analysis of BSA.
   4-methoxyisophthalate have broadened into the baseline due to interaction
   with BSA.
 }
+\label{figure.7.2}
 \end{figure}
 
 \subsection{Statistical Hit Determination}
@@ -222,6 +224,7 @@ than a predefined significant $p$ value was reported as binding.
   the statistical baseline ({\bf B}, red) and the screen spectrum
   ({\bf B}, black).
 }
+\label{figure.7.3}
 \end{figure}
 
 \subsection{Analysis of Dataset Size}
@@ -234,7 +237,7 @@ without replacement, to produce a smaller dataset. For each resultant dataset,
 the statistical baseline was estimated, and its Pearson correlation to the true
 statistical baseline was computed and stored. Over all numbers of spectral
 pairs in the simulation, the median baseline correlations were computed, and
-are reported in Figure 7.4.
+are reported in \figref{7.4}{Figure 7.4}.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -251,6 +254,7 @@ are reported in Figure 7.4.
   indicate values from subsampling the PSC normalized dataset, and red lines
   and shaded regions indicate values from subsampling the uncorrected dataset.
 }
+\label{figure.7.4}
 \end{SCfigure}
 
 \section{Results}
@@ -266,17 +270,17 @@ use of PSC normalization prior to USSR modeling greatly reduces the effective
 positive rate of statistical hit determination: 195 hits were identified from
 the PSC-uncorrected spectra. Closer examination of hits identified without PSC
 correction indicates that USSR failed to fully subtract the statistical
-baseline from the screen spectra (e.g. Figure 7.3), resulting in residual
-baseline intensity passing into equation 7.2 during $K_D$ calculation and hit
-determination. In short, the use of PSC normalization prior to USSR enables
-more effective baseline subtraction by decreasing both dilution- and
-phase-related protein baseline intensity variation in collected \hnmr{} NMR
-spectra (Figure 7.5). Baseline estimates obtained by collecting a spectrum of
-pure protein will suffer from the same phase-induced variation, which would
-also increase the false positive rate during hit determination. The introduced
-combination of PSC and USSR provides a more reliable means of baseline
-identification, without the need for collection of a free protein reference
-spectrum.
+baseline from the screen spectra (e.g. \figref{7.3}{Figure 7.3}), resulting
+in residual baseline intensity passing into equation 7.2 during $K_D$
+calculation and hit determination. In short, the use of PSC normalization
+prior to USSR enables more effective baseline subtraction by decreasing
+both dilution- and phase-related protein baseline intensity variation in
+collected \hnmr{} NMR spectra (\figref{7.5}{Figure 7.5}). Baseline estimates
+obtained by collecting a spectrum of pure protein will suffer from the same
+phase-induced variation, which would also increase the false positive rate
+during hit determination. The introduced combination of PSC and USSR
+provides a more reliable means of baseline identification, without
+the need for collection of a free protein reference spectrum.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -289,6 +293,7 @@ spectrum.
   before (red) and after (black) phase-scatter correction, which substantially
   decreases inter-sample variability of the protein baseline signals.
 }
+\label{figure.7.5}
 \end{SCfigure}
 
 \begin{doublespace}
@@ -297,15 +302,15 @@ baseline during random subsampling of the BSA dataset indicated that the
 PSC/USSR methodology can reliably operate at very low dataset sizes
 (i.e. 10--20 spectral pairs). Pearson correlations between true and subsampled
 baselines did not appreciably decrease even after harsh subsampling
-(Figure 7.3), and correlations computed from PSC-normalized data maintained
-significantly higher values than those from non-normalized data. While it
-would be possible to obtain a statistical baseline from fewer than ten spectral
-pairs, this is not recommended, as it will decrease the effectiveness of the
-Bonferroni-corected $t$-test that USSR performs during remodeling. Therefore,
-as a general rule of thumb, PSC/USSR analyses may be performed on
-high-throughput screening datasets having as few as ten spectral pairs, and
-higher sample sizes only serve to further increase the reliability of remodeled
-results.
+(\figref{7.3}{Figure 7.3}), and correlations computed from PSC-normalized
+data maintained significantly higher values than those from non-normalized
+data. While it would be possible to obtain a statistical baseline from fewer
+than ten spectral pairs, this is not recommended, as it will decrease the
+effectiveness of the Bonferroni-corected $t$-test that USSR performs during
+remodeling. Therefore, as a general rule of thumb, PSC/USSR analyses may be
+performed on high-throughput screening datasets having as few as ten spectral
+pairs, and higher sample sizes only serve to further increase the reliability
+of remodeled results.
 \end{doublespace}
 
 \section{Discussion and Conclusions}
@@ -356,12 +361,13 @@ screen of BSA against a chemical library of 456 compounds identified 43
 binders, despite the BSA background signals completely obscuring the ligand
 spectral features. An example screening result of tolazamide, dimethyl
 4-methoxyisophthalate, 1,7-dimethylxanthine and oxolinic acid against BSA is
-illustrated in Figure 7.2. Removal of the interfering protein statistical
-baseline from the screen spectrum (Figure 7.2B) yielded a high-quality
-pseudo-spectrum of the ligand mixture in the presence of BSA. Overlaying the
-remodeled NMR spectrum with the free ligand mixture spectrum indicated that
-the two spectra were essentially identical for the non-binding ligands
-(Figure 7.2A). Only dimethyl 4-methoxyisophthalate, which binds BSA, exhibited
+illustrated in \figref{7.2}{Figure 7.2}. Removal of the interfering protein
+statistical baseline from the screen spectrum (\figref{7.2}{Figure 7.2B})
+yielded a high-quality pseudo-spectrum of the ligand mixture in the presence
+of BSA. Overlaying the remodeled NMR spectrum with the free ligand mixture
+spectrum indicated that the two spectra were essentially identical for the
+non-binding ligands (\figref{7.2}{Figure 7.2A}). Only
+dimethyl 4-methoxyisophthalate, which binds BSA, exhibited
 any difference after remodeling. The USSR method of baseline estimation and
 subtraction is expected to perform equally well under any conditions where a
 common, highly reproducible spectral feature exists within a dataset. The

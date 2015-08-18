@@ -37,15 +37,15 @@ a case of ``unsupervised'' chemometric modeling of the dataset $\mathbf{D}$,
 but analysts may also choose to construct a supervised model, where the data
 are used to predict a set of known responses $\mathbf{R}$:
 \begin{equation*}
-\mathbf{R} = g(\mathbf{D}) + \mathbf{E}'
+\mathbf{R} = g(\mathbf{D} \mid \mathbf{R}) + \mathbf{E}'
 \end{equation*}
-where the model $g(\mathbf{D})$ extracts information from the dataset that best
-describes $\mathbf{R}$, and the model error $\mathbf{E}'$ holds the differences
-between the known and modeled responses. Chemometrics is intimately connected
-with the chemical systems it aims to describe, and thus the exact choice
-of mathematical model and statistical framework depends heavily on the
-particular problem, the data at hand, and the specific chemical information
-desired by the analyst.
+where the model $g(\mathbf{D} \mid \mathbf{R})$ extracts information from the
+dataset that best describes $\mathbf{R}$, and the model error $\mathbf{E}'$
+holds the differences between the known and modeled responses. Chemometrics
+is intimately connected with the chemical systems it aims to describe, and
+thus the exact choice of mathematical model and statistical framework depends
+heavily on the particular problem, the data at hand, and the specific chemical
+information desired by the analyst.
 \\\\
 As chemical systems under investigation increase in complexity, their
 chemometric description requires a proportionally increasing amount of
@@ -63,8 +63,9 @@ in order to be suitably described by chemometric models
   barding:jacs2012,
   baker:mmbio2012,
   marshall:metab2015}. Proper handling of these large datasets requires novel
-tools and algorithms at each stage of the experimental process (Figure 1.1) in
-order to ensure maximal information extraction and minimal analyst errors.
+tools and algorithms at each stage of the experimental process
+(\figref{1.1}{Figure 1.1}) in order to ensure maximal information extraction
+and minimal analyst errors.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -82,6 +83,7 @@ order to ensure maximal information extraction and minimal analyst errors.
   {\bf (8)}, and terminating on extraction of chemical information {\bf (9)}.
   In practice, this graph would be completely connected, and thus cyclic.
 }
+\label{figure.1.1}
 \end{figure}
 
 \subsection{Acquisition}
@@ -126,16 +128,17 @@ lower than the intrinsic linewidth of their samples
   grid. Comparisons of the performance of such schedules are made in
   Chapter 2.
 }
+\label{figure.1.2}
 \end{SCfigure}
 
 \begin{doublespace}
 In order to move from this ``sampling-limited'' regime of data acquisition,
 the indirect dimensions of multidimensional NMR experiments may be nonuniformly
-sparsely sampled (Figure 1.2), reducing the time required for data collection
-while simultaneously enabling increased digital resolution
-\cite{rovnyak:jmr2004}. When combined with non-Fourier reconstruction
-algorithms such as Maximum Entropy, $\ell_1$-norm Minimization, and
-Multidimensional Decomposition \cite{mobli:pnmrs2014}, this technique
+sparsely sampled (\figref{1.2}{Figure 1.2}), reducing the time required for
+data collection while simultaneously enabling increased digital
+resolution \cite{rovnyak:jmr2004}. When combined with non-Fourier
+reconstruction algorithms such as Maximum Entropy, $\ell_1$-norm Minimization,
+and Multidimensional Decomposition \cite{mobli:pnmrs2014}, this technique
 of nonuniform sampling (NUS) is capable of producing high-quality,
 high-resolution multidimensional spectra in a fraction of the time
 required by traditional uniform sampling. However, the choice of which data
@@ -188,7 +191,7 @@ PCA and PLS modeling to using 1D \hnmr{} NMR spectral data in NMR chemometric
 studies of metabolism.
 \end{doublespace}
 
-\begin{figure}[hb!]
+\begin{figure}[ht!]
 \includegraphics[width=6.5in]{figs/intro/03-bins.png}
 \caption
       [Example Binning Result from a 1D \hnmr{} NMR Dataset.]{
@@ -199,6 +202,7 @@ studies of metabolism.
   Spectral color indicates the observation index, and dashed lines indicate bin
   boundaries. Further discussion of binning may be found in Chapters 3 and 6.
 }
+\label{figure.1.3}
 \end{figure}
 
 \subsection{Modeling and Validation}
@@ -272,8 +276,8 @@ made between specific forms of gap sampling and the stochastic Poisson-gap
 sampling method from Hyberts and Wagner \cite{hyberts:jacs2010}.
 \\\\
 A comprehensive description of the required data handling tasks -- steps
-{\bf (1-9)} in Figure 1.1 -- in metabolic fingerprinting and untargeted
-metabolic profiling studies is provided within
+{\bf (1-9)} in \figref{1.1}{Figure 1.1} -- in metabolic fingerprinting and
+untargeted metabolic profiling studies is provided within
 \hyperlink{chapter.3}{Chapter 3}. Additional practical guidelines on the
 relationship between class separations in PCA scores space and reliability
 of OPLS-DA models on the same data are also presented. Examples of applied

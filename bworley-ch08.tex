@@ -30,6 +30,7 @@
   comparison between all possible optimal subdivisions along all dimensions
   yields the best possible subdivision (\cnmr{}, {\it circle}).
 }
+\label{figure.8.1}
 \end{figure}
 
 \begin{doublespace}
@@ -87,7 +88,7 @@ exist to {\it intelligently} bin multidimensional data for use in multivariate
 analyses. This motivated the development of a generalization of Adaptive
 Intelligent (AI) binning \cite{demeyer:anchem2008} to spectral data
 of any dimensionality, called Generalized Adaptive Intelligent (GAI) binning
-(Figure 8.1).
+(\figref{8.1}{Figure 8.1}).
 \end{doublespace}
 
 \section{Theory}
@@ -96,18 +97,16 @@ of any dimensionality, called Generalized Adaptive Intelligent (GAI) binning
 
 \begin{doublespace}
 Generalized AI-binning (GAI-binning) is a logical extension of AI-binning to
-two or more dimensions. In the AI algorithm (Figure 8.1A), bins are recursively
-subdivided until a stopping criterion or minimum bin width is reached
-\cite{demeyer:anchem2008}. For a 1D dataset containing $N$ spectra,
+two or more dimensions. In the AI algorithm (\figref{8.1}{Figure 8.1A}), bins
+are recursively subdivided until a stopping criterion or minimum bin width is
+reached \cite{demeyer:anchem2008}. For a 1D dataset containing $N$ spectra,
 the following objective function is used to assess the quality of each bin:
-
 \begin{equation}
 V_b = \frac{1}{N}
   \sum_{n=1}^N \left[
     (max_{n,b} - I_{n,b,1})
     (max_{n,b} - I_{n,b,end}) \right]^\frac{R}{2}
 \end{equation}
-
 where $max_{n,b}$ is the maximum intensity inside the bin $b$ in spectrum $n$,
 and $I_{n,b,1}$ and $I_{n,b,end}$ are the bin edge intensities. The exponent
 $R$ in the AI objective function is referred to as a `resolution parameter',
@@ -131,7 +130,6 @@ In two or more dimensions, the set of bin boundary points expands to include
 all points that lie on the edges (or faces, hyperfaces, {\it etc.}) of the bin.
 By denoting the set of all edge points in bin $b$ as $E_b$, a new objective
 function may be constructed:
-
 \begin{equation}
 V_b = \frac{1}{N}
   \sum_{n=1}^N \left[
@@ -146,7 +144,6 @@ equation 6.1, and GAI-binning operates identically to AI-binning. As
 dimensionality increases, the risk of floating-point overflow or underflow
 increases due to the larger bin edge set $E_b$. To avoid this, the following
 `log-objective' may be used in lieu of equation 6.2:
-
 \begin{equation}
 V_{b,ln} = \frac{R}{N ||E_b||}
   \sum_{n=1}^N \sum_{e \in E_b}
@@ -158,10 +155,11 @@ proceeds to recursively subdivide each bin until a minimum bin size is reached
 or no bin may be divided to yield an increase in the objective value. Because
 the number of ways to subdivide each bin increases with dimensionality, all
 possible dimensions are tested, and the new bin boundary that maximizes the
-objective over all possible subdivision dimensions is selected (Figure 8.1B).
-Therefore, the GAI algorithm may be considered a form of binary space
-partitioning (BSP) which limits its partition hyperplanes to lying orthogonally
-to the basis vectors of the coordinate system \cite{deberg2000}.
+objective over all possible subdivision dimensions is selected
+(\figref{8.1}{Figure 8.1B}). Therefore, the GAI algorithm may be considered
+a form of binary space partitioning (BSP) which limits its partition
+hyperplanes to lying orthogonally to the basis vectors of the coordinate
+system \cite{deberg2000}.
 \end{doublespace}
 
 \subsection{Noise Bin Elimination}
@@ -185,11 +183,9 @@ $\mu_n + 3 \sigma_n$. Upon inclusion of a new noise data point, the mean and
 standard deviation of the noise were appropriately updated. Once the estimated
 noise floor was determined for each spectrum in the dataset, a threshold for
 bin removal was computed as the median noise floor of all the spectra:
-
 \begin{equation}
 I_{th} = \mathrm{med}_n (\mu_n + k \sigma_n)
 \end{equation}
-
 where $k$ is a user-selectable parameter to adjust the noise threshold. Only
 bins whose maximum intensity fell above $I_{th}$ were retained in the final
 data matrix.
@@ -233,6 +229,7 @@ collected at a sample temperature of 298.0 K.
   Processed \hcnmr{} HSQC mean spectrum of the liver data tensor, with
   overlaid uniform ({\bf A}) and GAI ({\bf B}) bin boundaries.
 }
+\label{figure.8.2}
 \end{figure}
 
 \subsection{Mouse Embryonic Fibroblast Dataset}
@@ -267,13 +264,14 @@ were set to 2,359 $\pm$ 2,367 Hz along \hnmr{} and 8,174 $\pm$ 8,803 Hz along
   Processed \hcnmr{} HSQC mean spectrum of the MEF data tensor, with
   overlaid uniform ({\bf A}) and GAI ({\bf B}) bin boundaries.
 }
+\label{figure.8.3}
 \end{figure}
 
 \subsection{NMR Processing and Multivariate Analysis}
 
 \begin{doublespace}
-All processing, treatment and statistical modeling were performed in GNU Octave
-3.6 \cite{eaton2008} using routines currently available in the MVAPACK
+All processing, treatment and statistical modeling were performed in GNU
+Octave 3.6 \cite{eaton2008} using routines currently available in the MVAPACK
 toolbox for NMR chemometrics \cite{worley:acscb2014}, discussed in
 \hyperlink{chapter.4}{Chapter 4}. The 2D raw serial files were loaded
 \cite{delaglio:jbnmr1995}, apodized with a squared-sine window,
@@ -288,7 +286,8 @@ ppm, respectively, and a GAI resolution parameter of 0.1. Binned regions
 identified to be less intense than three times the standard deviation of the
 spectral noise ($k = 3$) were removed after binning. The mean spectra of the
 entire processed liver and MEF datasets, superimposed with bins identified by
-both uniform and GAI-binning, are shown in Figure 8.2 and Figure 8.3.
+both uniform and GAI-binning, are shown in \figref{8.2}{Figure 8.2} and
+\figref{8.3}{Figure 8.3}.
 \\\\
 The applicability of GAI-binning to bilinear factorizations was demonstrated
 by modeling the data tensors using both PCA and OPLS-DA. For PCA modeling of
@@ -348,7 +347,7 @@ between the two methods are statistically indistinguishable. In fact, the
 variable counts resulting from GAI-binning these third-order tensors are
 substantially lower than the few hundred variables typically produced by
 binning {\it one}-dimensional spectra. Resulting scores from PCA modeling
-of the GAI-binned liver data tensor are shown in Figure 8.4.
+of the GAI-binned liver data tensor are shown in \figref{8.4}{Figure 8.4}.
 \end{doublespace}
 
 \begin{table}[h!]
@@ -422,32 +421,35 @@ of the GAI-binned liver data tensor are shown in Figure 8.4.
   data matrices generated by GAI-binning, due in large part to the low variable
   counts it generally produces.
 }
+\label{figure.8.4}
 \end{SCfigure}
 
 \begin{doublespace}
 Backscaled predictive OPLS-DA loadings of the vectorized \hcnmr{} HSQC spectral
-data tensors (Figure 8.5) lend further support for the use of multidimensional
-binning in metabolic fingerprinting studies. Even when vectorization is
-performed in place of integration to produce a data matrix, binning offers an
-effective means of variable selection: only 10,474 of 65,858 variables (16\%)
-were retained when GAI-binning was used as a pre-filter prior to modeling the
-liver data. A similar reduction was observed in the fibroblast dataset, where
-GAI-binning retained 18,789 of 184,212 total variables for a 90\% reduction in
-dimensionality. These substantially reduced variable counts offered by binning
-translate to more well-conditioned bilinear modeling problems. As the
-dimensionality of the input dataset is increased further, the reductions in
-variable count afforded by multidimensional binning are expected to become even
+data tensors (\figref{8.5}{Figure 8.5}) lend further support for the use of
+multidimensional binning in metabolic fingerprinting studies. Even when
+vectorization is performed in place of integration to produce a data matrix,
+binning offers an effective means of variable selection: only 10,474 of 65,858
+variables (16\%) were retained when GAI-binning was used as a pre-filter prior
+to modeling the liver data. A similar reduction was observed in the fibroblast
+dataset, where GAI-binning retained 18,789 of 184,212 total variables for
+a 90\% reduction in dimensionality. These substantially reduced variable
+counts offered by binning translate to more well-conditioned bilinear
+modeling problems. As the dimensionality of the input dataset is
+increased further, the reductions in variable count afforded by
+multidimensional binning are expected to become even
 more dramatic. While the variable counts produced by vectorization of uniformly
 binned data tensors are comparable to those from GAI-binning, it is critical to
 recognize that the uniformly binned regions contain more noise data points than
 their GAI-binned counterparts, and thus offer a less efficient dimensionality
 reduction.
 \\\\
-Spectral regions produced by GAI-binning (Figure 8.2) demonstrate several
-important properties of the combined binning and noise removal processes.
-Because $t_1$ noise and truncation artifacts yield phase-incoherent negative
-spectral excursions after Fourier transformation, `unrelaxed' GAI-binning
-($R = 1$) tends to preferentially subdivide near such regions, producing
+Spectral regions produced by GAI-binning (\figref{8.2}{Figure 8.2})
+demonstrate several important properties of the combined binning and noise
+removal processes. Because $t_1$ noise and truncation artifacts yield
+phase-incoherent negative spectral excursions after Fourier
+transformation, `unrelaxed' GAI-binning ($R = 1$) tends to
+preferentially subdivide near such regions, producing
 elongated bins along the $F_1$ dimension. Decreasing the resolution parameter
 from its maximum value shrinks these bins to contain only true signals. Thus,
 an objective rule for determining an optimal resolution parameter during
@@ -485,6 +487,7 @@ unnecessarily long computation times during bin region determination.
   tensors. Positive and negative loadings are represented by red and blue
   contours, respectively.
 }
+\label{figure.8.5}
 \end{figure}
 
 \section{Conclusions}
@@ -522,6 +525,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   plots of the permutation (null) \rsqy{} and \qsq{} statistics are shown in
   the lower panes.
 }
+\label{figure.8.6}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -535,6 +539,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   ({\bf C}, {\bf D}) data tensors. See the caption of Figure 8.6 for a
   complete description of the figure contents.
 }
+\label{figure.8.7}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -548,6 +553,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   ({\bf C}, {\bf D}) data tensors. See the caption of Figure 8.6 for a
   complete description of the figure contents.
 }
+\label{figure.8.8}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -561,6 +567,7 @@ MVAPACK software package \cite{worley:acscb2014} introduced in
   ({\bf C}, {\bf D}) data tensors. See the caption of Figure 8.6 for a
   complete description of the figure contents.
 }
+\label{figure.8.9}
 \end{figure}
 
 \pagebreak

@@ -67,6 +67,7 @@ mL and subjected to UV/Vis absorption spectroscopy for caffeine quantitation.
   represent fitted caffeine, and blue and green lines represent additional
   Gaussian bands required for fitting.
 }
+\label{figure.4.1}
 \end{figure}
 
 \subsubsection{UV/Vis Spectroscopy}
@@ -106,11 +107,11 @@ multiplicative scatter correction (MSC, \cite{fearn:cils2009}). To quantify
 caffeine in the extracts, the absorption spectrum of each extract was fit by
 nonlinear least squares \cite{marquardt:jsiam1963} to the sum of the scaled
 caffeine reference spectrum and no more than two extra `background' Gaussian
-bands (Figure 4.1). The ratio of the fit caffeine reference spectrum in each
-extract to that of the known samples was used as an estimate of caffeine
-concentration in the extracts. Concentrations of the medium regular, medium
-decaffeinated, dark and light roasts were 1.526 mM, 0.217 mM, 1.979 mM and
-4.993 mM, respectively.
+bands (\figref{4.1}{Figure 4.1}). The ratio of the fit caffeine reference
+spectrum in each extract to that of the known samples was used as an estimate
+of caffeine concentration in the extracts. Concentrations of the medium
+regular, medium decaffeinated, dark and light roasts were
+1.526 mM, 0.217 mM, 1.979 mM and 4.993 mM, respectively.
 \end{doublespace}
 
 \subsubsection{Multivariate Analysis}
@@ -127,8 +128,8 @@ values. Spectral regions upfield of 0.44 ppm and downfield of 9.16 ppm were
 removed from the dataset, as they contained no informative signals. As solvent
 resonances were adequately suppressed by the excitation sculpting pulse
 sequence, no spectral regions were removed around the water resonance.
-Figure 4.2 illustrates the final result of spectral processing of the coffees
-dataset using MVAPACK.
+\figref{4.2}{Figure 4.2} illustrates the final result of spectral processing
+of the coffees dataset using MVAPACK.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -143,6 +144,7 @@ dataset using MVAPACK.
   simply Fourier transformed and automatically phased. No manual phase
   corrections were applied after autophasing.
 }
+\label{figure.4.2}
 \end{figure}
 
 \begin{doublespace}
@@ -163,7 +165,7 @@ captured the between-class variation present in the three orthonormal PCA
 score vectors. LDA modeling yielded a model having a cumulative \rsqx{}
 statistic of 0.9950 and cumulative \rsqy{} and \qsq{} statistics of 1.0.
 Scores from the PCA model of the coffees \hnmr{} NMR spectral data, and
-their corresponding LDA projection, are shown in Figure 4.3.
+their corresponding LDA projection, are shown in \figref{4.3}{Figure 4.3}.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -180,6 +182,7 @@ their corresponding LDA projection, are shown in Figure 4.3.
   indicate scores in PCA and LDA bases, respectively, and not the same set
   of scores.
 }
+\label{figure.4.3}
 \end{figure}
 
 \begin{doublespace}
@@ -227,6 +230,7 @@ places.
   archived in the BMRB, indicating a fairly successful regression against
   caffeine concentration.
 }
+\label{figure.4.4}
 \end{SCfigure}
 
 \subsection{Results and Discussion}
@@ -238,22 +242,22 @@ during data handling. Use of automatic phase correction, adaptive intelligent
 binning, and PQ normalization yielded a dataset in which three principal
 components were sufficient to fully separate all classes in scores space,
 and subsequent LDA modeling resulted in complete class separation in only
-two components (Figure 4.3).
+two components (\figref{4.3}{Figure 4.3}).
 \\\\
 As opposed to the PCA modeling procedure, which utilized binned spectra,
 OPLS-R model training was performed using full-resolution 1D \hnmr{} NMR
 spectra in order to reap the interpretive advantages of full-resolution
-backscaled loadings (Figure 4.4). The availability of \emph{i}COshift
-alignment \cite{savorani:jmr2010} in MVAPACK effectively makes the modeling
-of full-resolution NMR spectral data possible by correcting positional noise
-\cite{aberg:abc2009} in the spectra that corrupts the bilinear nature of the
-data. By regressing the NMR data against estimates of caffeine concentration
-obtained by UV/Vis spectroscopy (Figure 4.1), a loading pseudo-spectrum of
-caffeine was obtained that matched almost perfectly with spectral data
-deposited in the Biological Magnetic Resonance Bank \cite{ulrich:nar2008}.
-It is conceivable that spectral features coextracted with caffeine in the
-loadings correspond to coffee bean metabolites lost alongside caffeine during
-roasting or decaffeination.
+backscaled loadings (\figref{4.4}{Figure 4.4}). The availability of
+\emph{i}COshift alignment \cite{savorani:jmr2010} in MVAPACK effectively
+makes the modeling of full-resolution NMR spectral data possible by correcting
+positional noise \cite{aberg:abc2009} in the spectra that corrupts the bilinear
+nature of the data. By regressing the NMR data against estimates of caffeine
+concentration obtained by UV/Vis spectroscopy (\figref{4.1}{Figure 4.1}),
+a loading pseudo-spectrum of caffeine was obtained that matched almost
+perfectly with spectral data deposited in the Biological Magnetic Resonance
+Bank \cite{ulrich:nar2008}. It is conceivable that spectral features
+co-extracted with caffeine in the loadings correspond to coffee bean
+metabolites lost alongside caffeine during roasting or decaffeination.
 \end{doublespace}
 
 \begin{figure}[H]
@@ -267,6 +271,7 @@ roasting or decaffeination.
   spectroscopy. Scores in panels ({\bf A}) through ({\bf D}) were computed
   from models having 1 through 4 orthogonal components, respectively.
 }
+\label{figure.4.5}
 \end{figure}
 
 \begin{figure}[H]
@@ -280,6 +285,7 @@ roasting or decaffeination.
   and confidence ellipses for each observation were computed from 100
   iterations of seven-fold Monte Carlo internal cross-validation.
 }
+\label{figure.4.6}
 \end{figure}
 
 \begin{doublespace}
@@ -288,14 +294,15 @@ was slightly higher than that of the medium roast, which is contrary to
 expectation given that the coffees were brewed using equal volumes of
 grounds. However, OPLS-R of the NMR data using the estimated caffeine
 concentrations correctly ranked the roasts according to expectation
-(Figure 4.5A). When more orthogonal components were allowed into the OPLS-R
-model, the dark roast again shifted to a higher caffeine concentration,
-beautifully indicating the presence of overfitting (Figure 4.5B--D).
-Monte Carlo cross-validated scores further supported the fact that a $1+1$
-OPLS model was the most appropriate (Figure 4.6). Therefore, an OPLS-R model
-having only a single orthogonal component was chosen, given the fact that it
-more faithfully modeled the underlying NMR data at the expense of
-contradicting the more uncertain UV/Vis measurements.
+(\figref{4.5}{Figure 4.5A}). When more orthogonal components were allowed
+into the OPLS-R model, the dark roast again shifted to a higher caffeine
+concentration, beautifully indicating the presence of overfitting
+(\figref{4.5}{Figure 4.5B--D}). Monte Carlo cross-validated scores further
+supported the fact that a $1+1$ OPLS model was the most appropriate
+(\figref{4.6}{Figure 4.6}). Therefore, an OPLS-R model having only a single
+orthogonal component was chosen, given the fact that it more faithfully
+modeled the underlying NMR data at the expense of contradicting the more
+uncertain UV/Vis measurements.
 \\\\
 Finally, no discernable difference was observed between the 1D \hnmr{} NMR
 spectra acquired with and without $T_2$-filtering. Spectra collected on
@@ -438,6 +445,7 @@ to supplement the results of the permutation tests.
   correspond to the control, 6-OHDA, MPP$^+$, paraquat and rotenone classes,
   respectively.
 }
+\label{figure.4.7}
 \end{SCfigure}
 
 \begin{SCfigure}
@@ -451,6 +459,7 @@ to supplement the results of the permutation tests.
   ({\bf A--C}) correspond to scores in panels ({\bf A--C}) in Figure 4.7,
   above.
 }
+\label{figure.4.8}
 \end{SCfigure}
 
 \subsection{Results and Discussion}
@@ -461,21 +470,22 @@ to supplement the results of the permutation tests.
 PCA of the binned NMR data matrix ($N = 29, K = 159$) resulted in 10 principal
 components having cumulative \rsqx{} and \qsq{} statistics of 0.9485 and
 0.4591, respectively, based on LOOCV. Overall, no patterns were readily
-discernable in the NMR PCA scores (Figure 4.7A) due to high within-class
-variation in the data. However, scores for paraquat treatment were found
-to significantly separate from all other classes ($p < 0.002$) along the
-first principal component. Scores from PCA of the binned MS data matrix
-($N = 29, K = 2,095$) were found to exhibit markedly less within-class
-variation compared to the NMR data (Figure 4.7B). Using LOOCV, three
-significant components were identified from the binned MS data, yielding
+discernable in the NMR PCA scores (\figref{4.7}{Figure 4.7A}) due to high
+within-class variation in the data. However, scores for paraquat treatment
+were found to significantly separate from all other classes ($p < 0.002$)
+along the first principal component. Scores from PCA of the binned MS data
+matrix ($N = 29, K = 2,095$) were found to exhibit markedly less within-class
+variation compared to the NMR data (\figref{4.7}{Figure 4.7B}). Using LOOCV,
+three significant components were identified from the binned MS data, yielding
 fairly low cumulative \rsqx{} and \qsq{} statistics of 0.3397 and 0.1590.
 While paraquat treatment still separated from other drug treatments in MS
 PCA scores space, the greatest separations were observed between treated
 and untreated (control) cells ($p < 1.0 \times 10^{-9}$). These differing
 patterns of separation in NMR and MS PCA scores suggested that multiblock
 analyses could provide further information, ideally separating both control
-and paraquat scores from all other classes. Figure 4.8 contains dendrograms
-of scores-space class separation for each scores plot in Figure 4.7.
+and paraquat scores from all other classes. \figref{4.8}{Figure 4.8} contains
+dendrograms of scores-space class separation for each scores plot in
+\figref{4.7}{Figure 4.7}.
 \\\\
 Per-component \qsq{} statistics computed from LOOCV of the NMR and MS PCA
 models suggested fairly marginal model reliability at component counts greater
@@ -484,13 +494,13 @@ matrices to obtain less optimistic estimates of reliability. In both cases,
 MCCV produced single-component PCA models, indicating that the LOOCV had
 substantially over-estimated the number of principal components in each
 matrix. A comparison of the resulting \qsq{} statistics from LOOCV and MCCV
-is shown in Figure 4.9.
+is shown in \figref{4.9}{Figure 4.9}.
 \\\\
 PLS-DA of the full-resolution NMR ($N = 29, K = 16,138$) and
 MS ($N = 29, K = 2,095$) data matrices both resulted in two-component models.
 With the exception of the algorithmically forced separation between control
 and treatment classes, similar clustering patterns were observed when compared
-to the PCA scores (cf. Figure 4.10A--B). MCCV results from the
+to the PCA scores (cf. \figref{4.10}{Figure 4.10A--B}). MCCV results from the
 NMR ($R^2_Y = 0.9519, Q^2 = 0.7303 \pm 0.0517$) and
 MS ($R^2_Y = 0.9951, Q^2 = 0.9440 \pm 0.01142$) PLS-DA models indicated
 reasonable levels of response fit and predictive ability. Further validation
@@ -513,6 +523,7 @@ supporting the CV-ANOVA test results.
   principal component, while LOOCV over-estimates the number of significant
   components.
 }
+\label{figure.4.9}
 \end{SCfigure}
 
 \begin{SCfigure}
@@ -529,6 +540,7 @@ supporting the CV-ANOVA test results.
   correspond to the control, 6-OHDA, MPP$^+$, paraquat and rotenone classes,
   respectively.
 }
+\label{figure.4.10}
 \end{SCfigure}
 
 \subsubsection{Multiblock Modeling}
@@ -542,11 +554,12 @@ identified ($Q^2 = 0.2322$) that cumulatively explained comparable amounts
 of variation in the NMR ($R^2_X = 0.8528$) and MS ($R^2_X = 0.5015$) blocks
 relative to the individual PCA models. As expected, MB-PCA combined the
 information from both blocks to dramatically increase class separations in
-super-scores space (Figure 4.7C). More specifically, both control and paraquat
-classes were separated from other neurotoxin treatments, predominantly along
-the first principal component. Furthermore, MPP$^+$ treatment exhibited
-significant separation from 6-OHDA and rotenone treatments, which was not
-expected from examination of the individual NMR or MS PCA scores.
+super-scores space (\figref{4.7}{Figure 4.7C}). More specifically, both
+control and paraquat classes were separated from other neurotoxin treatments,
+predominantly along the first principal component. Furthermore, MPP$^+$
+treatment exhibited significant separation from 6-OHDA and rotenone
+treatments, which was not expected from examination of the individual
+NMR or MS PCA scores.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -568,8 +581,9 @@ expected from examination of the individual NMR or MS PCA scores.
 
 \begin{doublespace}
 Subsequent re-evaluation of the MB-PCA model's reliability using MCCV reduced
-the number of expected significant components to two (Figure 4.9C). However,
-secondary and higher components' \qsq{} statistics were still found to be
+the number of expected significant components to two
+(\figref{4.9}{Figure 4.9C}). However, secondary and higher
+components' \qsq{} statistics were still found to be
 statistically indistinguishable from zero, which further suggests that only
 one principal direction exists in the binned NMR and MS data matrices that
 captures any substantial variation.
@@ -604,14 +618,16 @@ MB-PLS of the data yielded similar improvements in model information content.
 Two significant components were identified
 ($R^2_Y = 0.9876, Q^2 = 0.9014 \pm 0.0185$) that clearly separated control and
 paraquat treatment classes from all other classes in scores space
-(Figure 4.10). CV-ANOVA testing produced a $p$ value of $3.4 \times 10^{-4}$
-and response permutation testing yielded $p < 0.001$, indicating a reliable
-MB-PLS-DA model. Backscaled first-component MB-PLS-DA loadings are shown in
-Figure 4.11. Modeling the multiblock data with MB-OPLS and MCCV produced a
+(\figref{4.10}{Figure 4.10}). CV-ANOVA testing produced a $p$ value
+of $3.4 \times 10^{-4}$ and response permutation testing yielded
+$p < 0.001$, indicating a reliable MB-PLS-DA model. Backscaled
+first-component MB-PLS-DA loadings are shown in \figref{4.11}{Figure 4.11}.
+Modeling the multiblock data with MB-OPLS and MCCV produced a
 single predictive component and a single orthogonal component
 ($R^2_Y = 0.9031, Q^2 = 0.7084 \pm 0.0241$), making later interpretation
-markedly simpler (cf. Figures 4.12 and 4.13). Examination of cross-validated
-MB-OPLS-DA scores (Figure 4.14) provides an excellent example of how PLS mixes
+markedly simpler (cf. \figref{4.12}{Figures 4.12} and \figref{4.13}{4.13}).
+Examination of cross-validated MB-OPLS-DA scores
+(\figref{4.14}{Figure 4.14}) provides an excellent example of how PLS mixes
 predictive and compensatory variation. In MB-OPLS super-scores, paraquat
 treatment is distinctly separated from other neurotoxin treatment classes along
 the orthogonal component ($\mathbf{t_o}$). In the MB-PLS model, this
@@ -637,6 +653,7 @@ reliable supervised model.
   the super-scores of the MB-PLS model (Figure 4.10C) to better differentiate
   between class-predictive and class-orthogonal variation.
 }
+\label{figure.4.14}
 \end{SCfigure}
 
 \subsection{Conclusions}
@@ -654,7 +671,7 @@ MB-OPLS algorithm, as MB-PLS-DA had clearly mixed class-predictive variation
 into multiple components. The use of MB-OPLS-DA resulted in more easily
 interpretable backscaled loadings, and provided more information relating to
 separations between control and drug treatment \emph{and} separations between
-paraquat and other drug treatments (Figure 4.13).
+paraquat and other drug treatments (\figref{4.13}{Figure 4.13}).
 \end{doublespace}
 
 \section{Monte Carlo Analysis of Scores-space Separations}
@@ -778,6 +795,7 @@ $F$-statistic for $p$ value generation.
   in both panels is indicated by coloring, where red indicates high point
   density and blue indicates low density.
 }
+\label{figure.4.15}
 \end{figure}
 
 \begin{figure}[ht!]
@@ -789,6 +807,7 @@ $F$-statistic for $p$ value generation.
   Summarization of Monte Carlo results from the Media data matrix. See Figure
   4.15 for more details.
 }
+\label{figure.4.16}
 \end{figure}
 
 \subsection{Results and Discussion}
@@ -798,13 +817,14 @@ As expected, PCA scores-space class separations rapidly decreased as noise is
 added to the data. Addition of noise also forced a rise in OPLS-DA
 cross-validation statistics. As a result, a strong exponential relationship
 is observed between Mahalanobis distances calculated from PCA scores and
-CV-ANOVA $p$ values from OPLS-DA models (Figures 4.15A and 4.16A). Because
-PCA modeling uses no class membership information, the scores-space distances
-in these figures are essentially the least biased method of appraising
-discrimination ability. As the two classes become less distinguishable based
-on their spectral measurements, PCA will expose less separation between their
-scores. When PCA fails to expose class separation, OPLS-DA will continue to
-do so \emph{at the expense of model reliability}, as it is relying on weaker
+CV-ANOVA $p$ values from OPLS-DA models (\figref{4.15}{Figures 4.15A} and
+\figref{4.16}{4.16A}). Because PCA modeling uses no class membership
+information, the scores-space distances in these figures are essentially the
+least biased method of appraising discrimination ability. As the two classes
+become less distinguishable based on their spectral measurements, PCA will
+expose less separation between their scores. When PCA fails to expose class
+separation, OPLS-DA will continue to do so
+\emph{at the expense of model reliability}, as it is relying on weaker
 sources of variation in the noisier data. While the exact form of the
 relationship between distance and $p$ value will depend on the input data and
 responses, this analysis provides clear evidence that distances between classes
@@ -828,23 +848,25 @@ reliability.
   of noise are added to the data matrices. Shaded regions indicate plus or
   minus one standard deviation from the median $p$ value.
 }
+\label{figure.4.17}
 \end{figure}
 
 \begin{doublespace}
 The shrinkage of Mahalanobis distances as data matrix noise increases occurs
 concomitantly with a rapid loss of correlation between ideal OPLS predictive
-loadings and estimated loadings (Figures 4.15B, 4.16B and 4.17A). It is
-critical to note that class separations in OPLS scores space do not appreciably
-decrease (Figure 4.18) with the decreased loading correlations. In effect, the
-OPLS model has identified different, \emph{less reliable} sources of variation
-in the noisy data matrix in order to maintain class separation. OPLS-DA
-requires only that some variation in the measured data correlates with class
-membership, regardless of whether that variation is signal or noise
-\cite{wold:cils2001,trygg:jchemo2002,gottfries:jchemo2008}. When the true
-predictive spectral features that reflect the underlying biochemistry have
-become masked by noise, OPLS-DA will shift its focus to the variation that
-best predicts class membership. Because OPLS-DA provides the most optimistic
-result possible, validation becomes a necessity.
+loadings and estimated loadings (\figref{4.15}{Figures 4.15B},
+\figref{4.16}{4.16B} and \figref{4.17}{4.17A}). It is critical to note that
+class separations in OPLS scores space do not appreciably decrease
+(\figref{4.18}{Figure 4.18}) with the decreased loading correlations.
+In effect, the OPLS model has identified different, \emph{less reliable}
+sources of variation in the noisy data matrix in order to maintain class
+separation. OPLS-DA requires only that some variation in the measured data
+correlates with class membership, regardless of whether that variation is
+signal or noise \cite{wold:cils2001,trygg:jchemo2002,gottfries:jchemo2008}.
+When the true predictive spectral features that reflect the underlying
+biochemistry have become masked by noise, OPLS-DA will shift its focus to the
+variation that best predicts class membership. Because OPLS-DA provides the
+most optimistic result possible, validation becomes a necessity.
 \end{doublespace}
 
 \begin{figure}[ht!]
@@ -861,6 +883,7 @@ result possible, validation becomes a necessity.
   and the 20x noisy data matrix ({\bf E}, {\bf F}). Ellipses represent
   the 95\% confidence regions for class membership.
 }
+\label{figure.4.18}
 \end{figure}
 
 \begin{doublespace}
