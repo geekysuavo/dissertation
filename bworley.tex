@@ -1,5 +1,7 @@
-% define the document class as a report.
-\documentclass[letterpaper]{report}
+% define the document class as a report on letter (8.5" x 11") paper, with
+% pages set up for two-sided printing (margin specifications below),
+% where chapters always begin on the right-hand side.
+\documentclass[letterpaper,twoside,openright]{report}
 
 % include a metric crap-tonne of latex packages. the most important bit here
 % is the metadata specified during loading the hyperref package. you'll want
@@ -26,6 +28,11 @@
 \usepackage[chapter]{algorithm}
 \usepackage{algorithmic}
 \usepackage{listings}
+\usepackage[
+  top=1in,
+  bottom=1in,
+  inner=1.5in,
+  outer=1in]{geometry}
 
 % reference sections are typically un-numbered chapter headings, which don't
 % work with what we need to do in the thesis. this changes the bibliography
@@ -42,10 +49,11 @@
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 
 % define the margins and turn off indentation.
-\setlength{\textwidth}{6.5in}
-\setlength{\textheight}{9in}
-\setlength{\oddsidemargin}{0in}
-\setlength{\topmargin}{-.5in}
+%\setlength{\textwidth}{6.0in}
+%\setlength{\textheight}{9.0in}
+%\setlength{\oddsidemargin}{0.5in}
+%\setlength{\evensidemargin}{0.0in}
+%\setlength{\topmargin}{-0.5in}
 \setlength{\parindent}{0em}
 
 % math operators require a different definition from regular tex commands.
@@ -125,6 +133,9 @@
 % big bang.
 \begin{document}
 
+% temporarily reset the margins to center the preliminary content.
+\newgeometry{top=1in,bottom=1in,left=1.25in,right=1.25in}
+
 % a bunch of anal-retentive exact spacing follows from here.
 \begin{titlepage}
 \begin{center}
@@ -183,6 +194,9 @@ Copyright \copyright{} 2015 Bradley Worley
 \input{bworley-abs.tex}
 \input{bworley-ack.tex}
 \include{bworley-pub}
+
+% restore the original margins for the rest of the document.
+\restoregeometry
 
 % write the table of contents.
 \tableofcontents
