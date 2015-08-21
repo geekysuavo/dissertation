@@ -3,9 +3,7 @@
 % where chapters always begin on the right-hand side.
 \documentclass[letterpaper,twoside,openright]{report}
 
-% include a metric crap-tonne of latex packages. the most important bit here
-% is the metadata specified during loading the hyperref package. you'll want
-% to change the pdfauthor and pdftitle fields to suit your purposes.
+% include a metric half crap-tonne of latex packages.
 \usepackage{float}
 \usepackage{array}
 \usepackage{amsmath}
@@ -14,11 +12,16 @@
 \usepackage{chapterbib}
 \usepackage{natbib}
 \usepackage{bibentry}
+
+% include the hyperref package, which allows us to change pdf metadata fields.
+% you'll want to change the pdfauthor and pdftitle fields to suit your thesis.
 \usepackage[
   pdftex,
   pdfauthor={Bradley Worley},
   pdftitle={Chemometric and Bioinformatic Analyses of Cellular Biochemistry},
   hidelinks]{hyperref}
+
+% include another metric half crap-tonne of packages.
 \usepackage{etoolbox}
 \usepackage{graphicx}
 \usepackage{setspace}
@@ -28,6 +31,9 @@
 \usepackage[chapter]{algorithm}
 \usepackage{algorithmic}
 \usepackage{listings}
+
+% include the geometry package, which greatly simplifies the management of
+% page margins during document setup.
 \usepackage[
   top=1in,
   bottom=1in,
@@ -48,12 +54,7 @@
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
 \renewcommand{\algorithmicensure}{\textbf{Output:}}
 
-% define the margins and turn off indentation.
-%\setlength{\textwidth}{6.0in}
-%\setlength{\textheight}{9.0in}
-%\setlength{\oddsidemargin}{0.5in}
-%\setlength{\evensidemargin}{0.0in}
-%\setlength{\topmargin}{-0.5in}
+% disable indentation.
 \setlength{\parindent}{0em}
 
 % math operators require a different definition from regular tex commands.

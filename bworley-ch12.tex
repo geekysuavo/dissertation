@@ -1,8 +1,67 @@
 
 \chapter{Summary and Future Directions}
 
+\begin{quote}
+{\it
+  Chemists, in particular, cannot understand why they should fund
+  someone to do data analysis.}
+\\\\
+ -- Richard Brereton \cite{brereton:jchemo2014b}
+\end{quote}
+
+\section{The Need for Chemometrics}
+
 \begin{doublespace}
-FIXME \cite{worley:abio2013}.
+The field of chemometrics is still in its infancy, but the chemometric
+practice of extracting quantitative chemical information from data collected
+on complex samples is much older, and has innumerable applications in
+chemistry \cite{wold:cils1995,brereton:jchemo2014b}. While the standard
+toolbox of $t$-tests, run charts and univariate distributions has served
+analytical chemists well, the analysis of spectral measurements of
+multi-component mixtures demands a more computationally intensive
+approach.
+\\\\
+However, optimal chemometric modeling of spectral data does not begin when
+the data are read in for the first time, but before acquisition has even
+been performed. Successful experimental design relies on data collection
+procedures that yield informative, high-quality measurement results. Spectra
+having the highest possible resolution, dynamic range and signal-to-noise
+ratio are necessary if reliable conclusions are to be drawn from their models.
+In multidimensional NMR experiments, methods of sparse data collection are
+becoming increasingly popular, as they provide avenues for maximizing spectral
+quality. In these nonuniform sampling (NUS) methods, the greatest contributing
+factor to spectral quality is the sampling scheme, and the generation of
+sampling schemes that optimize various spectral features (i.e. sensitivity
+or resolution) is still an active area of fundamental research
+\cite{mobli:jmr2015}. \hyperlink{chapter.2}{Chapter 2} introduces a general
+framework for multidimensional nonuniform sampling that extends the work of
+Hyberts and Wagner \cite{hyberts:jacs2010} and deterministically generates
+nonuniform sampling schedules that perform as well or better than stochastic
+methods \cite{worley:jmr2015}. By suggesting an alternative mechanism for
+introducing irregularity into a sampling schedule, burst-augmented gap
+sampling aims to provoke further investigation into which features of a
+sampling schedule yield optimal spectral results. Furthermore, this new
+framework is the first proposed mechanism for deterministically constructing
+sampling schedules on a multidimensional Nyquist grid \cite{eddy:jmr2012}
+based on a general equation.
+\\\\
+The processing, treatment and modeling of spectral measurements using
+multivariate statistics, outlined in \hyperlink{chapter.3}{Chapter 3},
+is a nuanced task, with many pitfalls awaiting the chemist who lacks
+experience and training in multivariate data analysis. Most applications
+of chemometrics are performed by analytical chemists, whose expertise lies
+with a certain type of instrumentation rather than statistics. In order to
+promote proper, statistically sound data handling practices, chemometricians
+must begin to place easy-to-use, well-documented software packages in the
+hands of chemists. These software packages must simultaneously provide
+powerful mechanisms of multivariate data analysis, educate users about
+proper data handling, and encourage further extension and collaboration
+between fundamentally focused chemometricians and applications-driven
+chemists. \hyperlink{chapter.5}{Chapter 5} introduces MVAPACK
+\cite{worley:acscb2014}, an open-source suite of simple GNU Octave
+\cite{eaton2008} functions that aims to address those goals, and
+\hyperlink{chapter.4}{Chapter 4} describes its use on a wide variety of
+applications within the rapidly growing field of metabolomics.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
