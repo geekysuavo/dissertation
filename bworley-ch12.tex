@@ -48,10 +48,11 @@ based on a general equation.
 The processing, treatment and modeling of spectral measurements using
 multivariate statistics, outlined in \hyperlink{chapter.3}{Chapter 3},
 is a nuanced task, with many pitfalls awaiting the chemist who lacks
-experience and training in multivariate data analysis. Most applications
-of chemometrics are performed by analytical chemists, whose expertise lies
-with a certain type of instrumentation rather than statistics. In order to
-promote proper, statistically sound data handling practices, chemometricians
+experience and training in multivariate data analysis
+\cite{worley:cmb2013,worley:anchem2015}. Most applications of chemometrics
+are performed by analytical chemists, whose expertise lies with a certain
+type of instrumentation rather than statistics. In order to promote
+statistically sound data handling practices, chemometricians
 must begin to place easy-to-use, well-documented software packages in the
 hands of chemists. These software packages must simultaneously provide
 powerful mechanisms of multivariate data analysis, educate users about
@@ -61,7 +62,100 @@ chemists. \hyperlink{chapter.5}{Chapter 5} introduces MVAPACK
 \cite{worley:acscb2014}, an open-source suite of simple GNU Octave
 \cite{eaton2008} functions that aims to address those goals, and
 \hyperlink{chapter.4}{Chapter 4} describes its use on a wide variety of
-applications within the rapidly growing field of metabolomics.
+applications within the rapidly growing field of metabolomics. The release
+of MVAPACK under an open-source license ensures transparency, allows for
+critical review by expert members of the chemometrics community, and
+enables modification and extension by its user base.
+\\\\
+Without a doubt, the availability of MVAPACK made the development of
+phase-scatter correction
+(PSC, \hyperlink{chapter.6}{Chapter 6}),
+uncomplicated statistical spectral remodeling
+(USSR, \hyperlink{chapter.7}{Chapter 7}),
+and generalized adaptive intelligent binning
+(GAI-binning, \hyperlink{chapter.8}{Chapter 8})
+substantially easier
+\cite{worley:cils2014,worley:jbnmr2015,worley:cils2015}. By interlacing
+these methods into the existing fabric of MVAPACK, only a single new
+function had to be written for each new method. The data structures
+required by the algorithms -- complex data matrices, real data matrices,
+and arrays of real matrices -- are provided in a well-defined format by
+existing functions in MVAPACK. As a result, development could be focused
+100\% on functionalities of the \emph{actual algorithms}, and not the
+`glue code' typically required to make a method even moderately useful.
+This modularity conveys distinct advantages to the entire community:
+from the perspective of an MVAPACK user, adding PSC or GAI-binning into
+an existing data handling protocol requires changing a single function
+call in an Octave script.\footnote{After upgrading to the latest version
+of MVAPACK, of course.}
+\\\\
+As more chemists begin to collect multiple analytical measurements from each
+sample, it is imperative that well-defined, statistically acceptable methods
+be available to model the resulting data \cite{westerhuis:jchemo1997,
+  westerhuis:jchemo1998,smilde:jchemo2003,
+  marshall:metab2015,worley:jchemo2015}. Consensus PCA (CPCA-W) and Multiblock
+PLS (MB-PLS), discussed in \hyperlink{chapter.3}{Chapter 3}, are powerful
+extensions of PCA and PLS modeling to multiblock datasets, and are implemented
+in MVAPACK to provide easy access by the community. However, at the time of
+their implementation, no analogous extension of OPLS existed to handle
+multiblock data. Most chemists using multivariate statistics prefer OPLS
+over PLS due to its enhanced
+interpretability \cite{trygg:jchemo2002,tapp:trac2009}, and the lack of
+a formally defined multiblock analog of OPLS was starting to become apparent
+in the form of several ad hoc attempts to use single-block OPLS on multiple
+matrices \cite{bylesjo:jpr2009,boccard:aca2013}.
+\hyperlink{chapter.9}{Chapter 9} formally defines Multiblock OPLS (MB-OPLS)
+as a consensus bilinear factorization method, relates it to the OnPLS method
+proposed by L\"{o}fstedt and Trygg \cite{lofstedt:jchemo2011}, and describes
+its relationship to several other methods (CPCA-W, MB-PLS, nPLS and OnPLS)
+in the context of the highly general framework described by Hanafi and Kiers
+\cite{hanafi:csda2006}. Coupled with the inclusion of MB-OPLS in MVAPACK,
+this description presents a thoroughly vetted avenue for chemists to easily
+model their multiblock data using OPLS, without resorting to ad hoc
+approaches \cite{worley:jchemo2015}.
+\\\\
+However, bilinear factorizations like PCA, PLS and OPLS merely represent
+\emph{the very first step} towards chemometric modeling of spectral data
+\cite{gromski:aca2015}. Ideal chemometric models of spectral measurements
+would directly report the concentrations of the individual components in
+the mixtures being studied \cite{eads:anchem2004}. In the context of bilinear
+modeling, achieving this goal requires the imposition of stronger constraints
+on the model scores and loadings (cf. \hyperlink{section.3.5}{Section 3.5}).
+Methods such as multivariate curve resolution by alternating least squares
+(MCR-ALS, \cite{dejuan:crac2006}) and molecular factor analysis
+(MFR, \cite{eads:anchem2004}) impose non-negativity constraints on both
+the scores and loadings in an alternating least squares framework, while
+bayesian spectral decomposition (BSD, \cite{ochs:jmr1999,stoyanova:anchem2004})
+and bayesian positive source separation (BPSS, \cite{moussaoui:ieee2006,
+  moussaoui:cils2006}) do so by assigning prior
+probabilities to their values. While these methods report more chemically
+and spectroscopically relevant information than PCA by imposing non-negativity,
+they still return mixtures of multiple compounds in their loadings. Imposition
+of `hard modeling' constraints takes the problem a step further by requiring
+each extracted signal to obey a certain functional form. Hard modeling of NMR
+data has been accomplished using time-domain Bayesian
+\cite{bretthorst:jmr1990a,bretthorst:jmr1990b,bretthorst:jmr1990c,
+      chylla:jbnmr1993} and maximum-likelihood \cite{chylla:jbnmr1995}
+modeling, as well as hybrid time- and frequency-domain maximum-likelihood
+\cite{chylla:jbnmr1998,chylla:anchem2011,hu:anchem2011} modeling. Such
+methods translate the task of identifying mixture components into one of
+peak-matching, where each signal in the model is assigned to a known set
+of signals from a given compound. Inclusion of compound identity information
+in the modeling process is the final step towards directly decomposing complex
+mixtures into their substituent parts. Methods such as BATMAN
+\cite{astle:jasa2012,hao:binf2012} and BQuant \cite{zheng:binf2011} have
+been shown to perform quite capably in modeling 1D \hnmr{} NMR spectra, but
+require the specification of spectral information for each potential mixture
+component, and tend to be computationally expensive. Despite the clear
+advantage these more complex approaches hold over soft modeling, their
+adoption by the chemistry community has proceeded incredibly slowly. Without
+easy-to-use software implementations, these advanced modeling algorithms are
+likely to remain a mere afterthought in fields like metabolomics, where
+ease and simplicity reign supreme.
+\\\\
+FIXME: pca-utils.
+\\\\
+FIXME: \npistar{}.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
