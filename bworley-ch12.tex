@@ -9,7 +9,7 @@
  -- Richard Brereton \cite{brereton:jchemo2014b}
 \end{quote}
 
-\section{The Need for Chemometrics}
+\section{The Need for Data Handling}
 
 \begin{doublespace}
 The field of chemometrics is still in its infancy, but the chemometric
@@ -62,7 +62,8 @@ chemists. \hyperlink{chapter.5}{Chapter 5} introduces MVAPACK
 \cite{worley:acscb2014}, an open-source suite of simple GNU Octave
 \cite{eaton2008} functions that aims to address those goals, and
 \hyperlink{chapter.4}{Chapter 4} describes its use on a wide variety of
-applications within the rapidly growing field of metabolomics. The release
+applications within the rapidly growing field of metabolomics
+\cite{worley:acscb2014,marshall:metab2015,worley:anchem2015}. The release
 of MVAPACK under an open-source license ensures transparency, allows for
 critical review by expert members of the chemometrics community, and
 enables modification and extension by its user base.
@@ -132,7 +133,7 @@ probabilities to their values. While these methods report more chemically
 and spectroscopically relevant information than PCA by imposing non-negativity,
 they still return mixtures of multiple compounds in their loadings. Imposition
 of `hard modeling' constraints takes the problem a step further by requiring
-each extracted signal to obey a certain functional form. Hard modeling of NMR
+each extracted signal to obey a certain parametric form. Hard modeling of NMR
 data has been accomplished using time-domain Bayesian
 \cite{bretthorst:jmr1990a,bretthorst:jmr1990b,bretthorst:jmr1990c,
       chylla:jbnmr1993} and maximum-likelihood \cite{chylla:jbnmr1995}
@@ -150,12 +151,54 @@ component, and tend to be computationally expensive. Despite the clear
 advantage these more complex approaches hold over soft modeling, their
 adoption by the chemistry community has proceeded incredibly slowly. Without
 easy-to-use software implementations, these advanced modeling algorithms are
-likely to remain a mere afterthought in fields like metabolomics, where
-ease and simplicity reign supreme.
+likely to remain a mere afterthought in applied fields like metabolomics,
+where usability often outweighs capability.
 \\\\
-FIXME: pca-utils.
+Once models have been constructed around a dataset, the task of inference
+begins, usually involving a great deal more expert chemical or biochemical
+insight than model construction required. At this stage, it can be tempting
+to draw conclusions based on patterns observed in the results. The tendency
+of human perception to over-fit patterns to data can, however, lead analysts
+to infer too much from a model. When chemical conclusions must be drawn from
+scores plots of PCA, PLS-DA or OPLS-DA models, there are simple statistical
+measures that can be taken to avoid misperception of scores-space patterns.
+\hyperlink{chapter.10}{Chapter 10} introduces a set of utilities to
+quantitatively measure and depict separations between classes in
+model scores \cite{worley:abio2013}. These utilities are based on the
+Mahalanobis distance, a multivariate meterstick \cite{demaesschalck:cils2000}
+that takes distributional properties of each class into account. Using these
+utilities, analysts may confidently make statistical arguments about distances
+between experimental classes in a dataset.
 \\\\
-FIXME: \npistar{}.
+Finally, the possibility of the existence a new fundamental electronic
+interaction (the \npistar{} interaction) in proteins was explored in
+\hyperlink{chapter.11}{Chapter 11}. Given the massive amounts of chemical
+and biological data available in depositories like the protein databank
+(PDB, \cite{berman:nar2000}) and the biological magnetic resonance bank
+(BMRB, \cite{ulrich:nar2008}), cheminformatic and bioinformatic data mining
+efforts such as the one performed in \hyperlink{chapter.11}{Chapter 11} are
+becoming increasingly possible. Efforts to curate the existing wealth of data
+into usable quantities, such as models of protein \hnmr{}, \cnmr{} and \nnmr{}
+chemical shifts \cite{osapay:jacs1991,spera:jacs1991,iwadate:jbnmr1999,
+  han:jbnmr2011,li:jmr2015} and order parameters
+\cite{berjanskii:jacs2005,berjanskii:jbnmr2008} have proven useful in
+protein structure determination and refinement protocols. Combined with
+high-accuracy distance \cite{vogeli:pnmrs2014} and orientation
+\cite{li:cpc2015} restraints, these databases will increasingly serve
+as sources of prior information in novel probabilistically driven structure
+determination efforts \cite{nilges:struct2009,olsson:jctc2014}.
+\\\\
+While the raw amount of data is not quite as overwhelming in chemometrics as
+it may be in cheminformatic and bioinformatic studies, its complexity is just
+as great. As efforts to model protein structure and dynamics, cellular
+metabolic flux, and multicomponent chemical mixtures continue, data handling
+methods must be advanced to ensure maximal `information handling' is achieved.
+These methods must be provided in easy-to-use software packages that allow
+their users to focus on scientific inquiry, rather than trudging though manual
+pages to find the special syntax of a given function. Of course, doing so
+will require deep, multidisciplinary collaboration between groups that
+specialize in computer science, mathematics, statistics, chemistry and
+biology.
 \end{doublespace}
 
 \bibliographystyle{abbrv}
