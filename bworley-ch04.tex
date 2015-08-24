@@ -106,7 +106,7 @@ standard UV/Vis absorption spectra by taking the mean of the spectra after
 multiplicative scatter correction (MSC, \cite{fearn:cils2009}). To quantify
 caffeine in the extracts, the absorption spectrum of each extract was fit by
 nonlinear least squares \cite{marquardt:jsiam1963} to the sum of the scaled
-caffeine reference spectrum and no more than two extra `background' Gaussian
+caffeine reference spectrum and no more than two extra ``background'' Gaussian
 bands (\figref{4.1}{Figure 4.1}). The ratio of the fit caffeine reference
 spectrum in each extract to that of the known samples was used as an estimate
 of caffeine concentration in the extracts. Concentrations of the medium
@@ -151,7 +151,7 @@ of the coffees dataset using MVAPACK.
 For principal component analysis (PCA), the dataset was normalized by the
 method of probabilistic quotients (PQ, \cite{dieterle:anchem2006}) and
 subjected to adaptive intelligent binning \cite{demeyer:anchem2008}.
-Low-variation `noise' bins were automatically removed from the dataset
+Low-variation bins were automatically removed from the dataset
 \cite{zhang:opin2008}, resulting in a final data matrix having 64 observations
 and 284 variables. The data matrix was scaled to unit variance
 \cite{vandenberg:bmcg2006} prior to NIPALS PCA modeling \cite{jolliffe2002},
@@ -211,9 +211,9 @@ exporting the final processed and treated data matrices from GNU Octave and
 modeling them in SIMCA-P+ 13.0 (Umetrics AB, Umea, Sweden). The scores
 extracted from SIMCA and MVAPACK were found to have coefficients of
 determination (\rsq{}) of 0.999976 and 0.999989 for the PCA and OPLS models,
-respectively. The `imperfect' non-unity values of \rsq{} reflect the fact that
-SIMCA-P+ 13.0 only permits the export of scores with no more than four decimal
-places.
+respectively. The ``imperfect'' non-unity values of \rsq{} reflect the fact
+that SIMCA-P+ 13.0 only permits the export of scores with no more than four
+decimal places.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -315,8 +315,8 @@ background signal, possibly due to more correct brewing technique.
 \section{Fingerprinting of Joint \hnmr{} NMR and DI-ESI-MS Data}
 
 \begin{doublespace}
-Multiblock bilinear factorizations such as CPCA, MB-PLS and MB-OPLS provide a
-powerful framework for analyzing a set of multivariate observations from
+Multiblock bilinear factorizations such as CPCA-W, MB-PLS and MB-OPLS provide
+a powerful framework for analyzing a set of multivariate observations from
 multiple analytical measurements containing potentially correlated variables
 \cite{westerhuis:jchemo1997,westerhuis:jchemo1998,smilde:jchemo2003}. Such
 algorithms provide analogous information to PCA, PLS and OPLS in situations
@@ -351,8 +351,8 @@ procedures \cite{zhang:jiomic2013}. A Bruker Avance DRX 500 MHz spectrometer
 equipped with a 5 mm inverse triple-resonance cryoprobe (\hnmr{}, \cnmr{},
 \nnmr{}) with a $z$-axis gradient, a BACS-120 sample changer, and an automatic
 tuning and matching accessory were utilized for automated NMR data collection.
-Free induction decays were collected into 32$k$ complex data points over a
-spectral window of $2,342 \pm 2,741$ ppm, using the SOGGY water suppression
+Free induction decays were collected into 32,768 complex data points over a
+spectral window of 2,342$\pm$2,741 ppm, using the SOGGY water suppression
 pulse sequence (\emph{zgesgp}, \cite{hwang:jmr1995,nguyen:jmr2007}).
 \\\\
 Following acquisition, the 1D \hnmr{} NMR free induction decays were processed
@@ -360,7 +360,7 @@ in the MVAPACK toolbox \cite{worley:acscb2014}. A 1.0 Hz exponential
 apodization fuction and a single round of zero-filling were applied prior to
 Fourier transformation. Spectra were then automatically phased and normalized
 using phase-scatter correction (PSC, \cite{worley:cils2014},
-cf. \hyperlink{chapter.6}{Chapter 6}). Finally, chemical shift regions
+\hyperlink{chapter.6}{Chapter 6}). Finally, chemical shift regions
 containing spectral baseline noise or solvent signals were manually removed.
 Binning of the processed NMR spectra was performed using the Adaptive
 Intelligent (AI) binning algorithm that avoids splitting signals into
@@ -408,7 +408,7 @@ was ensured by further scaling each block by the square root of its variable
 count \cite{smilde:jchemo2003}. For the purposes of comparison, PCA and PLS
 models of the independent NMR and MS data matrices were also constructed.
 All PLS models were trained on a binary discriminant response matrix
-(i.e. PLS-DA), in which untreated cells were assigned for one class,
+(i.e. PLS-DA), in which untreated cells were assigned to one class,
 and all neurotoxin-treated cells were assigned to a second class.
 \end{doublespace}
 
@@ -467,20 +467,20 @@ to supplement the results of the permutation tests.
 \subsubsection{Classical Modeling}
 
 \begin{doublespace}
-PCA of the binned NMR data matrix ($N = 29, K = 159$) resulted in 10 principal
-components having cumulative \rsqx{} and \qsq{} statistics of 0.9485 and
-0.4591, respectively, based on LOOCV. Overall, no patterns were readily
-discernable in the NMR PCA scores (\figref{4.7}{Figure 4.7A}) due to high
-within-class variation in the data. However, scores for paraquat treatment
+PCA of the binned NMR data matrix ($N$ = 29, $K$ = 159) resulted in 10
+principal components having cumulative \rsqx{} and \qsq{} statistics of
+0.9485 and 0.4591, respectively, based on LOOCV. Overall, no patterns were
+readily discernable in the NMR PCA scores (\figref{4.7}{Figure 4.7A}) due to
+high within-class variation in the data. However, scores for paraquat treatment
 were found to significantly separate from all other classes ($p < 0.002$)
 along the first principal component. Scores from PCA of the binned MS data
-matrix ($N = 29, K = 2,095$) were found to exhibit markedly less within-class
+matrix ($N$ = 29, $K$ = 2,095) were found to exhibit markedly less within-class
 variation compared to the NMR data (\figref{4.7}{Figure 4.7B}). Using LOOCV,
 three significant components were identified from the binned MS data, yielding
 fairly low cumulative \rsqx{} and \qsq{} statistics of 0.3397 and 0.1590.
 While paraquat treatment still separated from other drug treatments in MS
 PCA scores space, the greatest separations were observed between treated
-and untreated (control) cells ($p < 1.0 \times 10^{-9}$). These differing
+and untreated (control) cells ($p < \times 10^{-9}$). These differing
 patterns of separation in NMR and MS PCA scores suggested that multiblock
 analyses could provide further information, ideally separating both control
 and paraquat scores from all other classes. \figref{4.8}{Figure 4.8} contains
@@ -496,11 +496,11 @@ substantially over-estimated the number of principal components in each
 matrix. A comparison of the resulting \qsq{} statistics from LOOCV and MCCV
 is shown in \figref{4.9}{Figure 4.9}.
 \\\\
-PLS-DA of the full-resolution NMR ($N = 29, K = 16,138$) and
-MS ($N = 29, K = 2,095$) data matrices both resulted in two-component models.
+PLS-DA of the full-resolution NMR ($N$ = 29, $K$ = 16,138) and
+MS ($N$ = 29, $K$ = 2,095) data matrices both resulted in two-component models.
 With the exception of the algorithmically forced separation between control
 and treatment classes, similar clustering patterns were observed when compared
-to the PCA scores (cf. \figref{4.10}{Figure 4.10A--B}). MCCV results from the
+to the PCA scores (\figref{4.10}{Figure 4.10A--B}). MCCV results from the
 NMR ($R^2_Y = 0.9519, Q^2 = 0.7303 \pm 0.0517$) and
 MS ($R^2_Y = 0.9951, Q^2 = 0.9440 \pm 0.01142$) PLS-DA models indicated
 reasonable levels of response fit and predictive ability. Further validation
@@ -765,7 +765,7 @@ binary $(0,1)$ response vector ($\mathbf{y}$) and a NIPALS OPLS algorithm
 constructed, from which backscaled predictive loadings were extracted by
 dividing by the coefficients obtained from Pareto scaling
 \cite{cloarec:anchem2005b}. The Pearson correlation coefficient between
-backscaled loadings and the known `true' loadings --
+backscaled loadings and the known ``true'' loadings --
 $\mathrm{corr}(\mathbf{p},\mathbf{p_0})$ -- was computed for later
 visualization. Explained variation (\rsqy{}) was computed as described in
 \hyperlink{section.3.6}{Section 3.6}. A Monte Carlo leave-$n$-out internal
@@ -813,8 +813,8 @@ $F$-statistic for $p$ value generation.
 \subsection{Results and Discussion}
 
 \begin{doublespace}
-As expected, PCA scores-space class separations rapidly decreased as noise is
-added to the data. Addition of noise also forced a rise in OPLS-DA
+As expected, PCA scores-space class separations rapidly decreased as noise
+was added to the data. Addition of noise also forced a rise in OPLS-DA
 cross-validation statistics. As a result, a strong exponential relationship
 is observed between Mahalanobis distances calculated from PCA scores and
 CV-ANOVA $p$ values from OPLS-DA models (\figref{4.15}{Figures 4.15A} and

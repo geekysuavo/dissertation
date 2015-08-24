@@ -16,7 +16,7 @@ greater variation between groups than within them \cite{worley:abio2013}.
 Normalization applied directly to hypercomplex NMR data (or its real component)
 is sub-optimal, as even small phase differences between observations can
 frustrate the estimation of normalization factors
-(See \hyperlink{section.3.3}{Section 3.3}). Possibly worse, blind
+(cf. \hyperlink{section.3.3}{Section 3.3}). Possibly worse, blind
 normalization of poorly phased spectral data can accentuate experimentally
 irrelevant spectral features in a data tensor during multivariate modeling,
 leading the analyst to erroneous conclusions. These difficulties motivated
@@ -91,7 +91,7 @@ from optimization as follows:
  + \langle \mathbf{r} \rangle
 \end{equation}
 
-Phase-scatter correction of 50 1D \hnmr{} NMR spectra having 32$k$ complex
+Phase-scatter correction of 50 1D \hnmr{} NMR spectra having 32,768 complex
 points each requires approximately 30 seconds on a single-core 3.2 GHz Intel
 workstation running GNU Octave 3.6.
 \end{doublespace}
@@ -172,14 +172,14 @@ Previously collected \hnmr{} NMR spectral data from published work
 for performance analysis of PSC versus other normalization methods. Free
 induction decays were loaded into GNU Octave 3.6 \cite{eaton2008} for
 processing using MVAPACK routines \cite{worley:acscb2014}. Time-domain signals
-were zero-filled to 32$k$ points and Fourier transformed, resulting in
+were zero-filled to 32,768 points and Fourier transformed, resulting in
 a complex data matrix of 177 spectra divided amongst 16 classes
-($N = 177, K = 32,768, M = 16$). Spectra were both automatically phase
+($N$ = 177, $K$ = 32,768, $M$ = 16). Spectra were both automatically phase
 corrected by simplex entropy minimization \cite{chen:jmr2002} and manually
 phase corrected by applying a constant phase shift to all spectra. Both
 automatically and manually phase corrected datasets were then normalized using
 the CS, PQ, HM, SNV, MSC and PSC methods
-(cf. \hyperlink{subsection.3.4.3}{Normalization}).
+(cf. \hyperlink{subsection.3.4.3}{Chapter 3}).
 Each normalized data matrix was binned using a uniform 0.04 ppm bin width,
 scaled per-variable to unit variance, and subjected to PCA. The $J_2$ statistic
 \cite{koutroumbas2006} was calculated for each class to provide a measure of
@@ -256,7 +256,7 @@ pH 7.4 were downloaded from the Biological Magnetic Resonance Bank
 functions using ACD/1D NMR Processing (Advanced Chemistry Development).
 Peak amplitudes ($A$), chemical shifts ($\omega_0$), and widths ($\lambda$)
 returned from fitting were loaded into GNU Octave to generate simulated spectra
-having 64$k$ data points and a spectral width of 11 ppm, centered at
+having 65,536 data points and a spectral width of 11 ppm, centered at
 4.7 ppm, based on the following model function:
 \begin{equation}
 s(\omega_k) =

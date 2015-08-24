@@ -28,7 +28,7 @@ to models, data, and their combinations:
 In this highly generalized equation describing chemometric modeling,
 $\mathbf{D}$ is an experimentally measured dataset, $f(\mathbf{D})$ is
 a mathematical model that recapitulates $\mathbf{D}$, and $\mathbf{E}$ is
-the model `error', or variation in the measured data that is not
+the model ``error'', or information in the measured data that is not
 captured or described by the model. The ultimate goal of the analyst is to
 generate a set of measured data $\mathbf{D}$ and construct a model
 $f(\mathbf{D})$ that best describes that data (i.e. such that
@@ -96,7 +96,7 @@ environments and motional dynamics of \hnmr{}, \cnmr{} and \nnmr{} nuclei in
 biomolecules \cite{abragam1961,levitt2008}. While the amount of
 information contained within one-dimensional (1D) NMR spectra is high, it is
 commonly held in a relatively narrow spectral width
-(e.g. -2.0 -- 16 ppm for \hnmr{} spectra). As a result, 1D \hnmr{} NMR spectra
+(e.g. $-2.0$ -- $16$ ppm for \hnmr{} spectra). As a result, 1D \hnmr{} NMR spectra
 of complex metabolite mixtures or biomacromolecules suffer from severe signal
 overlap that confounds analysis and interpretation.
 \\\\
@@ -109,12 +109,14 @@ information from 1D \hnmr{} spectra into two or more dimensions. While
 multidimensional experiments alleviate signal overlap, they require
 significantly more time to acquire than 1D spectra, as any $D$-dimensional
 experiment is effectively a $(D-1)$-dimensional array of $2^{D-1}$
-one-dimensional experiments. Time constraints imposed by throughput
-requirements, sample stability and instrumental maintenance have historically
-forced spectroscopists to harshly undersample their multidimensional datasets
-in the time domain, resulting in frequency domain digital resolutions much
-lower than the intrinsic linewidth of their samples
-\cite{szyperski:pnas2002,rovnyak:jbnmr2004}.
+one-dimensional experiments.\footnote{The factor of $2^{D-1}$ arises from the
+fact that each dimension is collected in hypercomplex quadrature, as discussed
+in more detail in \hyperlink{subsection.3.3.1}{Chapter 3}.} Time
+constraints imposed by throughput requirements, sample stability and
+instrumental maintenance have historically forced spectroscopists to harshly
+undersample their multidimensional datasets in the time domain, resulting in
+frequency domain digital resolutions much lower than the intrinsic linewidth
+of their samples \cite{szyperski:pnas2002,rovnyak:jbnmr2004}.
 \end{doublespace}
 
 \begin{SCfigure}
@@ -160,7 +162,7 @@ standard deviation in order to operate most effectively. When this modification
 is instrumentation-specific, it is referred to as {\it processing}; otherwise,
 it is considered a form of statistical {\it treatment}. The choice of which
 processing and treatment methods to apply to a given dataset $\mathbf{D}$
-varies, depending on how the data was collected, which model $f(\mathbf{D})$
+varies, depending on how the data were collected, which model $f(\mathbf{D})$
 is used, and what information is sought from the model by the analyst.
 \\\\
 Processing of NMR spectral datasets presents unique challenges to the analyst,
@@ -269,10 +271,10 @@ sampling framework that provides several attractive advantages over traditional
 probability density-based nonuniform sampling methods. While most methods of
 generating nonuniform sampling schedules rely on randomly sampling from a
 specified weighting function that is defined over a Nyquist grid, this new
-method of gap sampling builds up schedules based on the value of a `gap
-equation' that specifies the spacing between sampled Nyquist grid points. The
-gap sampling framework is first defined, and comparisons in performance are
-made between specific forms of gap sampling and the stochastic Poisson-gap
+method of gap sampling builds up schedules based on the value of a ``gap
+equation'' that specifies the spacing between sampled Nyquist grid points.
+The gap sampling framework is first defined, and comparisons in performance
+are made between specific forms of gap sampling and the stochastic Poisson-gap
 sampling method from Hyberts and Wagner \cite{hyberts:jacs2010}.
 \\\\
 A comprehensive description of the required data handling tasks -- steps
@@ -301,8 +303,8 @@ protein-ligand affinity screens. \hyperlink{chapter.8}{Chapter 8} introduces
 a novel method of data treatment (Generalized Adaptive Intelligent Binning)
 that enables the direct use of multidimensional data tensors in PCA and PLS
 modeling. Both phase-scatter correction and GAI-binning were developed within
-the MVAPACK toolbox, which was specifically for efficient management of NMR
-spectral data.
+the MVAPACK toolbox, which was specifically designed for efficient management
+of NMR spectral data.
 \\\\
 \hyperlink{chapter.9}{Chapter 9} introduces the multiblock orthogonal
 projections to latent structures (MB-OPLS) modeling method for handling

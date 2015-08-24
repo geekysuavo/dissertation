@@ -66,7 +66,7 @@ The extraction of information from data in metabolomics experiments is further
 complicated by the inherent variability present within each sample. Every
 single cell, tissue, organ or organism is fundamentally unique
 \cite{rubakhin:nmeth2011}, despite any features (disease state, drug
-treatment, {\it etc.}) it may have in common with others of its kind. Thus,
+treatment, etc.) it may have in common with others of its kind. Thus,
 the differentiation between two experimental groups in a metabolomics
 experiment requires the identification of relatively few defining or
 discriminating chemical features against a large, complex background of
@@ -805,7 +805,7 @@ kind of information is sought from a data matrix using that method.
 \subsection{Principal Component Analysis}
 
 \begin{doublespace}
-In principal component analysis (PCA), which exactly follows equation (3.20),
+In principal component analysis (PCA), which exactly follows equation 3.20,
 the loading vectors in $\mathbf{P}$ are constrained to be an orthonormal basis
 set. More precisely, the loadings produced by PCA are not just any orthonormal
 basis, but are in fact the first $A$ eigenvectors of the sample covariance
@@ -877,11 +877,16 @@ the loadings assignment, we arrive at the following iteration equation:
 which is the equation for power iteration on $\mathbf{X}^T \mathbf{X}$
 \cite{golub2012}. Indeed, the NIPALS algorithm implicitly computes the
 dominant eigenvector $\mathbf{p}$ of the $K \times K$ sample covariance
-matrix, with a corresponding eigenvalue $\mathbf{t}^T \mathbf{t}$. The above
-algorithm computes a single principal component of $\mathbf{X}$ in the form
-of $\mathbf{t}$ and $\mathbf{p}$. In order to compute a second component,
-the first component's contributions must be subtracted from $\mathbf{X}$,
-a step referred to as ``deflation'':
+matrix, with a corresponding eigenvalue $\mathbf{t}^T \mathbf{t}$:
+\begin{equation*}
+\mathbf{X}^T \mathbf{X} \mathbf{p} =
+ \left( \mathbf{t}^T \mathbf{t} \right) \mathbf{p}
+\end{equation*}
+
+The above algorithm computes a single principal component of $\mathbf{X}$ in
+the form of $\mathbf{t}$ and $\mathbf{p}$. In order to compute a second
+component, the first component's contributions must be subtracted
+from $\mathbf{X}$, a step referred to as ``deflation'':
 \begin{equation}
 \mathbf{X}' \gets \mathbf{X} - \mathbf{t} \mathbf{p}^T
 \end{equation}
@@ -898,20 +903,20 @@ an optimal number of components $A^\ast$ is reached.
 From the algebraic properties of PCA, an intuitive geometric picture may be
 constructed (\figref{3.9}{Figure 3.9}). In essence, PCA determines the
 directions within a data matrix -- the principal components -- that contain
-the greatest sources of variation in that matrix (3.9A), where each direction
-is constrained to be orthogonal to all previous directions. When observations
-in $\mathbf{X}$ fall into two or more experimental groups, they produce
-different clustering patterns in the PCA scores $\mathbf{T}$. In cases where
-the within-group variation in one or more groups is the major source of
-variation in $\mathbf{X}$, PCA will fail to effectively separate the groups
-in scores space (\figref{3.9}{Figure 3.9B}). However, when the between-group
-variation significantly contributes to the total variation in $\mathbf{X}$,
-the groups will be well-separated (\figref{3.9}{3.9C}). Thus, PCA is a
-powerful method of identifying major trends among variables in
-a data matrix, as well as general relationships between observations, and does
-not bias its results based on class identity. For a description of methods to
-quantify separations between experimental groups in PCA scores space, see
-\hyperlink{chapter.7}{Chapter 7}.
+the greatest sources of variation in that matrix (\figref{3.9}{3.9A}),
+where each direction is constrained to be orthogonal to all previous
+directions. When observations in $\mathbf{X}$ fall into two or more
+experimental groups, they produce different clustering patterns in the PCA
+scores $\mathbf{T}$. In cases where the within-group variation in one or
+more groups is the major source of variation in $\mathbf{X}$, PCA will fail
+to effectively separate the groups in scores space (\figref{3.9}{3.9B}).
+However, when the between-group variation significantly contributes to the
+total variation in $\mathbf{X}$, the groups will be well-separated
+(\figref{3.9}{3.9C}). Thus, PCA is a powerful method of identifying major
+trends among variables in a data matrix, as well as general relationships
+between observations, and does not bias its results based on class identity.
+For a description of methods to quantify separations between experimental
+groups in PCA scores space, see \hyperlink{chapter.10}{Chapter 10}.
 \end{doublespace}
 
 \subsubsection{PCA for Outlier Detection}
@@ -1155,7 +1160,7 @@ the data and response matrices:
 and re-applying NIPALS on $\mathbf{X}'$ and $\mathbf{Y}'$. Unlike PCA, the PLS
 loadings $\mathbf{P}$ are not orthogonal, and the $\mathbf{X}$-scores are
 instead obtained through a linear transformation by a set of non-orthogonal
-`weights' $\mathbf{W}^\ast \in \mathbb{R}^{K \times A}$, like so:
+``weights'' $\mathbf{W}^\ast \in \mathbb{R}^{K \times A}$, like so:
 \begin{equation}
 \mathbf{T} = \mathbf{X} \mathbf{W}^\ast
 \end{equation}
@@ -1198,11 +1203,12 @@ the following transformation \cite{manne:cils1987}:
 The PLS modeling framework expresses the data and response matrices as a pair
 of low-rank bilinear factorizations, where the data scores $\mathbf{T}$ hold
 variation in the data that is $\mathbf{Y}$-predictive, as well as variation
-that compensates for the $\mathbf{Y}$-uncorrelated portion of the data. As a
-result, PLS models typically require more components than response matrix
-columns. In other words, $A^\ast \ge M$ for any PLS model, where the two are
-equal if and only if no $\mathbf{Y}$-uncorrelated variation is present in
-$\mathbf{X}$. This presence of `compensatory correlations' in PLS scores
+that compensates for the $\mathbf{Y}$-uncorrelated portion of the data
+\cite{gottfries:jchemo2008}. As a result, PLS models typically require
+more components than response matrix columns. In other words, $A^\ast \ge M$
+for any PLS model, where the two are equal if and only if no
+$\mathbf{Y}$-uncorrelated variation is present in $\mathbf{X}$.
+This presence of ``compensatory correlations'' in PLS scores
 confounds interpretation of scores and loadings produced by such
 non-parsimonious PLS models.
 \\\\
@@ -1309,12 +1315,12 @@ algorithm computes one predictive (PLS) component in the vectors $\mathbf{t}$
 and $\mathbf{p}$, and $a$ orthogonal components in $\mathbf{T_o}$ and
 $\mathbf{P_o}$. While the above algorithm appears considerably more complicated
 than those for PCA or PLS, it is essentially a PLS algorithm (lines 10--16)
-that has been wrapped in an OSC filter (main `done' loop). At each execution
+that has been wrapped in an OSC filter (main ``done'' loop). At each execution
 of the main loop, a single PLS component is computed on the current predictive
 data matrix, $\mathbf{E}$. If a new orthogonal component may be obtained from
 this PLS component that contains significant variation
 (i.e. $\lambda > \lambda_{th}$), it is added to the set of orthogonal
-components and subtracted from $\mathbf{X_p}$, from which an updated PLS
+components and subtracted from $\mathbf{E}$, from which an updated PLS
 component is computed. As in PCA and PLS, computation of subsequent OPLS
 component sets is achieved by first deflating the data and response matrices:
 \begin{align}
@@ -1343,14 +1349,15 @@ OPLS and PLS will produce identical models.
 \subsubsection{O2PLS}
 
 \begin{doublespace}
-While the above NIPALS OPLS algorithm is designed to handle matrix-$\mathbf{Y}$
-multivariate regression problems, its creators have championed the O2PLS
-\cite{trygg:jchemo2003} method instead of OPLS in such situations. Whereas OPLS
-is a unidirectional (i.e. $\mathbf{X} \mapsto \mathbf{Y}$) regression method,
+While the above NIPALS OPLS algorithm is capable of handling
+matrix-$\mathbf{Y}$ multivariate regression problems, its creators
+have championed the O2PLS \cite{trygg:jchemo2003} method instead
+of OPLS in such situations. Whereas OPLS is a unidirectional
+(i.e. $\mathbf{X} \mapsto \mathbf{Y}$) regression method,
 the bidirectional O2PLS method considers neither matrix to be special, and
 decomposes each matrix into a `local' or `unique' component and a `joint'
 component (i.e. $\mathbf{X} \leftrightarrow \mathbf{Y}$). The O2PLS modeling
-framework provides an unsupervised means of analyzing relationships between
+method provides an unsupervised means of analyzing relationships between
 two spectral data matrices, where variation exists in each matrix that is
 uncorrelated to the other.
 \end{doublespace}
@@ -1361,13 +1368,13 @@ uncorrelated to the other.
 In analogy to PCA, which seeks directions of maximum variation (loadings) in a
 data matrix, the consensus PCA (CPCA-W,
 \cite{westerhuis:jchemo1998,smilde:jchemo2003}) seeks
-a set of `consensus' loadings $\mathbf{P}_b$ that contain a maximum amount
+a set of ``consensus'' loadings $\mathbf{P}_b$ that contain a maximum amount
 of variation in each of the $B$ provided data blocks $\mathbf{X}_b$ while
-retaining variation relating each block to the others. In essence, CPCA-W
-returns a PCA `super-model' for the matrix of concatenated blocks $\mathbf{X}$
-and a PCA block model for each individual block $\mathbf{X}_b$:
+retaining variation that relates each block to the others. In essence, CPCA-W
+returns a PCA ``super-model'' for the matrix of concatenated blocks
+$\mathbf{X}$ and a PCA block model for each individual block $\mathbf{X}_b$:
 \begin{align}
-\mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
+\mathbf{X} =& \: [\mathbf{X}_1, \dots, \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X}_b =& \: \mathbf{T}_b {\mathbf{P}_b}^T + \mathbf{E}_b
  \quad \forall b \in \ints{1}{B}
@@ -1423,11 +1430,12 @@ When block scaling is applied to each data block, the super-scores and
 super-loadings produced by CPCA-W of the blocks will be equivalent to scores
 and loadings from PCA of the concatenated matrix
 \cite{westerhuis:jchemo1998,smilde:jchemo2003}. Thus, the super-loadings
-from CPCA-W are again the set of eigenvectors of the sample covariance matrix
-of $\mathbf{X}$. The loadings of each individual block are the projections of
-that block onto the super-scores (cf. line 13 of the above equation). As a
-result, each block model describes block-specific variation that is correlated
-to the `consensus directions' of the combined set of blocks.
+($\mathbf{p}$) from CPCA-W are again the set of eigenvectors of the sample
+covariance matrix of $\mathbf{X}$. The loadings of each individual block
+are the projections of that block onto the super-scores
+(Algorithm 3.4, line 11). As a result, each block model describes
+block-specific variation that is correlated to the consensus directions
+of the combined set of blocks.
 \end{doublespace}
 
 \subsection{Multiblock PLS}
@@ -1438,11 +1446,11 @@ problems of high-dimensional multiple linear regression of multiple data
 blocks against a single matrix of responses. However, one particular extension,
 known as multiblock PLS (MB-PLS), was described \cite{westerhuis:jchemo1997}
 that has several attractive features. Like CPCA-W, MB-PLS constructs a
-`super-model' that relates the concatenated set of $B$ blocks to the response
+super-model that relates the concatenated set of $B$ blocks to the response
 matrix $\mathbf{Y}$, but concomitantly breaks each block into its own model
 that describes that block's contribution to $\mathbf{Y}$-prediction:
 \begin{align}
-\mathbf{X} =& \: [\mathbf{X}_1, \dots \mathbf{X}_B] \\
+\mathbf{X} =& \: [\mathbf{X}_1, \dots, \mathbf{X}_B] \\
            =& \: \mathbf{T} \mathbf{P}^T + \mathbf{E} \\
 \mathbf{X}_b =& \: \mathbf{T}_b {\mathbf{P}_b}^T + \mathbf{E}_b
  \quad \forall b \in \ints{1}{B} \\
@@ -1507,11 +1515,11 @@ each data block using super-scores \cite{westerhuis:jchemo1997}, like so:
 It can be shown \cite{westerhuis:jchemo1998} that MB-PLS using block scaling
 and super-score deflation produces an identical super-model to that obtained
 by PLS modeling of the concatenated matrix $\mathbf{X}$, which indicates that
-the super-loadings produced by MB-PLS are still eigenvectors of the matrix of
+the super-weights produced by MB-PLS are still eigenvectors of the matrix of
 cross-covariances between $\mathbf{X}$ and $\mathbf{Y}$. Thus, MB-PLS provides
 the analyst with a standard PLS model that descibes how the joint data in
 $\mathbf{X}$ predict $\mathbf{Y}$, as well as how each individual data block
-contributes to the joint prediction.
+$\mathbf{X}_b$ contributes to the joint prediction.
 \end{doublespace}
 
 \subsection{Multiblock OPLS}
@@ -1527,9 +1535,10 @@ in OnPLS is special, and all matrices are regressed against all others in a
 complete association graph (\figref{3.13}{Figure 3.13A}). While such complete
 connectivity may be useful during unsupervised modeling, it is an
 overcomplication in the multiblock regression schemes normally handled in
-metabolomics (cf. \hyperlink{chapter.9}{Chapter 9}. Because each data block
+metabolomics (cf. \hyperlink{chapter.9}{Chapter 9}). Because each data block
 must only predict a single block of responses (\figref{3.11}{Figure 3.11B}),
-the multiblock OPLS (MB-OPLS) method is a more suitable candidate.
+the recently developed multiblock OPLS (MB-OPLS) method is a more suitable
+candidate.
 \\\\
 Multiblock OPLS decomposes each block $\mathbf{X}_b$ into a set of
 $\mathbf{Y}$-predictive scores and loadings, as well as a set of
@@ -1546,13 +1555,14 @@ interfere with MB-PLS predictions:
            =& \: \mathbf{T} \mathbf{C}^T + \mathbf{F} \nonumber
 \end{align}
 
-The recently developed MB-OPLS algorithm (cf. \hyperlink{chapter.9}{Chapter 9})
-is based on NIPALS MB-PLS, with an added OPLS-type OSC filter that removes
-$\mathbf{Y}$-uncorrelated variation from super-loadings. Deflation of
-predictive and orthogonal components from each block is achieved using
-super-scores, as in the above MB-PLS algorithm. The complete
-matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
+The MB-OPLS algorithm, described in greater detail in
+\hyperlink{chapter.9}{Chapter 9}, is based on NIPALS MB-PLS with an
+added OPLS-type OSC filter that removes $\mathbf{Y}$-uncorrelated variation
+from super-loadings. Deflation of predictive and orthogonal components from
+each block is achieved using super-scores, as in the above MB-PLS algorithm.
+The complete matrix-$\mathbf{Y}$ MB-OPLS algorithm follows on the next page.
 \end{doublespace}
+\newpage
 
 \begin{algorithm}[H]
 \caption{NIPALS Algorithm for MB-OPLS}
@@ -1635,6 +1645,21 @@ matrix-$\mathbf{Y}$ MB-OPLS algorithm is as follows:
 \end{algorithm}
 \newpage
 
+\begin{SCfigure}
+\includegraphics[width=3.5in]{figs/mva/13-assoc.png}
+\caption
+      [Association Graphs for OnPLS and MB-OPLS.]{
+  {\bf Association Graphs for OnPLS and MB-OPLS.}
+  \\
+  ({\bf A}) Completely connected graph of nPLS and OnPLS regression
+  models, in which no single matrix is considered unique.
+  ({\bf B}) Sparsely connected acyclic graph of MB-PLS and MB-OPLS
+  regression models, where each data block $\mathbf{X}_b$ predicts
+  the unique matrix $\mathbf{Y}$.
+}
+\label{figure.3.13}
+\end{SCfigure}
+
 \begin{doublespace}
 Computation of another predictive component requires the deflation of each
 data block by both the predictive super-scores $\mathbf{t}$ and the
@@ -1655,23 +1680,6 @@ loadings may be obtained from an OPLS model trained on the concatenated
 matrix $\mathbf{X}$. The following algorithm describes the steps required
 to extract block-level models from super-model scores and loadings.
 \end{doublespace}
-
-\begin{figure}[ht!]
-\begin{center}
-  \includegraphics[width=5in]{figs/mva/13-assoc.png}
-\end{center}
-\caption
-      [Association Graphs for OnPLS and MB-OPLS.]{
-  {\bf Association Graphs for OnPLS and MB-OPLS.}
-  \\
-  ({\bf A}) Completely connected graph of nPLS and OnPLS regression models,
-  illustrating how no single matrix is considered unique during training.
-  ({\bf B}) Sparsely connected acyclic graph of MB-PLS and MB-OPLS regression
-  models, where each data block $\mathbf{X}_b$ predicts a set of responses held
-  in the unique matrix $\mathbf{Y}$.
-}
-\label{figure.3.13}
-\end{figure}
 
 \begin{algorithm}[H]
 \caption{Extraction of MB-OPLS Factors from OPLS}
@@ -1833,7 +1841,7 @@ R^2_X =
       {\frosq{\mathbf{X}}}
 \end{equation}
 
-In the case of PLS modeling (equation 3.37), a similar ratio exists (\rsqy{})
+In the case of PLS modeling (equation 3.37), a second ratio exists (\rsqy{})
 that quantifies the amount of variation explained in the responses:
 \begin{align}
 R^2_Y
@@ -1844,7 +1852,7 @@ R^2_Y
 Similar expressions exist for the predictive and orthogonal factorizations of
 $\mathbf{X}$ in OPLS models, which are referred to as \rsqxp{} and \rsqxo{},
 respectively. While these \rsq{} statistics provide valuable first insights
-into the amount of variation that may be explained by a given model framework,
+into the amount of variation that may be explained by a multivariate model,
 they are gross over-estimations of model reliability and should not be used
 during model selection as a means of determining the optimal component count,
 $A^\ast$. Cross-validatory methods discussed in later sections provide more
@@ -1877,8 +1885,9 @@ validation-set responses:
 \mathrm{PRESS} = \frosq{\mathbf{Y}_v - \hat{\mathbf{Y}}_v}
 \end{equation}
 
-A scale-invariant reporter of reliability (\qsq{}) is obtained from the PRESS
-statistic as follows:
+Like any other sum of squares measure, PRESS depends on the magnitudes of the
+values in $\mathbf{Y}$. Thus, a scale-invariant reporter of reliability
+(\qsq{}) is obtained from the PRESS statistic as follows:
 \begin{equation}
 Q^2
  = 1 - \frac{\mathrm{PRESS}}{\sstot{}}
@@ -1898,7 +1907,7 @@ quadratically penalizes values in $\hat{\mathbf{y}}$ that are beyond the class
 labels in $\mathbf{y}$. In more concrete terms, a cross-validation predicted
 class label of 1.5 for a true class label of 1.0 should incur no penalty, as
 it represents an unambiguous prediction. However, the quadratic nature of
-\qsq{} penalizes such results. When PLS and OPLS are used for class
+\qsq{} penalizes such results. When PLS and OPLS are used for binary class
 discrimination, the more suitable ``discriminant \qsq{}'' (\dqsq{}) is a more
 suitable metric of reliability:
 \begin{equation}
@@ -1916,7 +1925,7 @@ where PRESSD represents the discriminant PRESS statistic:
 
 In effect, PRESSD computes the sum of all squared $\mathbf{y}$-residuals that
 represent a potentially ambiguous classification \cite{westerhuis:metab2008b}.
-The same result may be achieved by simply bounding the values within
+The same result may be achieved by appropriately bounding the values within
 $\hat{\mathbf{y}}$ to the class label extents in $\mathbf{y}$, followed by the
 use of standard PRESS and \qsq{} calculations. This alternative strategy has
 the added benefit of ensuring that the prediction sum of squares
@@ -1949,9 +1958,13 @@ $G$ groups, denoted $\mathbb{P}(N, G)$, shall be introduced:
 \big\}
 \end{equation}
 
-As an example, one member of the set $\mathbb{P}(7, 3)$ is $(1,2,3,1,2,3,1)$.
-Given a partitioning $\boldsymbol{\sigma} \in \mathbb{P}(N, G)$, the following
-algorithm demonstrates the computation of \qsq{} for a single PLS component:
+As an example, one member of the set $\mathbb{P}(7, 3)$ is
+$(1,2,3,1,2,3,1)$.\footnote{This type of partitioning actually has a name, and
+is often seen in practical cross-validation schemes. It is colloquially
+referred to as a ``Venetian blinds'' partitioning of seven observations into
+three groups.} Given a partitioning $\boldsymbol{\sigma} \in \mathbb{P}(N, G)$,
+the following algorithm demonstrates the computation of \qsq{} for a single
+PLS component:
 \end{doublespace}
 
 \begin{algorithm}[H]
@@ -2035,9 +2048,9 @@ training is to only retain components having positive \qsq{} statistics.
 
 \begin{doublespace}
 Internal cross-validation of unsupervised PCA models poses a unique challenge
-in comparison to PLS and OPLS, as it does not involve prediction of a set of
-responses \cite{eastment:tech1982,krzanowski:biom1987,eshghi:cils2014}. Eshghi
-\cite{eshghi:cils2014} provides a more comprehensive review of internal
+in comparison to PLS and OPLS, as it does not involve the prediction of a set
+of responses \cite{eastment:tech1982,krzanowski:biom1987,eshghi:cils2014}.
+Eshghi \cite{eshghi:cils2014} provides a more comprehensive review of internal
 cross-validation practices for PCA models. In short, leave-$n$-out
 cross-validation of PCA models requires that both observations \emph{and}
 variables be partitioned into $G$ groups. The resulting pair of partitionings
@@ -2118,9 +2131,9 @@ after internal cross-validation, as it compares the fitted $\mathbf{Y}$
 residuals obtained from cross-validation procedures \cite{eriksson:jchemo2008}.
 In effect, CV-ANOVA tests whether the mean square error of fitted residuals
 from PLS and OPLS models is significantly smaller than the total mean square
-variation in $\mathbf{Y}$. By comparing the ratio of these mean square values
-to an $F$ distribution, CV-ANOVA reports its own $p$ value which may again be
-compared to a threshold.
+variation in $\hat{\mathbf{Y}}$. By comparing the ratio of these mean square
+values to an $F$ distribution, CV-ANOVA reports its own $p$ value which may
+again be compared to a predefined threshold.
 \end{doublespace}
 
 \section{Conclusions}

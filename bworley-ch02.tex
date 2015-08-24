@@ -90,7 +90,7 @@ sequences, computed from the following recurrence relation:
 x_{i+1} = x_i + \lfloor g(x_i) \rfloor + 1
 \end{equation}
 where $x_i$ is the grid index of the $i$-th term in the sequence and $g(x_i)$
-is the `gap equation' that defines the distance between terms. The first term
+is the ``gap equation'' that defines the distance between terms. The first term
 in the sequence, $x_1$, is set to 1 and subsequent terms are computed until
 their value exceeds $N$, the size of the grid. The gap equation $g(x)$ may be
 any non-negative function, and may be loosely interpreted as inversely related
@@ -167,7 +167,7 @@ by placing multiple one-dimensional sub-schedules onto the grid, each with a
 different direction and offset from the grid origin. In practice, this process
 is accomplished recursively, with planes built up from vectors, cubes built up
 from planes, and so forth. Initially, recursion begins on the entire grid. At
-each level of recursion, sub-grids are constructed by `masking off' each
+each level of recursion, sub-grids are constructed by ``masking off'' each
 available grid direction in turn and constructing the remaining unmasked
 directions. For example, a three-dimensional $xyz$ cube will be constructed
 from repeated sequences of $yz$, $xz$ and $xy$ planes, and each $xy$ plane
@@ -179,7 +179,6 @@ pseudocode provides a more precise definition of the recursive gap sampling
 algorithm:
 \end{doublespace}
 
-%\pagebreak
 \begin{algorithm}[H]
 \caption{Multidimensional Gap Sampling Algorithm}
 \label{algorithm.2.1}
@@ -229,7 +228,7 @@ the fractional index, which now assumes the following form:
 \theta_i = \frac{x_i + \sum_{d=1}^D O_d}{\sum_{d=1}^D N_d}
 \end{equation}
 where $O_d$ and $N_d$ are the origin and grid size along direction $d$,
-respectively. The above equation is referred to as `ADD' mode in the context
+respectively. The above equation is referred to as ``ADD'' mode in the context
 of stochastic Poisson-gap sampling, and effectively results in multidimensional
 schedules that exhibit triangular forms \cite{hyberts:jmr2014}. It is worthy of
 mention that, in the one-dimensional case, equation 2.5 reduces to equation
@@ -338,7 +337,7 @@ p(i-k)
 As in the case of gap sampling, the sampling distribution produced by equation
 2.11 is parameterized only by the scaling factor $\Lambda$, where larger values
 yield more forward-biased schedules (\figref{2.2}{Figure 2.2}). We refer
-to this equation as the `expectation' Poisson-gap sampling distribution
+to this equation as the ``expectation'' Poisson-gap sampling distribution
 because it describes the expected value of the probability of sampling any
 Nyquist grid point, and is not itself useful for generating schedules that
 obey $g_{PG}$.
@@ -487,9 +486,10 @@ were set to 3,293$\pm$4,209 Hz along \hnmr{} and 8,514$\pm$1,419 Hz along
 Fourier-transformed and phase-corrected along \hnmr{} to produce a
 half-transformed spectrum for IST reconstruction analysis (vide infra),
 and subsequently windowed and Fourier-transformed along \nnmr{} to yield the
-`true' uniformly sampled 2D \hnnmr{} HSQC spectrum. \figref{2.6}{Figure 2.6A}
-compares the true HSQC spectrum with representative IST reconstructions after
-subsampling by Poisson-gap, sine-gap and sine-burst schedules.
+``true'' uniformly sampled 2D \hnnmr{} HSQC spectrum.
+\figref{2.6}{Figure 2.6A} compares the true HSQC spectrum with
+representative IST reconstructions after subsampling by
+Poisson-gap, sine-gap and sine-burst schedules.
 \end{doublespace}
 
 \begin{figure}[ht!]

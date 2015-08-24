@@ -36,10 +36,10 @@ the enhanced interpretability of OPLS over PLS has made it a popular method
 in exploratory studies of spectroscopic datasets of complex chemical mixtures.
 \\\\
 Extensions of NIPALS PCA and PLS to incorporate blocking information that
-partitions the set of measured variables into multiple `blocks' of data have
+partitions the set of measured variables into multiple ``blocks'' of data have
 recently gained attention in the field, as more experimental designs involve
 the collection of data from multiple analytical platforms per sample. In such
-experiments, referred to as `class II' multiblock schemes by Smilde et al.
+experiments, referred to as ``class II'' multiblock schemes by Smilde et al.
 \cite{smilde:jchemo2003}, correlated consensus directions are sought from the
 blocks that maximally capture block variation and (optionally) maximally
 predict a set of responses. Of the available extensions of NIPALS to
@@ -139,7 +139,7 @@ computation of subsequent component weights:
 
 This deflation scheme follows the precedent set by two-block PLS regression.
 Because their described approach used a distinct deflation scheme from
-single-component (sequential) MAXDIFF, it was given the name `nPLS' by
+single-component (sequential) MAXDIFF, it was given the name ``nPLS'' by
 the authors to distinguish it from MAXDIFF
 \cite{lofstedt:jchemo2011,lofstedt2012}.
 \\\\
@@ -313,9 +313,12 @@ relates the predictive super scores and responses:
 The MB-OPLS algorithm was introduced in
 \hyperlink{subsection.3.5.6}{Chapter 3}, but will be decomposed in more
 detail as sub-algorithms here in order to relate it with the OPLS NIPALS
-algorithm. MB-OPLS admits a matrix of responses $\mathbf{Y}$, but also
-supports vector-$\mathbf{y}$ modeling as a special case. Direct and normed
-assignment will be indicated by ``$\gets$'' and ``$\propto$'', respectively.
+algorithm. For simplicity, procedures relating to cross-validation and
+automatic component count identification will be stripped from this
+discussion of MB-OPLS. MB-OPLS admits a matrix of responses $\mathbf{Y}$,
+but also supports vector-$\mathbf{y}$ modeling as a special case. Direct
+and normed assignment will be indicated by ``$\gets$'' and ``$\propto$'',
+respectively.
 \end{doublespace}
 
 \begin{algorithm}[H]
@@ -357,7 +360,8 @@ assignment will be indicated by ``$\gets$'' and ``$\propto$'', respectively.
 \begin{doublespace}
 The SUBSPACE method computes the $\mathbf{Y}$-predictive subspace
 for each data matrix $\mathbf{X}_i$, and follows directly from
-single-block OPLS:
+the single-block OPLS algorithm described by Trygg and Wold
+\cite{trygg:jchemo2002}:
 \end{doublespace}
 
 \begin{algorithm}[H]
@@ -378,6 +382,7 @@ single-block OPLS:
 Predictive MB-OPLS components identified by the PREDCMP method are, in fact,
 MB-PLS components:
 \end{doublespace}
+\newpage
 
 \begin{algorithm}[H]
 \caption{Predictive Component Computation for MB-OPLS}
@@ -751,7 +756,7 @@ in the light of MAXDIFF and MAXBET, we obtain an informative picture of their
 characteristics, commonalities, and differences. For example, nPLS and OnPLS
 force an equal contribution of each matrix to the solution through the
 constraint $\|\mathbf{w}_i\|=1$, while CPCA-W, MB-PLS and MB-OPLS allow
-contributions to float based on the `importance' of each matrix to the
+contributions to float based on the ``importance'' of each matrix to the
 modeling problem at hand. This super weight approach necessitates a block
 scaling procedure to avoid highly weighting any given matrix due to size
 alone \cite{smilde:jchemo2003,westerhuis:jchemo1998}.
