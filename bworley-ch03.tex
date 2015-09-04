@@ -571,7 +571,7 @@ are directly comparable across each observation, normalization is applied to
 the tensor \cite{worley:cmb2013}. The most common normalization method used in
 chemometrics is unit-integral or constant-sum (CS) normalization, where each
 observation is scaled such that its total integral is unity
-\cite{craig:anchem2006}. CS normalization does more harm that good, however,
+\cite{craig:anchem2006}. CS normalization does more harm than good, however,
 as it introduces false correlations between variables and poorly tolerates
 large disparities in intensities between each observation.
 \\\\
@@ -654,9 +654,9 @@ A more advanced scaling method that avoids noise amplification uses a maximum
 likelihood scaling transformation (MALS, \cite{hoefsloot:jchemo2006}) that
 accounts for the estimated distribution of noise in $\mathbf{X}$. Other forms
 of scaling have been developed that emphasize various desirable features in
-a data structure. For example, {\it va}riable {\it st}ability (VAST) scaling
-multiplies each element by the coefficient of variation of its variable in
-order to focus on highly stable spectral features:
+a data structure. For example, variable stability (VAST) scaling multiplies
+each element by the coefficient of variation of its variable in order to
+focus on highly stable spectral features:
 \begin{equation}
 \tilde{x}_{nk}
  = \frac{x_{nk} - \bar{x}_k}{s_k} \cdot
@@ -1517,7 +1517,7 @@ and super-score deflation produces an identical super-model to that obtained
 by PLS modeling of the concatenated matrix $\mathbf{X}$, which indicates that
 the super-weights produced by MB-PLS are still eigenvectors of the matrix of
 cross-covariances between $\mathbf{X}$ and $\mathbf{Y}$. Thus, MB-PLS provides
-the analyst with a standard PLS model that descibes how the joint data in
+the analyst with a standard PLS model that describes how the joint data in
 $\mathbf{X}$ predict $\mathbf{Y}$, as well as how each individual data block
 $\mathbf{X}_b$ contributes to the joint prediction.
 \end{doublespace}
@@ -1534,7 +1534,7 @@ $B$ data blocks, was developed \cite{lofstedt2012}. Like in O2PLS, no matrix
 in OnPLS is special, and all matrices are regressed against all others in a
 complete association graph (\figref{3.13}{Figure 3.13A}). While such complete
 connectivity may be useful during unsupervised modeling, it is an
-overcomplication in the multiblock regression schemes normally handled in
+over-complication in the multiblock regression schemes normally handled in
 metabolomics (cf. \hyperlink{chapter.9}{Chapter 9}). Because each data block
 must only predict a single block of responses (\figref{3.11}{Figure 3.11B}),
 the recently developed multiblock OPLS (MB-OPLS) method is a more suitable
@@ -2102,7 +2102,7 @@ a column partitioning $\boldsymbol{\rho}$:
 
 \begin{doublespace}
 While internal cross-validation metrics such as \qsq{}, number of
-misclassifications, and AUROC \cite{westerhuis:metab2008a} are a good first
+mis-classifications, and AUROC \cite{westerhuis:metab2008a} are a good first
 insight into model reliability, they do not provide a robust mechanism for
 discriminating between low- and high-quality models. Methods that report a
 degree of statistical significance in the form of a $p$ value are preferred,

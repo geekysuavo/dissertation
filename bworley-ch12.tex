@@ -126,8 +126,8 @@ Methods such as multivariate curve resolution by alternating least squares
 (MCR-ALS, \cite{dejuan:crac2006}) and molecular factor analysis
 (MFR, \cite{eads:anchem2004}) impose non-negativity constraints on both
 the scores and loadings in an alternating least squares framework, while
-bayesian spectral decomposition (BSD, \cite{ochs:jmr1999,stoyanova:anchem2004})
-and bayesian positive source separation (BPSS, \cite{moussaoui:ieee2006,
+Bayesian spectral decomposition (BSD, \cite{ochs:jmr1999,stoyanova:anchem2004})
+and Bayesian positive source separation (BPSS, \cite{moussaoui:ieee2006,
   moussaoui:cils2006}) do so by assigning prior
 probabilities to their values. While these methods report more chemically
 and spectroscopically relevant information than PCA by imposing non-negativity,
@@ -143,7 +143,7 @@ methods translate the task of identifying mixture components into one of
 peak-matching, where each signal in the model is assigned to a known set
 of signals from a given compound. Inclusion of compound identity information
 in the modeling process is the final step towards directly decomposing complex
-mixtures into their substituent parts. Methods such as BATMAN
+mixtures into their constituent parts. Methods such as BATMAN
 \cite{astle:jasa2012,hao:binf2012} and BQuant \cite{zheng:binf2011} have
 been shown to perform quite capably in modeling 1D \hnmr{} NMR spectra, but
 require the specification of spectral information for each potential mixture
@@ -161,11 +161,11 @@ to draw conclusions based on patterns observed in the results. The tendency
 of human perception to over-fit patterns to data can, however, lead analysts
 to infer too much from a model. When chemical conclusions must be drawn from
 scores plots of PCA, PLS-DA or OPLS-DA models, there are simple statistical
-measures that can be taken to avoid misperception of scores-space patterns.
+measures that can be taken to avoid mis-perception of scores-space patterns.
 \hyperlink{chapter.10}{Chapter 10} introduces a set of utilities to
 quantitatively measure and depict separations between classes in
 model scores \cite{worley:abio2013}. These utilities are based on the
-Mahalanobis distance, a multivariate meterstick \cite{demaesschalck:cils2000}
+Mahalanobis distance, a multivariate meter stick \cite{demaesschalck:cils2000}
 that takes distributional properties of each class into account. Using these
 utilities, analysts may confidently make statistical arguments about distances
 between experimental classes in a dataset.
@@ -191,7 +191,7 @@ determination efforts \cite{nilges:struct2009,olsson:jctc2014}.
 While the raw amount of data is not quite as overwhelming in chemometrics as
 it may be in cheminformatic and bioinformatic studies, its complexity is just
 as great. As efforts to model protein structure and dynamics, cellular
-metabolic flux, and multicomponent chemical mixtures continue, data handling
+metabolic flux, and multi-component chemical mixtures continue, data handling
 methods must be advanced to ensure maximal ``information handling'' is
 achieved. These methods must be provided in easy-to-use software packages
 that allow their users to focus on scientific inquiry, rather than trudging

@@ -264,7 +264,7 @@ From the USSR analysis of ligand binding to BSA, 43 compounds were classified
 as hits from the library of 456 compounds. All classified hits were determined
 to bind BSA with at least 1.0 mM affinity ($K_D \le 0.001$ $\mu$M) at a
 statistical confidence level of 99\%. A summary of the hits, along with their
-estimated $K_D$ and $p$ valunes, is provided in Table 7.3. Comparison of
+estimated $K_D$ and $p$ values, is provided in Table 7.3. Comparison of
 results from both PSC-corrected and uncorrected USSR datasets reveals that the
 use of PSC normalization prior to USSR modeling greatly reduces the effective
 positive rate of statistical hit determination: 195 hits were identified from
@@ -306,7 +306,7 @@ baselines did not appreciably decrease even after harsh subsampling
 data maintained significantly higher values than those from non-normalized
 data. While it would be possible to obtain a statistical baseline from fewer
 than ten spectral pairs, this is not recommended, as it will decrease the
-effectiveness of the Bonferroni-corected $t$-test that USSR performs during
+effectiveness of the Bonferroni-corrected $t$-test that USSR performs during
 remodeling. Therefore, as a general rule of thumb, PSC/USSR analyses may be
 performed on high-throughput screening datasets having as few as ten spectral
 pairs, and higher sample sizes only serve to further increase the reliability
@@ -354,7 +354,7 @@ relatively high protein-ligand concentration ratios where binding is more
 apparent.
 \\\\
 By removing interfering protein baseline signals, USSR provides a
-straightforward means of visually or computationally analzing screening
+straightforward means of visually or computationally analyzing screening
 results. In fact, the outcome of applying the USSR method to an extremely
 challenging and atypical test case is rather dramatic: an NMR line-broadening
 screen of BSA against a chemical library of 456 compounds identified 43
@@ -397,10 +397,10 @@ employed by USSR during statistical hit determination are only
 order-of-magnitude estimates of the true dissociation rates, and can carry
 significant systematic and random errors. In particular, the fraction of bound
 ligand -- and by extension, the dissociation constant -- depends exquisitely
-on the estimated free and bound ligand linewidths, $v_F$ and $v_B$. Thus, any
-imprecision in the linewidth estimates will propagate into a systematic bias in
-the final dissociation constants. If required, verification of initial hits may
-be achieved to higher accuracy via multiple-point estimation of the $K_D$
+on the estimated free and bound ligand line widths, $v_F$ and $v_B$. Thus, any
+imprecision in the line width estimates will propagate into a systematic bias
+in the final dissociation constants. If required, verification of initial hits
+may be achieved to higher accuracy via multiple-point estimation of the $K_D$
 through linear or nonlinear least squares \cite{shortridge:jcomb2008}.
 \\\\
 An implementation of the USSR algorithm is available in open-source GNU Octave
