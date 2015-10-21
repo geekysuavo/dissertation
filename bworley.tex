@@ -169,7 +169,7 @@ of requirements for the degree of Doctor of Philosophy
 
 % it all happened here.
 Lincoln, Nebraska \\
-{\large \today}
+{\large October 15, 2015}
 \\[180pt]
 
 % damn right! but change the notice for your thesis.
@@ -189,12 +189,19 @@ Copyright \copyright{} 2015 Bradley Worley
 \end{center}
 \end{titlepage}
 
+% temporarily disable page numbering.
+\pagestyle{empty}
+
 % source in the abstract and acknowledgements as if they were just written
 % here, in this file... but use some special wizardry to include the
 % list of publications. shh.... don't ask why.
-\input{bworley-abs.tex}
-\input{bworley-ack.tex}
+\include{bworley-abs}
+\include{bworley-ack}
 \include{bworley-pub}
+
+% reset the page numbering and change to roman numerals.
+\pagestyle{plain}
+\pagenumbering{roman}
 
 % restore the original margins for the rest of the document.
 \restoregeometry
@@ -213,6 +220,11 @@ Copyright \copyright{} 2015 Bradley Worley
 % write a list of algorithms and add a link to it in the table of contents.
 \listofalgorithms
 \addcontentsline{toc}{chapter}{List of Algorithms}
+
+% reset the page numbering and change to arabic numerals.
+\newpage
+\pagestyle{plain}
+\pagenumbering{arabic}
 
 % include each chapter in turn. these are `include' commands instead of
 % `input' commands because we need to run bibtex on the auxiliary files
