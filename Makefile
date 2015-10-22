@@ -28,6 +28,7 @@ $(NAME)-lo.pdf: $(NAME).pdf
 clean:
 	rm -f $(NAME).pdf $(NAME).aux $(NAME).log $(NAME).out
 	rm -f $(NAME).toc $(NAME).loa $(NAME).lof $(NAME).lot
+	rm -f $(NAME)-lo.pdf
 	for ch in $(CHAPTERS); do \
 	  rm -f $(NAME)-$${ch}.aux $(NAME)-$${ch}.bbl $(NAME)-$${ch}.blg; \
 	done
