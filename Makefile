@@ -11,7 +11,7 @@ CHAPTERS+= ch07 ch08 ch09 ch10 ch11 ch12
 all: $(NAME).pdf
 
 # .pdf: actual compilation target.
-bworley.pdf:
+$(NAME).pdf:
 	pdflatex -draftmode $(NAME)
 	for ch in $(CHAPTERS); do \
 	  bibtex $(NAME)-$${ch}; \
@@ -19,6 +19,10 @@ bworley.pdf:
 	pdflatex -draftmode $(NAME)
 	pdflatex -draftmode $(NAME)
 	pdflatex $(NAME)
+
+# lo.pdf: low-resolution compilation target.
+$(NAME)-lo.pdf: $(NAME).pdf
+	env NAME=$(NAME) ./$(NAME)-lo.sh
 
 # clean: target to remove all intermediate compilation results.
 clean:
